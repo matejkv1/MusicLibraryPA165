@@ -6,6 +6,7 @@
 package sk.matejkvassay.musiclibrary.Entity;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -22,6 +23,8 @@ public class Album {
     private String title;
     @Column
     private String commentary;
+    @Column
+    private Date dateOfRelease;
     
     private ArrayList<Song> songs;
     //private AlbumCover cover;
