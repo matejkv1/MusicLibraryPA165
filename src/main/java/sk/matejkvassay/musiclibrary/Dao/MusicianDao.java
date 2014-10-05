@@ -10,5 +10,6 @@ package sk.matejkvassay.musiclibrary.Dao;
  * @author Matej Kvassay <www.matejkvassay.sk>
  */
 public interface MusicianDao {
+     
     
 }
