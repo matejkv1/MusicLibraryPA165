@@ -8,6 +8,7 @@ package sk.matejkvassay.musiclibrary.Entity;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
 /**
  *
  * @author Matej Kvassay <www.matejkvassay.sk>
@@ -16,6 +17,7 @@ import javax.persistence.Column;
 @Entity
 public class Genre {
     @Id
+    @GeneratedValue
     private Long id;
     @Column
     private String name;

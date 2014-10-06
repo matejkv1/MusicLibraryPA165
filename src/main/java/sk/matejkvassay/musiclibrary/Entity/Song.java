@@ -8,6 +8,8 @@ package sk.matejkvassay.musiclibrary.Entity;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Column;
+import javax.persistence.ManyToOne;
+import javax.persistence.GeneratedValue;
 /**
  *
  * @author Matej Kvassay <www.matejkvassay.sk>
@@ -16,6 +18,7 @@ import javax.persistence.Column;
 @Entity
 public class Song {
     @Id
+    @GeneratedValue
     private Long id;
     @Column
     private String title;
@@ -26,8 +29,10 @@ public class Song {
     @Column
     private int bitrate;
     
-    //private SongFile musicFile;
+    @ManyToOne
     private Genre genre;
+    
+    @ManyToOne
     private Album album;
 
     public Long getId() {

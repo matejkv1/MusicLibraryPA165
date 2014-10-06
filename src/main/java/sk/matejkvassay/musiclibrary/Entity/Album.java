@@ -7,10 +7,15 @@ package sk.matejkvassay.musiclibrary.Entity;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Column;
+import javax.persistence.OneToMany;
+import javax.persistence.ElementCollection;
+import javax.persistence.GeneratedValue;
 /**
  *
  * @author Matej Kvassay <www.matejkvassay.sk>
@@ -18,6 +23,7 @@ import javax.persistence.Column;
 @Entity
 public class Album {
     @Id
+    @GeneratedValue
     private Long id;
     @Column
     private String title;
@@ -26,8 +32,9 @@ public class Album {
     @Column
     private Date dateOfRelease;
     
-    private ArrayList<Song> songs;
-    //private AlbumCover cover;
+    @ElementCollection
+    @OneToMany
+    private Set<Song> songs;
 
     public Long getId() {
         return id;
@@ -53,11 +60,11 @@ public class Album {
         this.commentary = commentary;
     }
 
-    public ArrayList<Song> getSongs() {
+    public Set<Song> getSongs() {
         return songs;
     }
 
-    public void setSongs(ArrayList<Song> songs) {
+    public void setSongs(Set<Song> songs) {
         this.songs = songs;
     }
 
