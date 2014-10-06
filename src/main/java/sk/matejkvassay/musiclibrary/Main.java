@@ -59,6 +59,7 @@ public class Main {
         song3.setPositionInAlbum(2);
         song3.setTitle("Song title.");
         
+        
         HashSet<Song>songs= new HashSet<Song>();
         songs.add(song1);
         songs.add(song2);
