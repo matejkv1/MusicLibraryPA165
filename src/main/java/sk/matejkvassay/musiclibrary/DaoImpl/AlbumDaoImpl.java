@@ -8,12 +8,17 @@ package sk.matejkvassay.musiclibrary.DaoImpl;
 import java.util.Set;
 import sk.matejkvassay.musiclibrary.Dao.AlbumDao;
 import sk.matejkvassay.musiclibrary.Entity.Album;
+import javax.persistence.EntityManager;
 
 /**
  *
  * @author Matej Kvassay <www.matejkvassay.sk>
  */
 public class AlbumDaoImpl implements AlbumDao{
+    
+    public AlbumDaoImpl(EntityManager em){
+        
+    }
 
     @Override
     public void addAlbum(Album album) {

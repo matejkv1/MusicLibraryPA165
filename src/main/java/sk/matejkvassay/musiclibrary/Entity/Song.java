@@ -34,6 +34,9 @@ public class Song {
     
     @ManyToOne
     private Album album;
+    
+    @ManyToOne
+    private Musician musician;
 
     public Long getId() {
         return id;
@@ -41,6 +44,14 @@ public class Song {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Musician getMusician() {
+        return musician;
+    }
+
+    public void setMusician(Musician musician) {
+        this.musician = musician;
     }
 
     public String getTitle() {

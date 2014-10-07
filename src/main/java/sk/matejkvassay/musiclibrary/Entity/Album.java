@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Column;
 import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.ElementCollection;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Temporal;
@@ -38,9 +39,11 @@ public class Album {
     @Column
     private String albumArt;
     
-    @ElementCollection
-    @OneToMany
+    @OneToMany(mappedBy="album")
     private Set<Song> songs;
+    
+    @ManyToOne
+    private Musician musician;
 
     public Long getId() {
         return id;
@@ -48,6 +51,14 @@ public class Album {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Musician getMusician() {
+        return musician;
+    }
+
+    public void setMusician(Musician musician) {
+        this.musician = musician;
     }
 
     public String getTitle() {

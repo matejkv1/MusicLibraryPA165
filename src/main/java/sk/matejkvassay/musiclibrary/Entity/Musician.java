@@ -5,10 +5,12 @@
  */
 package sk.matejkvassay.musiclibrary.Entity;
 
+import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
+import javax.persistence.OneToMany;
 /**
  *
  * @author Matej Kvassay <www.matejkvassay.sk>
@@ -23,6 +25,12 @@ public class Musician {
     private String name;
     @Column
     private String biography;
+    
+   @OneToMany(mappedBy="musician")
+    private Set<Album> albums;
+    
+    @OneToMany(mappedBy="musician")
+    private Set<Song>songs;
 
     public Long getId() {
         return id;
@@ -30,6 +38,22 @@ public class Musician {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getBiography() {
+        return biography;
+    }
+
+    public void setBiography(String biography) {
+        this.biography = biography;
+    }
+
+    public Set<Album> getAlbum() {
+        return albums;
+    }
+
+    public void setAlbum(Set<Album> albums) {
+        this.albums = albums;
     }
 
     public String getName() {

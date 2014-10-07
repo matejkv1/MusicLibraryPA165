@@ -8,13 +8,15 @@ package sk.matejkvassay.musiclibrary.DaoImpl;
 import java.util.Set;
 import sk.matejkvassay.musiclibrary.Dao.MusicianDao;
 import sk.matejkvassay.musiclibrary.Entity.Musician;
-
+import javax.persistence.EntityManager;
 /**
  *
  * @author Matej Kvassay <www.matejkvassay.sk>
  */
 public class MusicianDaoImpl implements MusicianDao{
-
+    public MusicianDaoImpl(EntityManager em){
+        
+    }
     @Override
     public void addMusician(Musician musician) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
