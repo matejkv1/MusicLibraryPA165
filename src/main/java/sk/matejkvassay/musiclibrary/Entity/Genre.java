@@ -22,7 +22,7 @@ public class Genre {
     @Column
     private String name;
     @Column
-    private String commentary;
+    private String description;
 
     public Long getId() {
         return id;
@@ -40,12 +40,12 @@ public class Genre {
         this.name = name;
     }
 
-    public String getCommentary() {
-        return commentary;
+    public String getDescription() {
+        return description;
     }
 
-    public void setCommentary(String commentary) {
-        this.commentary = commentary;
+    public void setDescription(String commentary) {
+        this.description = commentary;
     }
 
     @Override

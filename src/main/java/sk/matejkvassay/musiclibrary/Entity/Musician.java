@@ -22,7 +22,7 @@ public class Musician {
     @Column
     private String name;
     @Column
-    private String commentary;
+    private String biography;
 
     public Long getId() {
         return id;
@@ -41,11 +41,11 @@ public class Musician {
     }
 
     public String getCommentary() {
-        return commentary;
+        return biography;
     }
 
     public void setCommentary(String commentary) {
-        this.commentary = commentary;
+        this.biography = commentary;
     }
     
     

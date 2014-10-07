@@ -14,6 +14,8 @@ import javax.persistence.Column;
 import javax.persistence.OneToMany;
 import javax.persistence.ElementCollection;
 import javax.persistence.GeneratedValue;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 /**
  *
  * @author Matej Kvassay <www.matejkvassay.sk>
@@ -23,12 +25,18 @@ public class Album {
     @Id
     @GeneratedValue
     private Long id;
+    
     @Column
     private String title;
+    
     @Column
     private String commentary;
-    @Column
+    
+    @Temporal(TemporalType.DATE)
     private Date dateOfRelease;
+    
+    @Column
+    private String albumArt;
     
     @ElementCollection
     @OneToMany
@@ -65,6 +73,24 @@ public class Album {
     public void setSongs(Set<Song> songs) {
         this.songs = songs;
     }
+
+    public Date getDateOfRelease() {
+        return dateOfRelease;
+    }
+
+    public void setDateOfRelease(Date dateOfRelease) {
+        this.dateOfRelease = dateOfRelease;
+    }
+
+    public String getAlbumArt() {
+        return albumArt;
+    }
+
+    public void setAlbumArt(String albumArt) {
+        this.albumArt = albumArt;
+    }
+    
+    
 
     @Override
     public int hashCode() {
