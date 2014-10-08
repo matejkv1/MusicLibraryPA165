@@ -17,4 +17,5 @@ public interface GenreDao {
     public void removeGenre(Genre genre);
     public void updateGenre(Genre genre);
     public Set getAllGenre();
+    public Genre findGenreById(int id);
 }

@@ -15,8 +15,11 @@ import javax.persistence.EntityManager;
  * @author Matej Kvassay <www.matejkvassay.sk>
  */
 public class GenreDaoImpl implements GenreDao{
+    
+    private EntityManager em;
+    
     public GenreDaoImpl(EntityManager em){
-        
+        this.em=em;
     }
     @Override
     public void addGenre(Genre genre) {
@@ -36,6 +39,11 @@ public class GenreDaoImpl implements GenreDao{
     @Override
     public Set getAllGenre() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Genre findGenreById(int id) {
+        return em.find(Genre.class, id);
     }
     
 }
