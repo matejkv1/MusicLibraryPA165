@@ -6,6 +6,7 @@
 package sk.matejkvassay.musiclibrary.Dao;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 import sk.matejkvassay.musiclibrary.Entity.Album;
 import sk.matejkvassay.musiclibrary.Entity.Musician;
@@ -13,17 +14,66 @@ import sk.matejkvassay.musiclibrary.Entity.Song;
 
 /**
  *
- * @author Matej Kvassay <www.matejkvassay.sk>
+ * @author Matej Bordáč
  */
 public interface AlbumDao {
     // don't forget javadoc
+    /**
+     * 
+     * @param album 
+     */
     public void addAlbum(Album album);
+    
+    /**
+     * 
+     * @param album 
+     */
     public void removeAlbum(Album album);
+    
+    /**
+     * 
+     * @param album 
+     */
     public void updateAlbum(Album album);
+    
+    /**
+     * 
+     * @param id
+     * @return 
+     */
     public Album getAlbumById(Long id);
-    public Set<Album> getAlbumsByName(String name);
-    public Set<Album> getAlbumsBySong(Song song);
-    public Set<Album> getAlbumsByMusician(Musician musician);
-    public Set<Album> getAlbumsByDate(Date date);
-    public Set<Album> getAllAlbums();
+    
+    /**
+     * 
+     * @param name
+     * @return 
+     */
+    public List<Album> getAlbumsByName(String name);
+    
+    /**
+     * 
+     * @param song
+     * @return 
+     */
+    public Album getAlbumBySong(Song song);
+    
+    /**
+     * 
+     * @param musician
+     * @return 
+     */
+    public List<Album> getAlbumsByMusician(Musician musician);
+    
+    /**
+     * 
+     * @param date
+     * @return 
+     */
+    public List<Album> getAlbumsByDate(Date date);
+    
+    /**
+     * 
+     * @return 
+     */
+    public List<Album> getAllAlbums();
 }
