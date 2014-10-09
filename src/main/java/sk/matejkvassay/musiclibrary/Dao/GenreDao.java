@@ -2,6 +2,7 @@ package sk.matejkvassay.musiclibrary.Dao;
 
 import java.util.List;
 import sk.matejkvassay.musiclibrary.Entity.Genre;
+import sk.matejkvassay.musiclibrary.Entity.Song;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -23,4 +24,6 @@ public interface GenreDao {
      */
     public List getAllGenres();
     public Genre findGenreById(int id);
+    public Genre findGenreByName(String name);
+    public List<Song> getSongsOfGenre(Genre genre);
 }
