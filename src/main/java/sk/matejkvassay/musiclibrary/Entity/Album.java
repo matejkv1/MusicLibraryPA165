@@ -5,10 +5,9 @@
  */
 package sk.matejkvassay.musiclibrary.Entity;
 
-import com.sun.istack.internal.Nullable;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Column;
@@ -40,7 +39,7 @@ public class Album {
     private String albumArt;
     
     @OneToMany(mappedBy="album")
-    private Set<Song> songs;
+    private List<Song> songs;
     
     @ManyToOne
     private Musician musician;
@@ -77,11 +76,11 @@ public class Album {
         this.commentary = commentary;
     }
 
-    public Set<Song> getSongs() {
+    public List<Song> getSongs() {
         return songs;
     }
 
-    public void setSongs(Set<Song> songs) {
+    public void setSongs(List<Song> songs) {
         this.songs = songs;
     }
 
