@@ -16,6 +16,11 @@ public interface GenreDao {
     public void addGenre(Genre genre);
     public void removeGenre(Genre genre);
     public void updateGenre(Genre genre);
+    
+    /**
+     * Returns list of all genres stored in database.
+     * @return java.util.List of all genres. 
+     */
     public List getAllGenres();
     public Genre findGenreById(int id);
 }
