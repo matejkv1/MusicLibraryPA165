@@ -18,14 +18,18 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class Genre {
+    
     @Id
     @GeneratedValue
-    private Long id;
+    private Long id;                
+    
+    @Column(nullable=false)
+    private String name;            
+  
     @Column
-    private String name;
-    @Column
-    private String description;
-    @OneToMany(mappedBy="genre")
+    private String description;    
+    
+    @OneToMany(mappedBy="genre")  
     private Set<Song> song;
 
     public Long getId() {
@@ -34,14 +38,6 @@ public class Genre {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Set<Song> getSong() {
-        return song;
-    }
-
-    public void setSong(Set<Song> song) {
-        this.song = song;
     }
 
     public String getName() {
@@ -56,9 +52,19 @@ public class Genre {
         return description;
     }
 
-    public void setDescription(String commentary) {
-        this.description = commentary;
+    public void setDescription(String description) {
+        this.description = description;
     }
+
+    public Set<Song> getSong() {
+        return song;
+    }
+
+    public void setSong(Set<Song> song) {
+        this.song = song;
+    }
+    
+    
 
     @Override
     public int hashCode() {
@@ -78,5 +84,10 @@ public class Genre {
         return true;
     }
     
+    @Override
+    public String toString(){
+        String s="Genre: name="+this.name+", description="+this.description;
+        return s;
+    }
     
 }

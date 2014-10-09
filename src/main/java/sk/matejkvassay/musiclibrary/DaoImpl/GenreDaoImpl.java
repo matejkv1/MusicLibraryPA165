@@ -5,7 +5,7 @@
  */
 package sk.matejkvassay.musiclibrary.DaoImpl;
 
-import java.util.Set;
+import java.util.List;
 import sk.matejkvassay.musiclibrary.Dao.GenreDao;
 import sk.matejkvassay.musiclibrary.Entity.Genre;
 import javax.persistence.EntityManager;
@@ -15,8 +15,11 @@ import javax.persistence.EntityManager;
  * @author Matej Kvassay <www.matejkvassay.sk>
  */
 public class GenreDaoImpl implements GenreDao{
+    
+    private EntityManager em;
+    
     public GenreDaoImpl(EntityManager em){
-        
+        this.em=em;
     }
     @Override
     public void addGenre(Genre genre) {
@@ -33,9 +36,16 @@ public class GenreDaoImpl implements GenreDao{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+  
+
     @Override
-    public Set getAllGenre() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Genre findGenreById(int id) {
+        return em.find(Genre.class, id);
+    }
+
+    @Override
+    public List getAllGenres() {
+        return em.createQuery("SELECT g FROM  Genre g", Genre.class).getResultList();
     }
     
 }
