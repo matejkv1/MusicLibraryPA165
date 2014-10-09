@@ -1,18 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package sk.matejkvassay.musiclibrary;
 
+import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.spi.LoadState;
-import org.hibernate.ejb.util.PersistenceUtilHelper;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -27,7 +21,7 @@ import sk.matejkvassay.musiclibrary.Entity.Song;
 
 /**
  *
- * @author Red
+ * @author Matej Bordáč
  */
 public class AlbumDaoImplTest {
     
@@ -36,7 +30,6 @@ public class AlbumDaoImplTest {
     AlbumDaoImpl albumDao;
     
     public AlbumDaoImplTest() {
-        
     }
     
     @BeforeClass
@@ -54,7 +47,6 @@ public class AlbumDaoImplTest {
         em = emf.createEntityManager();
         em.getTransaction().begin();
         albumDao = new AlbumDaoImpl(em);
-        
     }
     
     @After
@@ -62,18 +54,26 @@ public class AlbumDaoImplTest {
         if (em.isOpen()) em.close();
     }
 
-    
     @Test
     public void addAlbumTest() {
         Album alb = new Album();
         alb.setTitle("alb");
         albumDao.addAlbum(alb);
+        
+        Album alb2 = new Album();
+        alb2.setTitle("alb2");
+        albumDao.addAlbum(alb2);
+        
         em.getTransaction().commit();
-        em.close();
         
-        System.out.println("persistence util helper loaded state: " + PersistenceUtilHelper.isLoaded(alb));
-        assertEquals("Album is not loaded.", PersistenceUtilHelper.isLoaded(alb), LoadState.LOADED);
+        List<Album> result = em.createQuery("SELECT a FROM Album a", Album.class).getResultList();
         
+        assertEquals("All albums are not loaded.", result.size(), 2);
+        
+        em.getTransaction().begin();
+        em.remove(alb);
+        em.remove(alb2);
+        em.getTransaction().commit();
     }
     
     @Test
@@ -86,13 +86,13 @@ public class AlbumDaoImplTest {
         a3.setTitle("a3");
         Album a4 = new Album();
         a4.setTitle("a4");
-        albumDao.addAlbum(a1);
-        albumDao.addAlbum(a2);
-        albumDao.addAlbum(a3);
-        albumDao.addAlbum(a4);
+        em.persist(a1);
+        em.persist(a2);
+        em.persist(a3);
+        em.persist(a4);
         em.getTransaction().commit();
         
-        Set <Album> result = albumDao.getAllAlbums();
+        List<Album> result = albumDao.getAllAlbums();
         
         assertNotNull("getAllAlbums() returned null, should be 4.", result);
         assertEquals("getAllAlbums() didn't return 4 albums as expected.", result.size(), 4);
@@ -100,6 +100,13 @@ public class AlbumDaoImplTest {
         assertTrue("getAllAlbums() didn't include a2.", result.contains(a2));
         assertTrue("getAllAlbums() didn't include a3.", result.contains(a3));
         assertTrue("getAllAlbums() didn't include a4.", result.contains(a4));
+        
+        em.getTransaction().begin();
+        em.remove(a1);
+        em.remove(a2);
+        em.remove(a3);
+        em.remove(a4);
+        em.getTransaction().commit();
     }
     
     @Test
@@ -110,31 +117,40 @@ public class AlbumDaoImplTest {
         a2.setTitle("a2");
         Album a3 = new Album();
         a3.setTitle("a3");
-        albumDao.addAlbum(a1);
-        albumDao.addAlbum(a2);
-        albumDao.addAlbum(a3);
+        em.persist(a1);
+        em.persist(a2);
+        em.persist(a3);
         em.getTransaction().commit();
         
-        assertEquals("Didn't return same ID album 2.", albumDao.getAlbumById(a2.getId()), a2.getId());
-        assertEquals("Didn't return same ID album 3.", albumDao.getAlbumById(a3.getId()), a3.getId());
-        assertEquals("Didn't return same ID album 1.", albumDao.getAlbumById(a1.getId()), a1.getId());
+        assertEquals("Didn't return same ID album 2.", albumDao.getAlbumById(a2.getId()), a2);
+        assertEquals("Didn't return same ID album 3.", albumDao.getAlbumById(a3.getId()), a3);
+        assertEquals("Didn't return same ID album 1.", albumDao.getAlbumById(a1.getId()), a1);
+        
+        em.getTransaction().begin();
+        em.remove(a1);
+        em.remove(a2);
+        em.remove(a3);
+        em.getTransaction().commit();
     }
     
     @Test
     public void updateAlbumTest() {
         Album alb = new Album();
         alb.setTitle("alb");
-        albumDao.addAlbum(alb);
+        em.persist(alb);
         em.getTransaction().commit();
         
+        em.getTransaction().begin();
         alb.setTitle("album");
-        assertNotSame("Album title changed without persisting it.", albumDao.getAlbumById(alb.getId()).getTitle(), alb.getTitle());
-        
         albumDao.updateAlbum(alb);
         em.getTransaction().commit();
         
-        assertEquals("Album title didnt change.", albumDao.getAlbumById(alb.getId()).getTitle(), alb.getTitle());
+        Album res = em.createQuery("SELECT a FROM Album a", Album.class).getResultList().get(0);
+        assertEquals("Album title didnt change.", res.getTitle(), alb.getTitle());
         
+        em.getTransaction().begin();
+        em.remove(alb);
+        em.getTransaction().commit();
     }
     
     @Test
@@ -145,18 +161,24 @@ public class AlbumDaoImplTest {
         a2.setTitle("a2");
         Album a3 = new Album();
         a3.setTitle("a3");
-        albumDao.addAlbum(a1);
-        albumDao.addAlbum(a2);
-        albumDao.addAlbum(a3);
+        em.persist(a1);
+        em.persist(a2);
+        em.persist(a3);
         em.getTransaction().commit();
         
+        em.getTransaction().begin();
         albumDao.removeAlbum(a2);
         albumDao.removeAlbum(a3);
         em.getTransaction().commit();
         
-        assertEquals("Album 1 is removed when shouldn't.", PersistenceUtilHelper.isLoaded(a1), LoadState.LOADED);
-        assertEquals("Album 2 is still loaded after removal.", PersistenceUtilHelper.isLoaded(a2), LoadState.NOT_LOADED);
-        assertEquals("Album 3 is still loaded after removal.", PersistenceUtilHelper.isLoaded(a3), LoadState.NOT_LOADED);
+        List<Album> result = em.createQuery("SELECT a FROM Album a", Album.class).getResultList();
+        assertTrue("Album 1 is removed when shouldn't.", result.contains(a1));
+        assertFalse("Album 2 is still loaded after removal.", result.contains(a2));
+        assertFalse("Album 3 is still loaded after removal.", result.contains(a3));
+        
+        em.getTransaction().begin();
+        em.remove(a1);
+        em.getTransaction().commit();
     }
     
     @Test
@@ -166,18 +188,30 @@ public class AlbumDaoImplTest {
         Album a2 = new Album();
         a2.setTitle("album a2");
         
-        albumDao.addAlbum(a1);
-        albumDao.addAlbum(a2);
+        em.persist(a1);
+        em.persist(a2);
         em.getTransaction().commit();
         
-        Set<Album> result = albumDao.getAlbumsByName("album a2");
+        List<Album> result = albumDao.getAlbumsByName("album a2");
+        assertNotNull("Returned null", result);
         assertEquals("Set doesn't contain 1 result.", result.size(), 1);
         assertTrue("Result doesn't contain a2.", result.contains(a2));
         
-        result = albumDao.getAlbumsByName("album a2");
+        result = albumDao.getAlbumsByName("a1");
+        assertNotNull("Returned null", result);
+        assertEquals("Set doesn't contain 1 result.", result.size(), 1);
+        assertTrue("Result doesn't contain a1.", result.contains(a1));
+        
+        result = albumDao.getAlbumsByName("album");
+        assertNotNull("Returned null", result);
         assertEquals("Set doesn't contain 2 results.", result.size(), 2);
         assertTrue("Result doesn't contain a1.", result.contains(a1));
         assertTrue("Result doesn't contain a2.", result.contains(a2));
+        
+        em.getTransaction().begin();
+        em.remove(a1);
+        em.remove(a2);
+        em.getTransaction().commit();
     }
     
     @Test
@@ -188,9 +222,9 @@ public class AlbumDaoImplTest {
         Song fall = new Song();
         fall.setTitle("Fall in the Dark");
         
-        Set<Song> set1 = new HashSet<Song>();
+        List<Song> set1 = new ArrayList<Song>();
         set1.add(koneko);
-        Set<Song> set2 = new HashSet<Song>();
+        List<Song> set2 = new ArrayList<Song>();
         set2.add(fall);
         
         Album emotional = new Album();
@@ -201,18 +235,33 @@ public class AlbumDaoImplTest {
         magicalCata.setTitle("マジコカタストロフィ");
         magicalCata.setSongs(set2);
         
+        koneko.setAlbum(emotional);
+        fall.setAlbum(magicalCata);
+        
         em.persist(koneko);
         em.persist(fall);
-        albumDao.addAlbum(emotional);
-        albumDao.addAlbum(magicalCata);
+        em.persist(emotional);
+        em.persist(magicalCata);
         em.getTransaction().commit();
         
-        Set<Album> result = albumDao.getAlbumsBySong(koneko);
-        result = albumDao.getAlbumsBySong(fall);
+        Album result = albumDao.getAlbumBySong(koneko);
+        assertNotNull("Returned null", result);
+        assertEquals("Returned albums don't match", result.getId(), emotional.getId());
+        
+        result = albumDao.getAlbumBySong(fall);
+        assertNotNull("Returned null", result);
+        assertEquals("Returned albums don't match", result.getId(), magicalCata.getId());
+        
+        em.getTransaction().begin();
+        em.remove(koneko);
+        em.remove(fall);
+        em.remove(emotional);
+        em.remove(magicalCata);
+        em.getTransaction().commit();
     }
     
     @Test
-    public void getAlbumByMusicianTest() {
+    public void getAlbumsByMusicianTest() {
         Musician shibayan = new Musician();
         shibayan.setName("ShibayanRecords");
         
@@ -227,19 +276,32 @@ public class AlbumDaoImplTest {
         magicalCata.setTitle("マジコカタストロフィ");
         magicalCata.setMusician(yana);
         
-        
         em.persist(shibayan);
         em.persist(yana);
-        albumDao.addAlbum(emotional);
-        albumDao.addAlbum(magicalCata);
+        em.persist(emotional);
+        em.persist(magicalCata);
         em.getTransaction().commit();
         
-        Set<Album> result = albumDao.getAlbumsByMusician(shibayan);
+        List<Album> result = albumDao.getAlbumsByMusician(shibayan);
+        assertNotNull("Returned null", result);
+        assertTrue("Result doesn't contain proper album.", result.contains(emotional));
+        assertEquals("Result is not of the correct size.", result.size(), 1);
+        
         result = albumDao.getAlbumsByMusician(yana);
+        assertNotNull("Returned null", result);
+        assertTrue("Result doesn't contain proper album.", result.contains(magicalCata));
+        assertEquals("Result is not of the correct size.", result.size(), 1);
+        
+        em.getTransaction().begin();
+        em.remove(emotional);
+        em.remove(magicalCata);
+        em.remove(shibayan);
+        em.remove(yana);
+        em.getTransaction().commit();
     }
     
     @Test
-    public void getAlbumByDateTest() {
+    public void getAlbumsByDateTest() {
         Calendar cal1 = Calendar.getInstance();
         Calendar cal2 = Calendar.getInstance();
         cal1.set(2009, 10, 11);
@@ -253,12 +315,24 @@ public class AlbumDaoImplTest {
         magicalCata.setTitle("マジコカタストロフィ");
         magicalCata.setDateOfRelease(cal2.getTime());
         
-        albumDao.addAlbum(emotional);
-        albumDao.addAlbum(magicalCata);
+        em.persist(emotional);
+        em.persist(magicalCata);
         em.getTransaction().commit();
         
-        Set<Album> result = albumDao.getAlbumsByDate(cal1.getTime());
+        List<Album> result = albumDao.getAlbumsByDate(cal1.getTime());
+        assertNotNull("Returned null", result);
+        assertTrue("Result doesn't contain proper album.", result.contains(emotional));
+        assertEquals("Result is not of the correct size.", result.size(), 1);
+        
         result = albumDao.getAlbumsByDate(cal2.getTime());
+        assertNotNull("Returned null", result);
+        assertTrue("Result doesn't contain proper album.", result.contains(magicalCata));
+        assertEquals("Result is not of the correct size.", result.size(), 1);
+        
+        em.getTransaction().begin();
+        em.remove(emotional);
+        em.remove(magicalCata);
+        em.getTransaction().commit();
     }
 
 }
