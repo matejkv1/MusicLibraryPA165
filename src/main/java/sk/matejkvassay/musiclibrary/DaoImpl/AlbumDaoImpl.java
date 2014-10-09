@@ -5,10 +5,13 @@
  */
 package sk.matejkvassay.musiclibrary.DaoImpl;
 
+import java.util.Date;
 import java.util.Set;
 import sk.matejkvassay.musiclibrary.Dao.AlbumDao;
 import sk.matejkvassay.musiclibrary.Entity.Album;
 import javax.persistence.EntityManager;
+import sk.matejkvassay.musiclibrary.Entity.Musician;
+import sk.matejkvassay.musiclibrary.Entity.Song;
 
 /**
  *
@@ -16,28 +19,48 @@ import javax.persistence.EntityManager;
  */
 public class AlbumDaoImpl implements AlbumDao{
     
+    private EntityManager em;
+    
     public AlbumDaoImpl(EntityManager em){
-        
+        this.em = em;
     }
 
-    @Override
     public void addAlbum(Album album) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        em.persist(album);
     }
-
-    @Override
+    
     public void removeAlbum(Album album) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        em.remove(album);
     }
-
-    @Override
+    
     public void updateAlbum(Album album) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Album a = getAlbumById(album.getId());
+        if (a != null) em.persist(album);
     }
-
-    @Override
-    public Set getAllAlbums() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
+    public Album getAlbumById(Long id) {
+        return em.find(Album.class, id);
     }
+    
+    public Set<Album> getAlbumsByName(String name) {
+        return null;
+    }
+    
+    public Set<Album> getAlbumsBySong(Song song) {
+        return null;
+    }
+    
+    public Set<Album> getAlbumsByMusician(Musician musician) {
+        return null;
+    }
+    
+    public Set<Album> getAlbumsByDate(Date date) {
+        return null;
+    }
+    
+    public Set<Album> getAllAlbums() {
+        return null;
+    }
+    
 
 }

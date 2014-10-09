@@ -5,6 +5,7 @@
  */
 package sk.matejkvassay.musiclibrary.Entity;
 
+import com.sun.istack.internal.Nullable;
 import java.util.Date;
 import java.util.Objects;
 import java.util.Set;
@@ -13,7 +14,6 @@ import javax.persistence.Id;
 import javax.persistence.Column;
 import javax.persistence.OneToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.ElementCollection;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -27,7 +27,7 @@ public class Album {
     @GeneratedValue
     private Long id;
     
-    @Column
+    @Column(nullable=false)
     private String title;
     
     @Column
