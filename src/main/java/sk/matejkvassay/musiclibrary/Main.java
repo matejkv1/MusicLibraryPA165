@@ -6,12 +6,10 @@
 package sk.matejkvassay.musiclibrary;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.PersistenceContext;
 import sk.matejkvassay.musiclibrary.Entity.Album;
 import sk.matejkvassay.musiclibrary.Entity.Genre;
 import sk.matejkvassay.musiclibrary.Entity.Song;
@@ -61,7 +59,7 @@ public class Main {
         song3.setTitle("Song title.");
         
         
-        HashSet<Song>songs= new HashSet<Song>();
+        List<Song>songs= new ArrayList<Song>();
         songs.add(song1);
         songs.add(song2);
         songs.add(song3);
