@@ -84,5 +84,10 @@ public class Genre {
         return true;
     }
     
+    @Override
+    public String toString(){
+        String s="Genre: name="+this.name+", description="+this.description;
+        return s;
+    }
     
 }
