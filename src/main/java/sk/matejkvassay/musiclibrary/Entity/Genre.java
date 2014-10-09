@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.OneToMany;
+import java.util.List;
 /**
  *
  * @author Matej Kvassay <www.matejkvassay.sk>
@@ -23,14 +24,14 @@ public class Genre {
     @GeneratedValue
     private Long id;                
     
-    @Column(nullable=false)
+    @Column(nullable=false, unique=true)
     private String name;            
   
     @Column
     private String description;    
     
     @OneToMany(mappedBy="genre")  
-    private Set<Song> song;
+    private List<Song> songs;
 
     public Long getId() {
         return id;
@@ -56,15 +57,13 @@ public class Genre {
         this.description = description;
     }
 
-    public Set<Song> getSong() {
-        return song;
+    public List<Song> getSongs() {
+        return songs;
     }
 
-    public void setSong(Set<Song> song) {
-        this.song = song;
+    public void setSongs(List<Song> songs) {
+        this.songs = songs;
     }
-    
-    
 
     @Override
     public int hashCode() {
