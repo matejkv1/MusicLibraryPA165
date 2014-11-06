@@ -60,11 +60,8 @@ public class SongServiceImpl implements SongService {
 		
 		SongDto songDto = new SongDto();
 		songDto.setId(song.getId());
-		songDto.setAlbum(null /*song.getAlbum()*/);
 		songDto.setBitrate(song.getBitrate());
 		songDto.setCommentary(song.getCommentary());
-		songDto.setGenre(null);
-		songDto.setMusician(null);
 		songDto.setPositionInAlbum(song.getPositionInAlbum());
 		songDto.setTitle(song.getTitle());
 		
@@ -78,11 +75,8 @@ public class SongServiceImpl implements SongService {
 		
 		Song song = new Song();
 		song.setId(songDto.getId());
-		song.setAlbum(null);
 		song.setBitrate(songDto.getBitrate());
 		song.setCommentary(songDto.getCommentary());
-		song.setGenre(null);
-		song.setMusician(null);
 		song.setPositionInAlbum(songDto.getPositionInAlbum());
 		song.setTitle(songDto.getTitle());
 
@@ -177,6 +171,7 @@ public class SongServiceImpl implements SongService {
 		return songsDto;
 	}
 	
+	@Override
 	public List<SongDto> getSongsByName(String nameOfSong) {
 		TransactionStatus status = null;
         List<Song> songs = null;
