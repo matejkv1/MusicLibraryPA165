@@ -51,7 +51,7 @@ public class SongDaoImpl implements SongDao {
     public void updateSong(Song song) {
         Song loadedSong = getSongById(song.getId());
         if (loadedSong != null) { 
-			em.persist(song);
+			em.merge(song);
 		}
     }
 

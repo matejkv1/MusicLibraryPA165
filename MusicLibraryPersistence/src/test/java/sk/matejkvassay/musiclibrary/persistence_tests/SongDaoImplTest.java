@@ -253,16 +253,16 @@ public class SongDaoImplTest {
         List<Song> songs = em.createQuery("SELECT s FROM Song s ORDER BY s.title", Song.class).getResultList();
         assertEquals(5, songs.size());
         assertEquals("Song5", songs.get(4).getTitle());
-        
-        status = txManager.getTransaction(def);
 
         s = em.find(Song.class, s.getId());
         s.setTitle("Song6");
-        songDao.updateSong(s);
         
+        status = txManager.getTransaction(def);
+        songDao.updateSong(s);
         txManager.commit(status);
         
         songs = em.createQuery("SELECT s FROM Song s ORDER BY s.title", Song.class).getResultList();
+        System.out.println("****  " + songs);
         assertEquals(5, songs.size());
         assertEquals("Song6", songs.get(4).getTitle());
         
