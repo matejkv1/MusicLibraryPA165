@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Set;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
 import static org.junit.Assert.*;
 import org.junit.Test;

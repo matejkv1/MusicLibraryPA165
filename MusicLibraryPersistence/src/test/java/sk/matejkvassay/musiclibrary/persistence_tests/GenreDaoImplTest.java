@@ -7,17 +7,23 @@ package sk.matejkvassay.musiclibrary.persistence_tests;
 
 import java.util.ArrayList;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import java.util.List;
+import javax.inject.Inject;
 import static org.junit.Assert.*;
-import javax.persistence.Persistence;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import sk.matejkvassay.musiclibrary.DaoImpl.GenreDaoImpl;
+import org.junit.runner.RunWith;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
+import sk.matejkvassay.musiclibrary.Dao.GenreDao;
+import sk.matejkvassay.musiclibrary.DaoContext;
 import sk.matejkvassay.musiclibrary.Entity.Genre;
 import sk.matejkvassay.musiclibrary.Entity.Song;
 
@@ -25,27 +31,19 @@ import sk.matejkvassay.musiclibrary.Entity.Song;
  *
  * @author Matej Kvassay <www.matejkvassay.sk>
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = DaoContext.class)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class GenreDaoImplTest {
-    private static EntityManagerFactory emf;
-    private static EntityManager em;
-    private static GenreDaoImpl gdi;
-    
-    @BeforeClass
-    public static void setUpClass() {
-        emf=Persistence.createEntityManagerFactory("TestPU");
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-        emf.close();
-    }
+    @PersistenceContext
+    private EntityManager em;
+    @Inject
+    GenreDao gdi;
+    @Inject
+    private PlatformTransactionManager txManager;    
     
     @Before
     public void setUp() {
-        
-        em=emf.createEntityManager();
-        
-        gdi=new GenreDaoImpl(em);
                 
         Genre genre1=new Genre();
         Genre genre2=new Genre();
@@ -102,7 +100,7 @@ public class GenreDaoImplTest {
         song3.setGenre(genre3);
         song4.setGenre(genre3);
 
-        em.getTransaction().begin();
+        TransactionStatus status=beginTransaction();
         
         em.persist(genre1);
         em.persist(genre2);
@@ -113,15 +111,15 @@ public class GenreDaoImplTest {
         em.persist(song3);
         em.persist(song4);
         
-        em.getTransaction().commit();
+        txManager.commit(status);
     }
     
     @After
     public void tearDown() {
-        em.getTransaction().begin();
+        TransactionStatus status=beginTransaction();
         em.createQuery("DELETE FROM Song").executeUpdate();
         em.createQuery("DELETE FROM Genre").executeUpdate();
-        em.getTransaction().commit();
+        txManager.commit(status);
         em.close();
     }
 
@@ -140,14 +138,13 @@ public class GenreDaoImplTest {
         genre2.setDescription("Metal description.");
         genre3.setDescription("Rock description.");
         
-        em=emf.createEntityManager();
-        em.getTransaction().begin();
+        TransactionStatus status=beginTransaction();
         
         em.persist(genre1);
         em.persist(genre2);
         em.persist(genre3);
         
-        em.getTransaction().commit();
+        txManager.commit(status);
         
         List<Genre> genres=gdi.getAllGenres();
 
@@ -164,9 +161,9 @@ public class GenreDaoImplTest {
         newGenre.setName("findGenreByNameTestGenre");
         newGenre.setDescription("findGenreByNameTestGenreDescription");
          
-        em.getTransaction().begin();
+        TransactionStatus status=beginTransaction();
         em.persist(newGenre);
-        em.getTransaction().commit();
+        txManager.commit(status);
         
         Genre foundGenre=gdi.findGenreByName("findGenreByNameTestGenre");
 
@@ -178,9 +175,9 @@ public class GenreDaoImplTest {
          
         Genre newGenre=new Genre();
         newGenre.setName("TestGenre");
-        em.getTransaction().begin();
+        TransactionStatus status=beginTransaction();
         em.persist(newGenre);
-        em.getTransaction().commit();
+        txManager.commit(status);
         long id=newGenre.getId();       
         Genre foundGenre=gdi.findGenreById(id);
 
@@ -189,12 +186,12 @@ public class GenreDaoImplTest {
      
      @Test
      public void addGenreTest(){
-         em.getTransaction().begin();
+         TransactionStatus status=beginTransaction();
          Genre genre=new Genre();
          genre.setName("TestGenre");
          genre.setDescription("Test genre description.");
          gdi.addGenre(genre);
-         em.getTransaction().commit();
+         txManager.commit(status);
          
          assertEquals(em.createQuery("SELECT g FROM  Genre g", Genre.class).getResultList().size(),4);
          
@@ -203,38 +200,34 @@ public class GenreDaoImplTest {
      
      @Test
      public void removeGenreTest(){
-         em.getTransaction().begin();
+         TransactionStatus status=beginTransaction();
          Genre genre=new Genre();
          genre.setName("TestGenre");
          genre.setDescription("Test genre description.");
          em.persist(genre);
-         em.getTransaction().commit();
-         
-         
-         em.getTransaction().begin();
          gdi.removeGenre(genre);
-         em.getTransaction().commit();
+         txManager.commit(status);
          
          assertEquals(em.createQuery("SELECT g FROM  Genre g", Genre.class).getResultList().size(),3);         
      }
      
      @Test
      public void updateGenreTest(){
-         em.getTransaction().begin();
+         TransactionStatus status=beginTransaction();
          Genre genre=new Genre();
          genre.setName("TestGenre");
          genre.setDescription("Not updated.");
          gdi.addGenre(genre);
-         em.getTransaction().commit();
+         txManager.commit(status);
          
          long id=genre.getId();
          
          genre=gdi.findGenreById(id);
          genre.setDescription("updated");
          
-         em.getTransaction().begin();
+         status=beginTransaction();
          gdi.updateGenre(genre);
-         em.getTransaction().commit();  
+         txManager.commit(status);  
          
          genre=gdi.findGenreById(id);   
          
@@ -251,4 +244,9 @@ public class GenreDaoImplTest {
         List<Song> songs=gdi.getSongsOfGenre(genre);
         assertEquals(songs.size(),2);
      }  
+     
+     public TransactionStatus beginTransaction(){
+        DefaultTransactionDefinition def = new DefaultTransactionDefinition();
+        return txManager.getTransaction(def);        
+     }
 }

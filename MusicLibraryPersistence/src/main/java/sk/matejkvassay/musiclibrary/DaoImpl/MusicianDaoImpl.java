@@ -2,11 +2,8 @@ package sk.matejkvassay.musiclibrary.DaoImpl;
 
 import sk.matejkvassay.musiclibrary.DaoImpl.Exception.MusicianNameNullException;
 import java.util.List;
-import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceException;
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.stereotype.Repository;
 import sk.matejkvassay.musiclibrary.Dao.MusicianDao;
 import sk.matejkvassay.musiclibrary.Entity.Album;
