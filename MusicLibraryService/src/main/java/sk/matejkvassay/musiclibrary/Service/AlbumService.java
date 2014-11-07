@@ -35,6 +35,4 @@ public interface AlbumService {
     
     public List<AlbumDto> getAllAlbums();
     
-    public List<SongDto> getAlbumSongs(AlbumDto album);
-    
 }

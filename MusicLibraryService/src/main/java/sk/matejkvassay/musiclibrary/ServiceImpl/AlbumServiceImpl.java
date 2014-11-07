@@ -241,41 +241,6 @@ public class AlbumServiceImpl implements AlbumService {
         
         return albumsDto;
     }
-
-    @Override
-    public List<SongDto> getAlbumSongs(AlbumDto album) {
-        TransactionStatus status = null;
-        List<Song> songs = null;
-        
-        try {
-            DefaultTransactionDefinition def = new DefaultTransactionDefinition();
-            status = txManager.getTransaction(def);
-            songs = albumDao.getAlbumById(album.getId()).getSongs();
-            txManager.commit(status);
-        } catch (DataAccessException ex) {
-            if (!status.isCompleted()) {
-                txManager.rollback(status);
-            }
-            throw ex;
-        }
-        
-        List<SongDto> songsDto = new ArrayList<>();
-        if (songs != null) {
-            for (Song song : songs) {
-                SongDto s = new SongDto();
-                //s.setAlbum();
-                s.setBitrate(song.getBitrate());
-                s.setCommentary(song.getCommentary());
-                s.setId(song.getId());
-                //s.setMusician();
-                s.setPositionInAlbum(song.getPositionInAlbum());
-                s.setTitle(song.getTitle());
-                songsDto.add(s);
-            }
-        }
-        
-        return songsDto;
-    }
     
     public PlatformTransactionManager getTxManager() {
         return txManager;
