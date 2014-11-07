@@ -5,35 +5,29 @@
  */
 package sk.matejkvassay.musiclibrary.service_tests;
 
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import javax.inject.Inject;
-import javax.inject.Named;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyLong;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.TransactionStatus;
-import org.springframework.transaction.support.DefaultTransactionDefinition;
 import sk.matejkvassay.musiclibrary.Dao.AlbumDao;
 import sk.matejkvassay.musiclibrary.DaoContext;
 import sk.matejkvassay.musiclibrary.Dto.AlbumDto;
+import sk.matejkvassay.musiclibrary.Dto.MusicianDto;
+import sk.matejkvassay.musiclibrary.Dto.SongDto;
 import sk.matejkvassay.musiclibrary.Entity.Album;
+import sk.matejkvassay.musiclibrary.Entity.Musician;
+import sk.matejkvassay.musiclibrary.Entity.Song;
 import sk.matejkvassay.musiclibrary.ServiceImpl.AlbumServiceImpl;
 
 /**
@@ -72,18 +66,33 @@ public class AlbumServiceImplTest {
         albumService.addAlbum(alb);
         
         Mockito.verify(albumDao, Mockito.times(1)).addAlbum(fromDto(alb));
-        
-        // TODO: test exception throwing
     }
     
     @Test
     public void removeAlbumTest() {
-        assertTrue(true);
+        long fakeId = 123;
+        AlbumDto alb = new AlbumDto();
+        alb.setTitle("alb");
+        alb.setId(fakeId);
+        
+        Mockito.doReturn(fromDto(alb)).when(albumDao).getAlbumById(fakeId);
+        Mockito.doNothing().when(albumDao).removeAlbum(fromDto(alb));
+        
+        albumService.removeAlbum(alb);
+        
+        Mockito.verify(albumDao, Mockito.times(1)).removeAlbum(fromDto(alb));
     }
     
     @Test
     public void updateAlbumTest() {
-        assertTrue(true);
+        AlbumDto alb = new AlbumDto();
+        alb.setTitle("alb");
+        
+        Mockito.doNothing().when(albumDao).updateAlbum(fromDto(alb));
+        
+        albumService.updateAlbum(alb);
+        
+        Mockito.verify(albumDao, Mockito.times(1)).updateAlbum(fromDto(alb));
     }
     
     @Test
@@ -95,41 +104,142 @@ public class AlbumServiceImplTest {
         
         AlbumDto res = albumService.getAlbumById(fakeId);
         
-        assertNotNull(res);
+        assertNotNull("Returned result was null.", res);
         assertEquals("Returned album id didn't match.", (long)res.getId(), fakeId);
         
-        // TODO: test exception throwing
     }
     
     @Test
     public void getAlbumsByNameTest() {
-        assertTrue(true);
+        List<Album> albums = new ArrayList<>();
+        List<Album> albums2 = new ArrayList<>();
+        Album alb = new Album();
+        alb.setTitle("alb");
+        albums.add(alb);
+        alb = new Album();
+        alb.setTitle("album");
+        albums.add(alb);
+        albums2.add(alb);
+        
+        Mockito.doReturn(albums).when(albumDao).getAlbumsByName("alb");
+        Mockito.doReturn(albums2).when(albumDao).getAlbumsByName("album");
+        
+        List<AlbumDto> res = albumService.getAlbumsByName("alb");
+        assertEquals("Returned albums list was different.", res.size(), 2);
+        if (res.size() == 2) {
+            assertEquals("Returned album 1 title didn't match.", res.get(0).getTitle(), "alb");
+            assertEquals("Returned album 2 title didn't match.", res.get(1).getTitle(), "album");
+        }
+        
+        res = albumService.getAlbumsByName("album");
+        assertEquals("Returned albums2 list was different.", res.size(), 1);
+        if (res.size() == 1) {
+            assertEquals("Returned album didn't match.", res.get(0).getTitle(), "album");
+        }
     }
     
     @Test
     public void getAlbumBySongTest() {
-        assertTrue(true);
+        Song song = new Song();
+        song.setTitle("abc");
+        List<Song> list = new ArrayList<>();
+        list.add(song);
+        
+        SongDto songDto = new SongDto();
+        songDto.setTitle(song.getTitle());
+        songDto.setId(song.getId());
+        
+        Album alb = new Album();
+        alb.setTitle("alb");
+        alb.setSongs(list);
+        
+        Mockito.doReturn(alb).when(albumDao).getAlbumBySong(song);
+        
+        AlbumDto res = albumService.getAlbumBySong(songDto);
+        assertEquals("Returned albums list was different.", res.getId(), alb.getId());
     }
     
     @Test
     public void getAlbumsByMusicianTest() {
-        assertTrue(true);
+        long fakeId = 123;
+        
+        Musician musician = new Musician();
+        musician.setName("abc");
+        musician.setId(fakeId);
+        
+        MusicianDto musicianDto = new MusicianDto();
+        musicianDto.setName(musician.getName());
+        musicianDto.setId(musician.getId());
+        
+        List<Album> albums = new ArrayList<>();
+        
+        Album alb = new Album();
+        alb.setTitle("alb");
+        alb.setMusician(musician);
+        albums.add(alb);
+        
+        alb = new Album();
+        alb.setTitle("album");
+        alb.setMusician(musician);
+        albums.add(alb);
+        
+        Mockito.doReturn(albums).when(albumDao).getAlbumsByMusician(musician);
+        
+        List<AlbumDto> res = albumService.getAlbumsByMusician(musicianDto);
+        assertEquals("Returned albums list was different.", res.size(), 2);
+        if (res.size() == 2) {
+            assertEquals("Returned album 1 didn't match.", res.get(0).getTitle(), "alb");
+            assertEquals("Returned album 2 didn't match.", res.get(1).getTitle(), "album");
+        }
     }
     
     @Test
     public void getAlbumsByDateTest() {
-        assertTrue(true);
+        Calendar cal = Calendar.getInstance();
+        cal.set(2000, 1, 1);
+        
+        List<Album> albums = new ArrayList<>();
+        
+        Album alb = new Album();
+        alb.setTitle("alb");
+        alb.setDateOfRelease(cal.getTime());
+        albums.add(alb);
+        
+        alb = new Album();
+        alb.setTitle("album");
+        alb.setDateOfRelease(cal.getTime());
+        albums.add(alb);
+        
+        Mockito.doReturn(albums).when(albumDao).getAlbumsByDate(cal.getTime());
+        
+        List<AlbumDto> res = albumService.getAlbumsByDate(cal.getTime());
+        assertEquals("Returned albums list was different.", res.size(), 2);
+        if (res.size() == 2) {
+            assertEquals("Returned album 1 date didn't match.", res.get(0).getDateOfRelease(), cal.getTime());
+            assertEquals("Returned album 2 date didn't match.", res.get(1).getDateOfRelease(), cal.getTime());
+        }
     }
     
     @Test
     public void getAllAlbumsTest() {
-        assertTrue(true);
+        List<Album> albums = new ArrayList<>();
+        Album alb = new Album();
+        alb.setTitle("alb");
+        albums.add(alb);
+        alb = new Album();
+        alb.setTitle("album");
+        albums.add(alb);
+        
+        Mockito.doReturn(albums).when(albumDao).getAllAlbums();
+        
+        List<AlbumDto> res = albumService.getAllAlbums();
+        assertEquals("Returned albums list was different.", res.size(), 2);
+        if (res.size() == 2) {
+            assertEquals("Returned album 1 didn't match.", res.get(0).getTitle(), "alb");
+            assertEquals("Returned album 2 didn't match.", res.get(1).getTitle(), "album");
+        }
     }
     
-    @Test
-    public void getAlbumSongsTest() {
-        assertTrue(true);
-    }
     
     
     
