@@ -40,7 +40,7 @@ public interface GenreService {
      * @param id Id of genre.
      * @return Genre with given id.
      */
-    public GenreDto findGenreById(int id);
+    public GenreDto findGenreById(long id);
     /**
      * Get genre with given name.
      * @param name Name of genre.

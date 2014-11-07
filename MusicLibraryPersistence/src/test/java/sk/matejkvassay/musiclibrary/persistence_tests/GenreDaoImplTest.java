@@ -25,7 +25,7 @@ import sk.matejkvassay.musiclibrary.Entity.Song;
  *
  * @author Matej Kvassay <www.matejkvassay.sk>
  */
-public class GenrePersistenceTest {
+public class GenreDaoImplTest {
     private static EntityManagerFactory emf;
     private static EntityManager em;
     private static GenreDaoImpl gdi;
@@ -126,7 +126,7 @@ public class GenrePersistenceTest {
     }
 
      @Test
-     public void rowCountTest() {
+     public void getAllGenresTest() {
          
         Genre genre1=new Genre();
         Genre genre2=new Genre();
@@ -170,14 +170,25 @@ public class GenrePersistenceTest {
         
         Genre foundGenre=gdi.findGenreByName("findGenreByNameTestGenre");
 
-        assertEquals(foundGenre.getName(),newGenre.getName());
-         
-
-         
+        assertEquals(foundGenre.getName(),newGenre.getName());  
      }
      
      @Test
-     public void addTest(){
+     public void findGenreByIdTest(){
+         
+        Genre newGenre=new Genre();
+        newGenre.setName("TestGenre");
+        em.getTransaction().begin();
+        em.persist(newGenre);
+        em.getTransaction().commit();
+        long id=newGenre.getId();       
+        Genre foundGenre=gdi.findGenreById(id);
+
+        assertEquals(foundGenre.getId(),newGenre.getId());  
+     }
+     
+     @Test
+     public void addGenreTest(){
          em.getTransaction().begin();
          Genre genre=new Genre();
          genre.setName("TestGenre");
@@ -191,7 +202,7 @@ public class GenrePersistenceTest {
      }
      
      @Test
-     public void removeTest(){
+     public void removeGenreTest(){
          em.getTransaction().begin();
          Genre genre=new Genre();
          genre.setName("TestGenre");
@@ -208,6 +219,30 @@ public class GenrePersistenceTest {
      }
      
      @Test
+     public void updateGenreTest(){
+         em.getTransaction().begin();
+         Genre genre=new Genre();
+         genre.setName("TestGenre");
+         genre.setDescription("Not updated.");
+         gdi.addGenre(genre);
+         em.getTransaction().commit();
+         
+         long id=genre.getId();
+         
+         genre=gdi.findGenreById(id);
+         genre.setDescription("updated");
+         
+         em.getTransaction().begin();
+         gdi.updateGenre(genre);
+         em.getTransaction().commit();  
+         
+         genre=gdi.findGenreById(id);   
+         
+         assertEquals(genre.getDescription(),"updated");        
+         
+     }     
+     
+     @Test
      public void getAllSongsTest(){
         TypedQuery query;
         query = em.createQuery("SELECT g FROM Genre g WHERE g.name=:name", Genre.class);
@@ -215,6 +250,5 @@ public class GenrePersistenceTest {
         Genre genre=(Genre) query.getSingleResult();
         List<Song> songs=gdi.getSongsOfGenre(genre);
         assertEquals(songs.size(),2);
-     }
-     
+     }  
 }

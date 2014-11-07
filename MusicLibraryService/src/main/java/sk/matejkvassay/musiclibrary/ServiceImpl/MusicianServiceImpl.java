@@ -9,7 +9,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 import sk.matejkvassay.musiclibrary.Dao.MusicianDao;
-import sk.matejkvassay.musiclibrary.DaoImpl.MusicianNameNullException;
+import sk.matejkvassay.musiclibrary.DaoImpl.Exception.MusicianNameNullException;
 import sk.matejkvassay.musiclibrary.Dto.AlbumDto;
 import sk.matejkvassay.musiclibrary.Dto.MusicianDto;
 import sk.matejkvassay.musiclibrary.Dto.SongDto;

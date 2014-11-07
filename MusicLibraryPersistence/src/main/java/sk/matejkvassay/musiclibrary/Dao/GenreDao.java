@@ -40,7 +40,7 @@ public interface GenreDao {
      * @param id Id of genre.
      * @return Genre with given id.
      */
-    public Genre findGenreById(int id);
+    public Genre findGenreById(long id);
     /**
      * Get genre with given name.
      * @param name Name of genre.

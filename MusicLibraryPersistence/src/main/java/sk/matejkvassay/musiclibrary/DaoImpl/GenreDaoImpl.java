@@ -45,7 +45,7 @@ public class GenreDaoImpl implements GenreDao{
     }
     
     @Override
-    public Genre findGenreById(int id) {
+    public Genre findGenreById(long id) {
         return em.find(Genre.class, id);
     }
 

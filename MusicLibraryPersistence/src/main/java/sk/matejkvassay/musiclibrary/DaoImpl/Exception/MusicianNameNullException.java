@@ -1,4 +1,4 @@
-package sk.matejkvassay.musiclibrary.DaoImpl;
+package sk.matejkvassay.musiclibrary.DaoImpl.Exception;
 
 /**
  * Exception which represents situation when musician's name is null

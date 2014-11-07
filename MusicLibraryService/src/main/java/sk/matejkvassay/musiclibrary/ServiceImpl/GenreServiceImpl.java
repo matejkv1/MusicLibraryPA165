@@ -108,7 +108,7 @@ public class GenreServiceImpl implements GenreService{
     }
 
     @Override
-    public GenreDto findGenreById(int id) {
+    public GenreDto findGenreById(long id) {
         TransactionStatus status = null;
         Genre genre=null;
         try {
@@ -161,5 +161,23 @@ public class GenreServiceImpl implements GenreService{
         genreDto.setName(genre.getName());
         return genreDto;
     }
+
+    public PlatformTransactionManager getTxManager() {
+        return txManager;
+    }
+
+    public void setTxManager(PlatformTransactionManager txManager) {
+        this.txManager = txManager;
+    }
+
+    public GenreDao getGenreDao() {
+        return genreDao;
+    }
+
+    public void setGenreDao(GenreDao genreDao) {
+        this.genreDao = genreDao;
+    }
+    
+    
     
 }

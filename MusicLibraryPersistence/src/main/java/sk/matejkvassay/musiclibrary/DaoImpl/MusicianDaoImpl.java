@@ -1,5 +1,6 @@
 package sk.matejkvassay.musiclibrary.DaoImpl;
 
+import sk.matejkvassay.musiclibrary.DaoImpl.Exception.MusicianNameNullException;
 import java.util.List;
 import javax.inject.Named;
 import javax.persistence.EntityManager;

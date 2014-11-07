@@ -24,7 +24,7 @@ import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 import sk.matejkvassay.musiclibrary.Dao.MusicianDao;
 import sk.matejkvassay.musiclibrary.DaoContext;
-import sk.matejkvassay.musiclibrary.DaoImpl.MusicianNameNullException;
+import sk.matejkvassay.musiclibrary.DaoImpl.Exception.MusicianNameNullException;
 import sk.matejkvassay.musiclibrary.Entity.Album;
 import sk.matejkvassay.musiclibrary.Entity.Musician;
 import sk.matejkvassay.musiclibrary.Entity.Song;

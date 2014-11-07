@@ -1,7 +1,7 @@
 package sk.matejkvassay.musiclibrary.Service;
 
 import java.util.List;
-import sk.matejkvassay.musiclibrary.DaoImpl.MusicianNameNullException;
+import sk.matejkvassay.musiclibrary.DaoImpl.Exception.MusicianNameNullException;
 import sk.matejkvassay.musiclibrary.Dto.AlbumDto;
 import sk.matejkvassay.musiclibrary.Dto.MusicianDto;
 import sk.matejkvassay.musiclibrary.Dto.SongDto;

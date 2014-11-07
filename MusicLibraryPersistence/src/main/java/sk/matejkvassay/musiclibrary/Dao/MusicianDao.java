@@ -1,8 +1,8 @@
 package sk.matejkvassay.musiclibrary.Dao;
 
 import java.util.List;
-import sk.matejkvassay.musiclibrary.DaoImpl.MusicianNameNotUniqueException;
-import sk.matejkvassay.musiclibrary.DaoImpl.MusicianNameNullException;
+import sk.matejkvassay.musiclibrary.DaoImpl.Exception.MusicianNameNotUniqueException;
+import sk.matejkvassay.musiclibrary.DaoImpl.Exception.MusicianNameNullException;
 import sk.matejkvassay.musiclibrary.Entity.Album;
 import sk.matejkvassay.musiclibrary.Entity.Musician;
 import sk.matejkvassay.musiclibrary.Entity.Song;
