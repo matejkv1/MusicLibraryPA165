@@ -11,15 +11,21 @@ import java.util.HashSet;
 import static org.junit.Assert.*;
 import java.util.List;
 import java.util.Set;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import javax.persistence.PersistenceContext;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import sk.matejkvassay.musiclibrary.DaoImpl.SongDaoImpl;
+import org.junit.runner.RunWith;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
+import sk.matejkvassay.musiclibrary.Dao.SongDao;
+import sk.matejkvassay.musiclibrary.DaoContext;
 import sk.matejkvassay.musiclibrary.Entity.Album;
 import sk.matejkvassay.musiclibrary.Entity.Genre;
 import sk.matejkvassay.musiclibrary.Entity.Musician;
@@ -29,10 +35,17 @@ import sk.matejkvassay.musiclibrary.Entity.Song;
  *
  * @author Horak
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = DaoContext.class)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class SongDaoImplTest {
-    private static EntityManagerFactory emf;
+    
+    @PersistenceContext
     private EntityManager em;
-    private SongDaoImpl songDao;
+    @Inject
+    private SongDao songDao;
+    @Inject
+    private PlatformTransactionManager txManager;
 
     private Song song1;
     private Song song2;
@@ -52,24 +65,9 @@ public class SongDaoImplTest {
 
     }
     
-    @BeforeClass
-    public static void setUpClass() {
-        emf = Persistence.createEntityManagerFactory("TestPU");
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-        if (emf.isOpen()) {
-            emf.close();
-        }
-    }
     
     @Before
     public void setUp() {
-        em = emf.createEntityManager();
-        songDao = new SongDaoImpl(em);
-        em.getTransaction().begin();
-		
         song1 = new Song();
         song1.setTitle("Song1 - album1 - genre1 - musician1 title");
         song1.setCommentary("Song1 comment");
@@ -159,6 +157,8 @@ public class SongDaoImplTest {
         song3.setMusician(musician2);
         song4.setMusician(musician2);
 
+        DefaultTransactionDefinition def = new DefaultTransactionDefinition();
+        TransactionStatus status = txManager.getTransaction(def);
 
         em.persist(song1);
         em.persist(song2);
@@ -173,97 +173,105 @@ public class SongDaoImplTest {
 
         em.persist(musician1);
         em.persist(musician2);
-		
-        em.getTransaction().commit();
+        
+        txManager.commit(status);
     }
     
     @After
     public void tearDown() {
-        em.getTransaction().begin();
+        DefaultTransactionDefinition def = new DefaultTransactionDefinition();
+        TransactionStatus status = txManager.getTransaction(def);
+        
         em.createQuery("DELETE FROM Song").executeUpdate();
         em.createQuery("DELETE FROM Album").executeUpdate();
         em.createQuery("DELETE FROM Genre").executeUpdate();
         em.createQuery("DELETE FROM Musician").executeUpdate();
-        em.getTransaction().commit();
-		
-        em.close();
+        
+        txManager.commit(status);
     }
 
     @Test
     public void testAddSong() {
-        em.getTransaction().begin();
+        DefaultTransactionDefinition def = new DefaultTransactionDefinition();
+        TransactionStatus status = txManager.getTransaction(def);
 
         Song s = new Song();
         s.setTitle("Song5");
         songDao.addSong(s);
         
-        em.getTransaction().commit();
+        txManager.commit(status);
         
         List<Song> songs = em.createQuery("SELECT s FROM Song s ORDER BY s.title", Song.class).getResultList();
         assertEquals(5, songs.size());
         assertEquals("Song5", songs.get(4).getTitle());
         
-        em.getTransaction().begin();
+        status = txManager.getTransaction(def);
         
+        s = em.find(Song.class, s.getId());
         em.remove(s);
         
-        em.getTransaction().commit();
+        txManager.commit(status);
     }
 	
     @Test
     public void testRemoveSong() {
-        em.getTransaction().begin();
-
+        DefaultTransactionDefinition def = new DefaultTransactionDefinition();
+        TransactionStatus status = txManager.getTransaction(def);
+        
         Song s = new Song();
         s.setTitle("Song5");
         em.persist(s);
         
-        em.getTransaction().commit();
-		
+        txManager.commit(status);
+        
         List<Song> songs = em.createQuery("SELECT s FROM Song s ORDER BY s.title", Song.class).getResultList();
         assertEquals(5, songs.size());
         assertEquals("Song5", songs.get(4).getTitle());
-		
-        em.getTransaction().begin();
+        
+        status = txManager.getTransaction(def);
 
+        s = em.find(Song.class, s.getId());
         songDao.removeSong(s);
-
-        em.getTransaction().commit();
-
+        
+        txManager.commit(status);
+        
         songs = em.createQuery("SELECT s FROM Song s ORDER BY s.title", Song.class).getResultList();
         assertEquals(4, songs.size());
     }
 	
     @Test
     public void testUpdateSong() {
-        em.getTransaction().begin();
+        DefaultTransactionDefinition def = new DefaultTransactionDefinition();
+        TransactionStatus status = txManager.getTransaction(def);
 
         Song s = new Song();
         s.setTitle("Song5");
         em.persist(s);
         
-        em.getTransaction().commit();
-
+        txManager.commit(status);
+        
         List<Song> songs = em.createQuery("SELECT s FROM Song s ORDER BY s.title", Song.class).getResultList();
         assertEquals(5, songs.size());
         assertEquals("Song5", songs.get(4).getTitle());
+        
+        status = txManager.getTransaction(def);
 
-        em.getTransaction().begin();
-
+        s = em.find(Song.class, s.getId());
         s.setTitle("Song6");
         songDao.updateSong(s);
-
-        em.getTransaction().commit();
-
+        
+        txManager.commit(status);
+        
         songs = em.createQuery("SELECT s FROM Song s ORDER BY s.title", Song.class).getResultList();
         assertEquals(5, songs.size());
         assertEquals("Song6", songs.get(4).getTitle());
+        
+        status = txManager.getTransaction(def);
 
-        em.getTransaction().begin();
-
+        s = em.find(Song.class, s.getId());
         em.remove(s);
         
-        em.getTransaction().commit();
+        txManager.commit(status);
     }
 
     @Test
@@ -288,23 +296,25 @@ public class SongDaoImplTest {
 	
     @Test
     public void testGetSongById() {
-        em.getTransaction().begin();
+        DefaultTransactionDefinition def = new DefaultTransactionDefinition();
+        TransactionStatus status = txManager.getTransaction(def);
 
         Song s = new Song();
         s.setTitle("IdSong");
         em.persist(s);
-
-        em.getTransaction().commit();
-
+        
+        txManager.commit(status);
+        
         s = songDao.getSongById(s.getId());
 
         assertEquals("IdSong", s.getTitle());
+        
+        status = txManager.getTransaction(def);
 
-        em.getTransaction().begin();
-
+        s = em.find(Song.class, s.getId());
         em.remove(s);
-
-        em.getTransaction().commit();
+        
+        txManager.commit(status);
     }
 	
     @Test
