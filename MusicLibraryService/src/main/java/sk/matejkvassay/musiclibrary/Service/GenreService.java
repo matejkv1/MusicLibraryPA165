@@ -7,7 +7,6 @@ package sk.matejkvassay.musiclibrary.Service;
 
 import java.util.List;
 import sk.matejkvassay.musiclibrary.Dto.GenreDto;
-import sk.matejkvassay.musiclibrary.Entity.Genre;
 
 /**
  *
