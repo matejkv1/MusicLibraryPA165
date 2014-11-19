@@ -60,4 +60,11 @@ public interface MusicianDao {
      * @return found musician
      */
     public Musician getMusicianBySong(Song song);
+    
+    /**
+     * Get List of musicians with name contains "name" value of parameter.
+     * @param name String that is contained in musician's name.
+     * @return List of musicians with name containing "name" value of parameter.
+     */
+    public List<Musician> getMusicianByName(String name);
 }

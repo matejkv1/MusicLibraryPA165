@@ -4,6 +4,7 @@ import sk.matejkvassay.musiclibrary.DaoImpl.Exception.MusicianNameNullException;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
 import sk.matejkvassay.musiclibrary.Dao.MusicianDao;
 import sk.matejkvassay.musiclibrary.Entity.Album;
@@ -78,5 +79,12 @@ public class MusicianDaoImpl implements MusicianDao {
 
     public void setEm(EntityManager em) {
         this.em = em;
+    }
+
+    @Override
+    public List<Musician> getMusicianByName(String name) {
+        TypedQuery q = em.createQuery("SELECT m FROM Musician m WHERE m.name LIKE :name", Album.class);
+        q.setParameter("name", '%' + name + '%');
+        return q.getResultList();  
     }
 }
