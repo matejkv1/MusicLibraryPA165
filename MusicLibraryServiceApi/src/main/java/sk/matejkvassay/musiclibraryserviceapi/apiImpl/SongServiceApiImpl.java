@@ -9,7 +9,7 @@ import java.util.List;
 import sk.matejkvassay.musiclibrary.Dto.AlbumDto;
 import sk.matejkvassay.musiclibrary.Dto.GenreDto;
 import sk.matejkvassay.musiclibrary.Dto.SongDto;
-import sk.matejkvassay.musiclibraryserviceapi.api.SongServiceApi;
+import sk.matejkvassay.musiclibrary.serviceInterface.SongServiceApi;
 
 /**
  *

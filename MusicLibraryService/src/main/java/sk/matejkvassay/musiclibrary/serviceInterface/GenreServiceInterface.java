@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sk.matejkvassay.musiclibraryserviceapi.api;
+package sk.matejkvassay.musiclibrary.serviceInterface;
 
 import java.util.List;
 import sk.matejkvassay.musiclibrary.Dto.GenreDto;
@@ -12,7 +12,7 @@ import sk.matejkvassay.musiclibrary.Dto.GenreDto;
  *
  * @author Matej Kvassay <www.matejkvassay.sk>
  */
-public interface GenreServiceApi {
+public interface GenreServiceInterface {
     /**
      * Get count of all genres.
      * @return Count of all genres.

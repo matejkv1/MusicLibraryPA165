@@ -7,7 +7,7 @@ package sk.matejkvassay.musiclibraryserviceapi.apiImpl;
 
 import java.util.List;
 import sk.matejkvassay.musiclibrary.Dto.GenreDto;
-import sk.matejkvassay.musiclibraryserviceapi.api.GenreServiceApi;
+import sk.matejkvassay.musiclibrary.serviceInterface.GenreServiceApi;
 
 /**
  *

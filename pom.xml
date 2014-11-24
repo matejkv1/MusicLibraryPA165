@@ -9,7 +9,6 @@
         <module>MusicLibraryPersistence</module>
         <module>MusicLibraryService</module>
         <module>MusicLibraryWeb</module>
-        <module>MusicLibraryServiceApi</module>
     </modules>
     <name>MusicLibrary</name>
     <properties>
