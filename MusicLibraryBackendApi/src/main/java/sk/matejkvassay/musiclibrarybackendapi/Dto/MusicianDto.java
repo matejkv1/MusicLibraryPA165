@@ -1,4 +1,4 @@
-package sk.matejkvassay.musiclibrary.Dto;
+package sk.matejkvassay.musiclibrarybackendapi.Dto;
 
 import java.util.Objects;
 import java.util.Set;

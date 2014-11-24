@@ -15,15 +15,15 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 import sk.matejkvassay.musiclibrary.Dao.SongDao;
-import sk.matejkvassay.musiclibrary.Dto.AlbumDto;
-import sk.matejkvassay.musiclibrary.Dto.GenreDto;
-import sk.matejkvassay.musiclibrary.Dto.MusicianDto;
-import sk.matejkvassay.musiclibrary.Dto.SongDto;
+import sk.matejkvassay.musiclibrarybackendapi.Dto.AlbumDto;
+import sk.matejkvassay.musiclibrarybackendapi.Dto.GenreDto;
+import sk.matejkvassay.musiclibrarybackendapi.Dto.MusicianDto;
+import sk.matejkvassay.musiclibrarybackendapi.Dto.SongDto;
 import sk.matejkvassay.musiclibrary.Entity.Album;
 import sk.matejkvassay.musiclibrary.Entity.Genre;
 import sk.matejkvassay.musiclibrary.Entity.Musician;
 import sk.matejkvassay.musiclibrary.Entity.Song;
-import sk.matejkvassay.musiclibrary.Service.SongService;
+import sk.matejkvassay.musiclibrarybackendapi.Service.SongService;
 
 /**
  *

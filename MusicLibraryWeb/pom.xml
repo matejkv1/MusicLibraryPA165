@@ -32,6 +32,13 @@
             <artifactId>MusicLibraryService</artifactId>
             <version>1.0</version>
         </dependency>
+        
+        <dependency>
+            <groupId>sk.matejkvassay</groupId>
+            <artifactId>MusicLibraryBackendApi</artifactId>
+            <version>1.0</version>
+        </dependency>   
+        
     </dependencies>
 
     <build>

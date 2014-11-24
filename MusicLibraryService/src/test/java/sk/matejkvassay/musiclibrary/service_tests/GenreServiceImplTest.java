@@ -21,9 +21,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import sk.matejkvassay.musiclibrary.Dao.GenreDao;
 import sk.matejkvassay.musiclibrary.DaoContext;
-import sk.matejkvassay.musiclibrary.Dto.GenreDto;
+import sk.matejkvassay.musiclibrarybackendapi.Dto.GenreDto;
 import sk.matejkvassay.musiclibrary.Entity.Genre;
-import sk.matejkvassay.musiclibrary.Service.GenreService;
+import sk.matejkvassay.musiclibrarybackendapi.Service.GenreService;
 
 /**
  *
@@ -94,7 +94,7 @@ public class GenreServiceImplTest {
         assertEquals(resultGenres.get(1).getDescription(), "gen2");
         assertEquals(resultGenres.get(2).getDescription(), "gen3");
     }
-
+    
     @Test
     public void findGenreByIdTest() {
         Genre genre = new Genre();

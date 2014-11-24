@@ -23,13 +23,13 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import sk.matejkvassay.musiclibrary.Dao.AlbumDao;
 import sk.matejkvassay.musiclibrary.DaoContext;
-import sk.matejkvassay.musiclibrary.Dto.AlbumDto;
-import sk.matejkvassay.musiclibrary.Dto.MusicianDto;
-import sk.matejkvassay.musiclibrary.Dto.SongDto;
+import sk.matejkvassay.musiclibrarybackendapi.Dto.AlbumDto;
+import sk.matejkvassay.musiclibrarybackendapi.Dto.MusicianDto;
+import sk.matejkvassay.musiclibrarybackendapi.Dto.SongDto;
 import sk.matejkvassay.musiclibrary.Entity.Album;
 import sk.matejkvassay.musiclibrary.Entity.Musician;
 import sk.matejkvassay.musiclibrary.Entity.Song;
-import sk.matejkvassay.musiclibrary.Service.AlbumService;
+import sk.matejkvassay.musiclibrarybackendapi.Service.AlbumService;
 
 /**
  *

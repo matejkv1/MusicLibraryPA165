@@ -68,6 +68,6 @@ public class GenreDaoImpl implements GenreDao{
         query = em.createQuery("SELECT s FROM Song s WHERE s.genre=:id", Song.class);
         query.setParameter("id", genre);
         return query.getResultList();
-    }
+    }   
     
 }

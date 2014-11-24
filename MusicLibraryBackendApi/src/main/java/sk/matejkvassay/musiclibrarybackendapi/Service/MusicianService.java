@@ -1,10 +1,10 @@
-package sk.matejkvassay.musiclibrary.Service;
+package sk.matejkvassay.musiclibrarybackendapi.Service;
 
 import java.util.List;
 import sk.matejkvassay.musiclibrary.DaoImpl.Exception.MusicianNameNullException;
-import sk.matejkvassay.musiclibrary.Dto.AlbumDto;
-import sk.matejkvassay.musiclibrary.Dto.MusicianDto;
-import sk.matejkvassay.musiclibrary.Dto.SongDto;
+import sk.matejkvassay.musiclibrarybackendapi.Dto.AlbumDto;
+import sk.matejkvassay.musiclibrarybackendapi.Dto.MusicianDto;
+import sk.matejkvassay.musiclibrarybackendapi.Dto.SongDto;
 
 /**
  * Service class for Musician

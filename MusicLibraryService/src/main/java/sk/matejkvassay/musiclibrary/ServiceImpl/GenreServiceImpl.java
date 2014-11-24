@@ -14,9 +14,9 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 import sk.matejkvassay.musiclibrary.Dao.GenreDao;
-import sk.matejkvassay.musiclibrary.Dto.GenreDto;
+import sk.matejkvassay.musiclibrarybackendapi.Dto.GenreDto;
 import sk.matejkvassay.musiclibrary.Entity.Genre;
-import sk.matejkvassay.musiclibrary.Service.GenreService;
+import sk.matejkvassay.musiclibrarybackendapi.Service.GenreService;
 
 /**
  *
@@ -176,8 +176,5 @@ public class GenreServiceImpl implements GenreService{
 
     public void setGenreDao(GenreDao genreDao) {
         this.genreDao = genreDao;
-    }
-    
-    
-    
+    }  
 }

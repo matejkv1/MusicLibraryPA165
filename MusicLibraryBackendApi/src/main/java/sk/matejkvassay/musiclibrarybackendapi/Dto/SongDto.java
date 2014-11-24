@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package sk.matejkvassay.musiclibrary.Dto;
+package sk.matejkvassay.musiclibrarybackendapi.Dto;
 
 import java.util.Objects;
 

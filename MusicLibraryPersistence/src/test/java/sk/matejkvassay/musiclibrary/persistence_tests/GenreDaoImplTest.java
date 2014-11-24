@@ -234,7 +234,7 @@ public class GenreDaoImplTest {
          assertEquals(genre.getDescription(),"updated");        
          
      }     
-     
+
      @Test
      public void getAllSongsTest(){
         TypedQuery query;

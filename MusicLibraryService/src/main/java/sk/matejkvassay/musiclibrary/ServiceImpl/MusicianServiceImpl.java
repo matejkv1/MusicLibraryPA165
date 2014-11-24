@@ -10,13 +10,13 @@ import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 import sk.matejkvassay.musiclibrary.Dao.MusicianDao;
 import sk.matejkvassay.musiclibrary.DaoImpl.Exception.MusicianNameNullException;
-import sk.matejkvassay.musiclibrary.Dto.AlbumDto;
-import sk.matejkvassay.musiclibrary.Dto.MusicianDto;
-import sk.matejkvassay.musiclibrary.Dto.SongDto;
+import sk.matejkvassay.musiclibrarybackendapi.Dto.AlbumDto;
+import sk.matejkvassay.musiclibrarybackendapi.Dto.MusicianDto;
+import sk.matejkvassay.musiclibrarybackendapi.Dto.SongDto;
 import sk.matejkvassay.musiclibrary.Entity.Album;
 import sk.matejkvassay.musiclibrary.Entity.Musician;
 import sk.matejkvassay.musiclibrary.Entity.Song;
-import sk.matejkvassay.musiclibrary.Service.MusicianService;
+import sk.matejkvassay.musiclibrarybackendapi.Service.MusicianService;
 
 /**
  *

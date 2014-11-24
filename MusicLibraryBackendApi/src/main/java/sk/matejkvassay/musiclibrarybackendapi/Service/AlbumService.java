@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sk.matejkvassay.musiclibrary.Service;
+package sk.matejkvassay.musiclibrarybackendapi.Service;
 
 import java.util.Date;
 import java.util.List;
-import sk.matejkvassay.musiclibrary.Dto.AlbumDto;
-import sk.matejkvassay.musiclibrary.Dto.MusicianDto;
-import sk.matejkvassay.musiclibrary.Dto.SongDto;
+import sk.matejkvassay.musiclibrarybackendapi.Dto.AlbumDto;
+import sk.matejkvassay.musiclibrarybackendapi.Dto.MusicianDto;
+import sk.matejkvassay.musiclibrarybackendapi.Dto.SongDto;
 
 /**
  * Service class for album

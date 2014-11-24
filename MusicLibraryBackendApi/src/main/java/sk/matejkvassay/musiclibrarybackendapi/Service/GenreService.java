@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sk.matejkvassay.musiclibrary.Service;
+package sk.matejkvassay.musiclibrarybackendapi.Service;
 
 import java.util.List;
-import sk.matejkvassay.musiclibrary.Dto.GenreDto;
+import sk.matejkvassay.musiclibrarybackendapi.Dto.GenreDto;
 
 /**
  *
@@ -46,5 +46,4 @@ public interface GenreService {
      * @return Genre with given name.
      */
     public GenreDto findGenreByName(String name);
-
 }
