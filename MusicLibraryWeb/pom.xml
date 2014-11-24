@@ -29,7 +29,7 @@
         
         <dependency>
             <groupId>sk.matejkvassay</groupId>
-            <artifactId>MusicLibraryServiceApi</artifactId>
+            <artifactId>MusicLibraryService</artifactId>
             <version>1.0</version>
         </dependency>
     </dependencies>
