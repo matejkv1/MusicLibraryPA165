@@ -2,6 +2,7 @@ package sk.matejkvassay.musiclibrary.validation;
 
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
+import sk.matejkvassay.musiclibrarybackendapi.Dto.GenreDto;
 
 /**
  *
@@ -9,14 +10,17 @@ import org.springframework.validation.Validator;
  */
 public class GenreSpringValidation implements Validator {
 
+
     @Override
-    public boolean supports(Class<?> type) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean supports(Class<?> classInput) {
+        return GenreDto.class.isAssignableFrom(classInput);
     }
 
     @Override
-    public void validate(Object o, Errors errors) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void validate(Object target, Errors errors) {
+        GenreDto genre = (GenreDto) target;
+        if (genre.getName()=="" || genre.getName()==null) {
+            errors.rejectValue("name", "genre.nameempty");
+        }
     }
-    
 }
