@@ -2,6 +2,7 @@ package sk.matejkvassay.musiclibrary.validation;
 
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
+import sk.matejkvassay.musiclibrarybackendapi.Dto.AlbumDto;
 
 /**
  *
@@ -11,12 +12,16 @@ public class AlbumSpringValidation implements Validator {
 
     @Override
     public boolean supports(Class<?> type) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return AlbumDto.class.isAssignableFrom(type);
     }
 
     @Override
     public void validate(Object o, Errors errors) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        AlbumDto album = (AlbumDto) o;
+        String title = album.getTitle().replaceAll(" ", "");
+        if (title.length() < 1) {
+            errors.rejectValue("title", "empty.title");
+        }
     }
     
 }
