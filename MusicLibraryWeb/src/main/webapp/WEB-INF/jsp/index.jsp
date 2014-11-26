@@ -6,16 +6,12 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html>
-<html>
-    <head>
-<!--        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">-->
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <h1>Hello World!</h1>
-    </body>
-    <a href="<c:url value='/musician'/>">Odkaz</a>
-</html>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="my" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-
+<fmt:message var="title" key="index.title"/>
+<my:layout title="${title}">
+    <jsp:attribute name="body">
+        <h1><a href="<c:url value='/'/>">Hello World!</a></h1>
+    </jsp:attribute>
+</my:layout>
