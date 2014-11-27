@@ -14,6 +14,7 @@
     <jsp:attribute name="body">
         
         <p><fmt:message key="album.list.all"/></p>
+        <a href="${pageContext.request.contextPath}/album/edit"><fmt:message key="album.list.add"/></a>
         
         <table class="basic">
             <tr>
@@ -28,7 +29,7 @@
                 <tr>
                     <td><img src="${album.albumArt}" height="32" width="32"></td>
                     <td><a href="${pageContext.request.contextPath}/album/${album.id}"><c:out value="${album.title}"/></a></td>
-                    <td><a href="${pageContext.request.contextPath}/musician/${musician.id}"><c:out value="${musician.name}"/></a></td>
+                    <td><a href="${pageContext.request.contextPath}/musician/${musician.id}"><c:out value="${album.musician.name}"/></a></td>
                     <td><c:out value="${album.dateOfRelease}"/></td>
                     <td>
                         <form method="get" action="${pageContext.request.contextPath}/album/update/${album.id}">

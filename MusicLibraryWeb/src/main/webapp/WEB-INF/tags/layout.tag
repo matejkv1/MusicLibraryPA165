@@ -26,16 +26,16 @@
                 <tr>
                     <td><a href="${pageContext.request.contextPath}/"><img src="http://i.imgur.com/euNuShD.jpg" alt="Album art" height="64" width="64"></a></td>
                     <td><b>
-                            <a href="${pageContext.request.contextPath}/musician"><fmt:message key="navigation.musicians"/></a>  |  
-                            <a href="${pageContext.request.contextPath}/album"><fmt:message key="navigation.albums"/></a>  |  
-                            <a href="${pageContext.request.contextPath}/song"><fmt:message key="navigation.songs"/></a>  |  
-                            <a href="${pageContext.request.contextPath}/genre"><fmt:message key="navigation.genres"/></a>
-                        </b></td>
+                        <a href="${pageContext.request.contextPath}/musician/list"><fmt:message key="navigation.musicians"/></a>  |  
+                        <a href="${pageContext.request.contextPath}/album/list"><fmt:message key="navigation.albums"/></a>  |  
+                        <a href="${pageContext.request.contextPath}/song/list"><fmt:message key="navigation.songs"/></a>  |  
+                        <a href="${pageContext.request.contextPath}/genre/list"><fmt:message key="navigation.genres"/></a>
+                    </b></td>
                 </tr>
             </table>
             <hr>
         </div>
-
+                    
         <div id="content">
             <c:if test="${not empty message}">
                 <div class="message"><c:out value="${message}"/></div>

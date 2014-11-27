@@ -23,6 +23,8 @@ import org.springframework.validation.ObjectError;
 import sk.matejkvassay.musiclibrary.validation.AlbumSpringValidation;
 import sk.matejkvassay.musiclibrarybackendapi.Dto.AlbumDto;
 import sk.matejkvassay.musiclibrarybackendapi.Service.AlbumService;
+import sk.matejkvassay.musiclibrarybackendapi.Service.MusicianService;
+import sk.matejkvassay.musiclibrarybackendapi.Service.SongService;
 
 /**
  *
@@ -36,6 +38,10 @@ public class AlbumController {
     
     @Inject
     private AlbumService albumService;
+    @Inject
+    private SongService songService;
+    @Inject
+    private MusicianService musicianService;
 
     @Inject
     private MessageSource messageSource;
@@ -52,23 +58,24 @@ public class AlbumController {
         binder.addValidators(new AlbumSpringValidation());
     }
     
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String list(Model model) {
         log.debug("list(): displaying all albums");
         // TODO order by title?
         model.addAttribute("albums", albumService.getAllAlbums());
         // TODO
-        //model.addAttribute("musician", musicianService);
+        //model.addAttribute("musician", musicianService.getMusicianByAlbum(null));
         return "album/list";
     }
     
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String showDetail(@PathVariable long id, Model model) {
         log.debug("showDetail(): displaying album details");
-        model.addAttribute("album", albumService.getAlbumById(id));
+        AlbumDto album = albumService.getAlbumById(id);
+        model.addAttribute("album", album);
         // TODO, order songs by posiion in album
-        //model.addAttribute("songs", songService);
-        //model.addAttribute("musician", musicianService);
+        model.addAttribute("songs", songService.getSongsByAlbum(album));
+        model.addAttribute("musician", musicianService.getMusicianByAlbum(album));
         return "album/detail";
     }
     
@@ -88,15 +95,22 @@ public class AlbumController {
                 "message",
                 messageSource.getMessage("album.delete.message", new Object[]{album.getTitle(), album.getId()}, locale)
         );
-        return "redirect:" + uriBuilder.path("/album").build();
+        return "redirect:" + uriBuilder.path("/album/list").build();
+    }
+    
+    @RequestMapping(value = "/edit", method = RequestMethod.GET)
+    public String addNew(Model model) {
+        model.addAttribute("album", new AlbumDto());
+        model.addAttribute("musicians", musicianService.getAllMusicians());
+        log.debug("addNew(): editing album");
+        return "album/edit";
     }
     
     @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
     public String getUpdateForm(@PathVariable long id, Model model) {
-        AlbumDto album = albumService.getAlbumById(id);
-        model.addAttribute("album", album);
+        model.addAttribute("album", albumService.getAlbumById(id));
         // TODO
-        //model.addAttribute("musicians", musicianService.getAll);
+        model.addAttribute("musicians", musicianService.getAllMusicians());
         log.debug("getUpdateForm(): editing album");
         return "album/edit";
     }
@@ -112,7 +126,7 @@ public class AlbumController {
             for (FieldError fe : bindingResult.getFieldErrors()) {
                 log.debug("FieldError: ", fe);
             }
-            return album.getId() == null ? "/album" : "album/edit";
+            return album.getId() == null ? "/album/list" : "album/edit";
         }
         
         if (album.getId() == null) {
@@ -131,10 +145,7 @@ public class AlbumController {
             );
         }
         
-        return "redirect:" + uriBuilder.path("/album").build();
+        return "redirect:" + uriBuilder.path("/album/list").build();
     }
-    
-    
-    
     
 }

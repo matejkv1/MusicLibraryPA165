@@ -19,9 +19,9 @@
         <td><form:errors path="commentary" cssClass="error"/></td>
     </tr>
     <tr>
-        <th><form:label path="releaseDate"><fmt:message key="album.releaseDate"/></form:label></th>
-        <td><form:input path="releaseDate"/></td>
-        <td><form:errors path="releaseDate" cssClass="error"/></td>
+        <th><form:label path="dateOfRelease"><fmt:message key="album.releaseDate"/></form:label></th>
+        <td><form:input path="dateOfRelease"/></td>
+        <td><form:errors path="dateOfRelease" cssClass="error"/></td>
     </tr>
     <tr>
         <th><form:label path="albumArt"><fmt:message key="album.albumArt"/></form:label></th>
@@ -34,8 +34,7 @@
             <c:forEach items="${musicians}" var="musician">
                 <form:option value="${musician}"><c:out value="${musician.name}"/></form:option>
             </c:forEach>
-        </form:select>
-        </td>
+        </form:select></td>
         <td><form:errors path="musician" cssClass="error"/></td>
     </tr>
 </table>
