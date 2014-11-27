@@ -34,7 +34,7 @@ public class StartInitializer implements WebApplicationInitializer {
         encoding.addMappingForUrlPatterns(null, false, "/*");
 
         //register bundle also for JSTL fmt: tags which are not behind DispatcherServlet
-        sc.setInitParameter(Config.FMT_LOCALIZATION_CONTEXT,"Texts");
+        sc.setInitParameter(Config.FMT_LOCALIZATION_CONTEXT,"texts");
     }
     
 }

@@ -10,6 +10,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.springframework.dao.DataAccessException;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
@@ -22,7 +23,7 @@ import sk.matejkvassay.musiclibrarybackendapi.Service.GenreService;
  *
  * @author Matej Kvassay <www.matejkvassay.sk>
  */
-@Named
+@Service
 public class GenreServiceImpl implements GenreService{
 
     @Inject

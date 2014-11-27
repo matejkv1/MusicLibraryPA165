@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Locale;
 import javax.inject.Inject;
 import javax.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,6 +37,24 @@ public class GenreController {
     @Inject
     private MessageSource messageSource;
 
+    public GenreService getGenreService() {
+        return genreService;
+    }
+
+    public void setGenreService(GenreService genreService) {
+        this.genreService = genreService;
+    }
+
+    public MessageSource getMessageSource() {
+        return messageSource;
+    }
+
+    public void setMessageSource(MessageSource messageSource) {
+        this.messageSource = messageSource;
+    }
+
+    
+    
     @ModelAttribute("allGenres")
     public List<GenreDto> allGenres() {
         return genreService.getAllGenres();
@@ -46,7 +65,7 @@ public class GenreController {
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String list(Model model) {
         model.addAttribute("genres", new GenreDto());
-        return "genres/list";
+        return "genre/list";
     }
     
     @RequestMapping(value = "/detail/{id}", method = RequestMethod.GET)

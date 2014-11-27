@@ -1,17 +1,44 @@
-<%-- 
-    Document   : list
-    Created on : Nov 25, 2014, 3:02:50 PM
-    Author     : 
---%>
+<%@page contentType="text/html;charset=UTF-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="my" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <h1>Hello Musician List!</h1>
-    </body>
-</html>
+<fmt:message var="title" key="musician.list.title"/>
+<my:layout title="${title}">
+ <jsp:attribute name="body">
+
+<!--        <p><fmt:message key="book.list.allbooks"/></p>-->
+
+        <table class="basic">
+            <tr>
+                <th>id</th>
+                <th><fmt:message key="musician.name"/></th>
+                <th><fmt:message key="musician.biography"/></th>
+                <th></th>
+                <th></th>
+            </tr>
+            <c:forEach items="${musicians}" var="musician">
+                <tr>
+                    <td>${musician.id}</td>
+                    <td><c:out value="${musician.name}"/></td>
+                    <td><c:out value="${musician.biography}"/></td>
+                    <td/>
+                    <td>
+                        <form method="post" action="${pageContext.request.contextPath}/musician/delete/${musician.id}">
+                            <input type="submit" value="<fmt:message key='book.list.delete'/>">
+                        </form>
+                    </td>
+                </tr>
+            </c:forEach>
+        </table>
+
+<%--<form:form method="post" action="${pageContext.request.contextPath}/book/update" modelAttribute="book">
+    <fieldset><legend><fmt:message key="book.list.newbook"/></legend>
+    <%@include file="form.jsp"%>
+    <input type="submit" value="<fmt:message key='book.list.createBook'/>">
+    </fieldset>
+</form:form>--%>
+</jsp:attribute>
+</my:layout>

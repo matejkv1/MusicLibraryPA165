@@ -11,6 +11,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.springframework.dao.DataAccessException;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
@@ -27,7 +28,7 @@ import sk.matejkvassay.musiclibrarybackendapi.Service.AlbumService;
  *
  * @author Matej Bordáč
  */
-@Named
+@Service
 public class AlbumServiceImpl implements AlbumService {
 
     @Inject
