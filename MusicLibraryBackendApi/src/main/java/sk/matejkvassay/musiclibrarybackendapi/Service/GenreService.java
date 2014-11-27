@@ -7,6 +7,7 @@ package sk.matejkvassay.musiclibrarybackendapi.Service;
 
 import java.util.List;
 import sk.matejkvassay.musiclibrarybackendapi.Dto.GenreDto;
+import sk.matejkvassay.musiclibrarybackendapi.Dto.SongDto;
 
 /**
  *
@@ -46,4 +47,11 @@ public interface GenreService {
      * @return Genre with given name.
      */
     public GenreDto findGenreByName(String name);
+    
+    /**
+     * Get genre with given song.
+     * @param song Song DTO.
+     * @return Genre with given song.
+     */
+    public GenreDto findGenreBySong(SongDto song);
 }

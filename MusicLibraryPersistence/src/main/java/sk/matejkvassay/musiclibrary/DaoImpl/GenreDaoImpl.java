@@ -70,4 +70,12 @@ public class GenreDaoImpl implements GenreDao{
         return query.getResultList();
     }   
     
+    @Override
+    public Genre findGenreBySong(Song song) {
+        TypedQuery query;
+        query = em.createQuery("SELECT g FROM Genre g WHERE :song MEMBER OF g.songs", Genre.class);
+        query.setParameter("song", song);
+        return (Genre) query.getSingleResult();
+    }
+    
 }

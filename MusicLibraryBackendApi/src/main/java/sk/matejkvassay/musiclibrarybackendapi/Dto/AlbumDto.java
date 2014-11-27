@@ -26,9 +26,7 @@ public class AlbumDto {
     
     private String albumArt;
     
-//    private List<SongDto> songs;
-    
-//    private MusicianDto musician;
+    private MusicianDto musician;
 
     public Long getId() {
         return id;
@@ -38,13 +36,13 @@ public class AlbumDto {
         this.id = id;
     }
 
-//    public MusicianDto getMusician() {
-//        return musician;
-//    }
+    public MusicianDto getMusician() {
+        return musician;
+    }
 
-//    public void setMusician(MusicianDto musician) {
-//        this.musician = musician;
-//    }
+    public void setMusician(MusicianDto musician) {
+        this.musician = musician;
+    }
 
     public String getTitle() {
         return title;
@@ -61,14 +59,6 @@ public class AlbumDto {
     public void setCommentary(String commentary) {
         this.commentary = commentary;
     }
-
-//    public List<SongDto> getSongs() {
-//        return songs;
-//    }
-
-//    public void setSongs(List<SongDto> songs) {
-//        this.songs = songs;
-//    }
 
     public Date getDateOfRelease() {
         return dateOfRelease;

@@ -54,4 +54,11 @@ public interface GenreDao {
      * @return List of songs of given genre.
      */
     public List<Song> getSongsOfGenre(Genre genre);
+    
+    /**
+     * Get genre with given song.
+     * @param song Song entity.
+     * @return Genre with given song.
+     */
+    public Genre findGenreBySong(Song song);
 }

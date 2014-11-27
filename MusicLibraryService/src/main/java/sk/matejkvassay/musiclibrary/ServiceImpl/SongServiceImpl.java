@@ -54,7 +54,7 @@ public class SongServiceImpl implements SongService {
         this.songDao = songDao;
     }
     
-    private SongDto toDto(Song song) {
+    public static SongDto toDto(Song song) {
         if(song == null){
             return null;
         }
@@ -65,11 +65,15 @@ public class SongServiceImpl implements SongService {
 		songDto.setCommentary(song.getCommentary());
 		songDto.setPositionInAlbum(song.getPositionInAlbum());
 		songDto.setTitle(song.getTitle());
+                
+                songDto.setGenre(GenreServiceImpl.entityToDto(song.getGenre()));
+                songDto.setMusician(MusicianServiceImpl.toDto(song.getMusician()));
+                songDto.setAlbum(AlbumServiceImpl.toDto(song.getAlbum()));
 		
 		return songDto;
     }
 
-    private Song fromDto(SongDto songDto) {
+    public static Song fromDto(SongDto songDto) {
         if(songDto == null){
             return null;
         }
@@ -80,6 +84,10 @@ public class SongServiceImpl implements SongService {
 		song.setCommentary(songDto.getCommentary());
 		song.setPositionInAlbum(songDto.getPositionInAlbum());
 		song.setTitle(songDto.getTitle());
+                
+                song.setGenre(GenreServiceImpl.dtoToEntity(songDto.getGenre()));
+                song.setMusician(MusicianServiceImpl.fromDto(songDto.getMusician()));
+                song.setAlbum(AlbumServiceImpl.fromDto(songDto.getAlbum()));
 
         return song;
     }

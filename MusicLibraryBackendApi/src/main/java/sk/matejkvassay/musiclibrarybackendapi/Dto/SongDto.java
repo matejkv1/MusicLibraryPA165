@@ -23,6 +23,12 @@ public class SongDto {
     private int positionInAlbum;
 
     private int bitrate;
+    
+    private GenreDto genre;
+
+    private AlbumDto album;
+    
+    private MusicianDto musician;
 
     public Long getId() {
         return id;
@@ -62,6 +68,30 @@ public class SongDto {
 
     public void setBitrate(int bitrate) {
         this.bitrate = bitrate;
+    }
+    
+    public GenreDto getGenre() {
+        return genre;
+    }
+
+    public void setGenre(GenreDto genre) {
+        this.genre = genre;
+    }
+
+    public AlbumDto getAlbum() {
+        return album;
+    }
+
+    public void setAlbum(AlbumDto album) {
+        this.album = album;
+    }
+
+    public MusicianDto getMusician() {
+        return musician;
+    }
+
+    public void setMusician(MusicianDto musician) {
+        this.musician = musician;
     }
 
     @Override

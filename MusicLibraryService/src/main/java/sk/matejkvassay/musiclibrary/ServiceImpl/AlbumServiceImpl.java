@@ -243,6 +243,8 @@ public class AlbumServiceImpl implements AlbumService {
         return albumsDto;
     }
     
+    
+    
     public PlatformTransactionManager getTxManager() {
         return txManager;
     }
@@ -260,14 +262,14 @@ public class AlbumServiceImpl implements AlbumService {
     }
     
     
-    private AlbumDto toDto(Album album) {
+    public static AlbumDto toDto(Album album) {
         if(album == null){
             return null;
         }
         AlbumDto albumDto = new AlbumDto();
         albumDto.setId(album.getId());
         albumDto.setTitle(album.getTitle());
-        //albumDto.setMusician(album.getMusician());
+        albumDto.setMusician(MusicianServiceImpl.toDto(album.getMusician()));
         albumDto.setAlbumArt(album.getAlbumArt());
         albumDto.setDateOfRelease(album.getDateOfRelease());
         albumDto.setCommentary(album.getCommentary());
@@ -276,14 +278,14 @@ public class AlbumServiceImpl implements AlbumService {
         return albumDto;
     }
 
-    private Album fromDto(AlbumDto albumDto) {
+    public static Album fromDto(AlbumDto albumDto) {
         if(albumDto == null){
             return null;
         }
         Album album = new Album();
         album.setId(albumDto.getId());
         album.setTitle(albumDto.getTitle());
-        //album.setMusician(albumDto.getMusician());
+        album.setMusician(MusicianServiceImpl.fromDto(albumDto.getMusician()));
         album.setAlbumArt(albumDto.getAlbumArt());
         album.setDateOfRelease(albumDto.getDateOfRelease());
         album.setCommentary(albumDto.getCommentary());

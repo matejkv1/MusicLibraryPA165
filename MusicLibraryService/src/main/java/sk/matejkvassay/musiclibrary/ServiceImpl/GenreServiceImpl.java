@@ -17,6 +17,7 @@ import org.springframework.transaction.support.DefaultTransactionDefinition;
 import sk.matejkvassay.musiclibrary.Dao.GenreDao;
 import sk.matejkvassay.musiclibrarybackendapi.Dto.GenreDto;
 import sk.matejkvassay.musiclibrary.Entity.Genre;
+import sk.matejkvassay.musiclibrarybackendapi.Dto.SongDto;
 import sk.matejkvassay.musiclibrarybackendapi.Service.GenreService;
 
 /**
@@ -147,7 +148,28 @@ public class GenreServiceImpl implements GenreService{
         return genreDto;
     }
     
-    private Genre dtoToEntity(GenreDto genreDto){
+    @Override
+    public GenreDto findGenreBySong(SongDto song) {
+        Genre genre=null;
+        TransactionStatus status = null;
+        try {
+            DefaultTransactionDefinition def = new DefaultTransactionDefinition();
+            status = txManager.getTransaction(def);
+            genre=genreDao.findGenreBySong(SongServiceImpl.fromDto(song));
+            txManager.commit(status);
+        } catch (DataAccessException ex) {
+            if (!status.isCompleted()) {
+                txManager.rollback(status);
+            }
+            throw ex;
+        }
+        
+        GenreDto genreDto=entityToDto(genre);
+        return genreDto;
+    }
+    
+    
+    public static Genre dtoToEntity(GenreDto genreDto){
         Genre genre=new Genre();
         genre.setId(genreDto.getId());
         genre.setDescription(genreDto.getDescription());
@@ -155,7 +177,7 @@ public class GenreServiceImpl implements GenreService{
         return genre;
     }
     
-    private GenreDto entityToDto(Genre genre){
+    public static GenreDto entityToDto(Genre genre){
         GenreDto genreDto = new GenreDto();
         genreDto.setId(genre.getId());
         genreDto.setDescription(genre.getDescription());

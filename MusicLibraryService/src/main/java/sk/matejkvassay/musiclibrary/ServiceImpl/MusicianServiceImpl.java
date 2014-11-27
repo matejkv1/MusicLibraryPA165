@@ -192,7 +192,7 @@ public class MusicianServiceImpl implements MusicianService {
         this.musicianDao = musicianDao;
     }
     
-    private MusicianDto toDto(Musician musician) {
+    public static MusicianDto toDto(Musician musician) {
         if(musician == null){
             return null;
         }
@@ -204,7 +204,7 @@ public class MusicianServiceImpl implements MusicianService {
         return musicianDto;
     }
 
-    private Musician fromDto(MusicianDto musicianDto) {
+    public static Musician fromDto(MusicianDto musicianDto) {
         if(musicianDto == null){
             return null;
         }
