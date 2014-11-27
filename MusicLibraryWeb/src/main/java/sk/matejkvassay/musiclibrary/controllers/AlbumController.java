@@ -40,11 +40,12 @@ public class AlbumController {
     @Inject
     private MessageSource messageSource;
     
-    @ModelAttribute("albums")
-    public List<AlbumDto> allAlbums() {
-        log.debug("allAlbums(): settings albums attribute");
-        return albumService.getAllAlbums();
-    }
+//    TODO: probably delete
+//    @ModelAttribute("albums")
+//    public List<AlbumDto> allAlbums() {
+//        log.debug("allAlbums(): settings albums attribute");
+//        return albumService.getAllAlbums();
+//    }
     
     @InitBinder
     protected void initBinder(WebDataBinder binder) {
@@ -54,7 +55,10 @@ public class AlbumController {
     @RequestMapping(method = RequestMethod.GET)
     public String list(Model model) {
         log.debug("list(): displaying all albums");
-        //model.addAttribute("album", new AlbumDto());
+        // TODO order by title?
+        model.addAttribute("albums", albumService.getAllAlbums());
+        // TODO
+        //model.addAttribute("musician", musicianService);
         return "album/list";
     }
     
@@ -62,9 +66,13 @@ public class AlbumController {
     public String showDetail(@PathVariable long id, Model model) {
         log.debug("showDetail(): displaying album details");
         model.addAttribute("album", albumService.getAlbumById(id));
+        // TODO, order songs by posiion in album
+        //model.addAttribute("songs", songService);
+        //model.addAttribute("musician", musicianService);
         return "album/detail";
     }
     
+    // NYI
     /*@RequestMapping(value = "/search/{searchStr}", method = RequestMethod.GET)
     public String searchByTitle(@PathVariable String searchStr, Model model) {
         
@@ -87,31 +95,35 @@ public class AlbumController {
     public String getUpdateForm(@PathVariable long id, Model model) {
         AlbumDto album = albumService.getAlbumById(id);
         model.addAttribute("album", album);
+        // TODO
+        //model.addAttribute("musicians", musicianService.getAll);
         log.debug("getUpdateForm(): editing album");
         return "album/edit";
     }
     
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public String update(@Valid @ModelAttribute AlbumDto album, BindingResult bindingResult, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder, Locale locale) {
-        log.debug("");
+        log.debug("update(): updating DB");
         if (bindingResult.hasErrors()) {
             log.debug("binding errors");
             for (ObjectError ge : bindingResult.getGlobalErrors()) {
-                log.debug("ObjectError: {}", ge);
+                log.debug("ObjectError: ", ge);
             }
             for (FieldError fe : bindingResult.getFieldErrors()) {
-                log.debug("FieldError: {}", fe);
+                log.debug("FieldError: ", fe);
             }
             return album.getId() == null ? "/album" : "album/edit";
         }
         
         if (album.getId() == null) {
+            log.debug("adding album");
             albumService.addAlbum(album);
             redirectAttributes.addFlashAttribute(
                     "message",
                     messageSource.getMessage("album.add.message", new Object[]{album.getTitle(), album.getId()}, locale)
             );
         } else {
+            log.debug("changing album");
             albumService.updateAlbum(album);
             redirectAttributes.addFlashAttribute(
                     "message",
