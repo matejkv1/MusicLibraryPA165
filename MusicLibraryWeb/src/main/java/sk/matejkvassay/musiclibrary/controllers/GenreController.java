@@ -4,13 +4,10 @@ import java.util.List;
 import java.util.Locale;
 import javax.inject.Inject;
 import javax.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -22,6 +19,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import sk.matejkvassay.musiclibrary.validation.GenreSpringValidation;
 import sk.matejkvassay.musiclibrarybackendapi.Dto.GenreDto;
 import sk.matejkvassay.musiclibrarybackendapi.Service.GenreService;
+import sk.matejkvassay.musiclibrarybackendapi.Service.SongService;
 
 /**
  *
@@ -33,7 +31,8 @@ public class GenreController {
     
     @Inject
     private GenreService genreService;
-    
+    @Inject
+    private SongService songService;
     @Inject
     private MessageSource messageSource;
 
@@ -61,18 +60,25 @@ public class GenreController {
     }
     
     
+   
+    @RequestMapping(value="/edit", method=RequestMethod.GET)
+    public String edit(Model model){
+        model.addAttribute("genre",new GenreDto());
+        return "genre/edit";
+    }
     
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public String list(Model model) {
         model.addAttribute("genres", new GenreDto());
         return "genre/list";
     }
     
     @RequestMapping(value = "/detail/{id}", method = RequestMethod.GET)
-    public String detail(@PathVariable long id, Model model){
+    public String detail(@PathVariable long id, Model model,RedirectAttributes redirectAttributes, Locale locale, UriComponentsBuilder uriBuilder){
         GenreDto genre=genreService.findGenreById(id);
         model.addAttribute("genre", genre);
-        return "genres/detail";
+        model.addAttribute("songs", songService.getSongsByGenre(genre));
+        return "genre/detail";
     }
     
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
@@ -83,7 +89,7 @@ public class GenreController {
                 "message",
                 messageSource.getMessage("genre.delete.message", new Object[]{genre.getName()}, locale)
         );
-        return "redirect:" + uriBuilder.path("/genre/list").build();
+        return "redirect:" + uriBuilder.path("/genre").build();
     }
     
     @InitBinder
@@ -121,6 +127,6 @@ public class GenreController {
                     messageSource.getMessage("genre.updated.message", new Object[]{genre.getName()}, locale)
             );
         }
-        return "redirect:" + uriBuilder.path("/book/list").build();
+        return "redirect:" + uriBuilder.path("/genre").build();
     }
 }

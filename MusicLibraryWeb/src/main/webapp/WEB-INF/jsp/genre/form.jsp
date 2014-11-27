@@ -1,17 +1,21 @@
 <%-- 
     Document   : form
-    Created on : Nov 25, 2014, 3:02:13 PM
-    Author     : 
+    Created on : Nov 25, 2014, 3:01:35 PM
+    Author     : Matej Kvassay
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <h1>Hello World!</h1>
-    </body>
-</html>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<table>
+    <tr>
+        <th><form:label path="name"><fmt:message key="genre.name"/></form:label></th>
+        <td><form:input path="name"/></td>
+        <td><form:errors path="name" cssClass="error"/></td>
+    </tr>
+    <tr>
+        <th><form:label path="description"><fmt:message key="genre.description"/></form:label></th>
+        <td><form:textarea path="description"/></td>
+        <td><form:errors path="description" cssClass="error"/></td>
+    </tr>
+</table>

@@ -29,7 +29,7 @@
                         <a href="${pageContext.request.contextPath}/musician/list"><fmt:message key="navigation.musicians"/></a>  |  
                         <a href="${pageContext.request.contextPath}/album/list"><fmt:message key="navigation.albums"/></a>  |  
                         <a href="${pageContext.request.contextPath}/song/list"><fmt:message key="navigation.songs"/></a>  |  
-                        <a href="${pageContext.request.contextPath}/genre/list"><fmt:message key="navigation.genres"/></a>
+                        <a href="${pageContext.request.contextPath}/genre"><fmt:message key="navigation.genres"/></a>
                     </b></td>
                 </tr>
             </table>

@@ -52,12 +52,12 @@ public class GenreServiceImpl implements GenreService{
 
     @Override
     public void removeGenre(GenreDto genreDto) {
-        Genre genreToRemove = dtoToEntity(genreDto);
-
+        
         TransactionStatus status = null;
         try {
             DefaultTransactionDefinition def = new DefaultTransactionDefinition();
             status = txManager.getTransaction(def);
+            Genre genreToRemove = genreDao.findGenreById(genreDto.getId());
             genreDao.removeGenre(genreToRemove);
             txManager.commit(status);
         } catch (DataAccessException ex) {
