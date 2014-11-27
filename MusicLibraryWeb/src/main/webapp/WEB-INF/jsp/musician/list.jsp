@@ -26,19 +26,24 @@
                     <td><c:out value="${musician.biography}"/></td>
                     <td/>
                     <td>
+                        <form method="get" action="${pageContext.request.contextPath}/musician/update/${musician.id}">
+                            <input type="submit" value="<fmt:message key='musician.list.edit'/>">
+                        </form>
+                    </td>
+                    <td>
                         <form method="post" action="${pageContext.request.contextPath}/musician/delete/${musician.id}">
-                            <input type="submit" value="<fmt:message key='book.list.delete'/>">
+                            <input type="submit" value="<fmt:message key='musician.list.delete'/>">
                         </form>
                     </td>
                 </tr>
             </c:forEach>
         </table>
 
-<%--<form:form method="post" action="${pageContext.request.contextPath}/book/update" modelAttribute="book">
-    <fieldset><legend><fmt:message key="book.list.newbook"/></legend>
+<form:form method="post" action="${pageContext.request.contextPath}/musician/update" modelAttribute="musician">
+    <fieldset><legend><fmt:message key="musician.list.newmusician"/></legend>
     <%@include file="form.jsp"%>
-    <input type="submit" value="<fmt:message key='book.list.createBook'/>">
+    <input type="submit" value="<fmt:message key='musician.list.createmusician'/>">
     </fieldset>
-</form:form>--%>
+</form:form>
 </jsp:attribute>
 </my:layout>
