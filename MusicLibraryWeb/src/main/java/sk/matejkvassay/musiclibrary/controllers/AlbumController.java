@@ -1,5 +1,6 @@
 package sk.matejkvassay.musiclibrary.controllers;
 
+import java.beans.PropertyEditorSupport;
 import java.util.List;
 import java.util.Locale;
 import javax.inject.Inject;
@@ -22,6 +23,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import sk.matejkvassay.musiclibrary.validation.AlbumSpringValidation;
 import sk.matejkvassay.musiclibrarybackendapi.Dto.AlbumDto;
+import sk.matejkvassay.musiclibrarybackendapi.Dto.MusicianDto;
 import sk.matejkvassay.musiclibrarybackendapi.Service.AlbumService;
 import sk.matejkvassay.musiclibrarybackendapi.Service.MusicianService;
 import sk.matejkvassay.musiclibrarybackendapi.Service.SongService;
@@ -56,15 +58,14 @@ public class AlbumController {
     @InitBinder
     protected void initBinder(WebDataBinder binder) {
         binder.addValidators(new AlbumSpringValidation());
+        binder.registerCustomEditor(MusicianDto.class, new MusicianEditor(this.musicianService));
     }
     
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String list(Model model) {
         log.debug("list(): displaying all albums");
-        // TODO order by title?
+        // TODO order by title
         model.addAttribute("albums", albumService.getAllAlbums());
-        // TODO
-        //model.addAttribute("musician", musicianService.getMusicianByAlbum(null));
         return "album/list";
     }
     
@@ -98,20 +99,23 @@ public class AlbumController {
         return "redirect:" + uriBuilder.path("/album/list").build();
     }
     
-    @RequestMapping(value = "/edit", method = RequestMethod.GET)
+    @RequestMapping(value = "/new", method = RequestMethod.GET)
     public String addNew(Model model) {
         model.addAttribute("album", new AlbumDto());
         model.addAttribute("musicians", musicianService.getAllMusicians());
+        
         log.debug("addNew(): editing album");
+        
         return "album/edit";
     }
     
     @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
     public String getUpdateForm(@PathVariable long id, Model model) {
         model.addAttribute("album", albumService.getAlbumById(id));
-        // TODO
         model.addAttribute("musicians", musicianService.getAllMusicians());
+        
         log.debug("getUpdateForm(): editing album");
+        
         return "album/edit";
     }
     
@@ -121,10 +125,10 @@ public class AlbumController {
         if (bindingResult.hasErrors()) {
             log.debug("binding errors");
             for (ObjectError ge : bindingResult.getGlobalErrors()) {
-                log.debug("ObjectError: ", ge);
+                log.debug("ObjectError: {}", ge);
             }
             for (FieldError fe : bindingResult.getFieldErrors()) {
-                log.debug("FieldError: ", fe);
+                log.debug("FieldError: {}", fe);
             }
             return album.getId() == null ? "/album/list" : "album/edit";
         }
@@ -148,4 +152,19 @@ public class AlbumController {
         return "redirect:" + uriBuilder.path("/album/list").build();
     }
     
+}
+
+class MusicianEditor extends PropertyEditorSupport {
+    
+    private final MusicianService musicianService;
+ 
+    public MusicianEditor(MusicianService musicianService) {
+        this.musicianService = musicianService;
+    }
+    
+    @Override
+    public void setAsText(String text) throws IllegalArgumentException {
+        MusicianDto country = musicianService.getMusicianById(Long.parseLong(text));
+        setValue(country);
+    }
 }

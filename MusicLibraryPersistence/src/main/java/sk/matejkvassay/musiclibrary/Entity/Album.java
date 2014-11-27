@@ -16,6 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.springframework.format.annotation.DateTimeFormat;
 /**
  *
  * @author Matej Kvassay <www.matejkvassay.sk>
@@ -33,6 +34,7 @@ public class Album {
     private String commentary;
     
     @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date dateOfRelease;
     
     @Column

@@ -20,7 +20,10 @@
     </tr>
     <tr>
         <th><form:label path="dateOfRelease"><fmt:message key="album.releaseDate"/></form:label></th>
-        <td><form:input path="dateOfRelease"/></td>
+        <td>
+            <fmt:formatDate value="${album.dateOfRelease}" var="dateString" pattern="dd/MM/yyyy" />
+            <form:input path="dateOfRelease" value="${dateString}" />
+        </td>
         <td><form:errors path="dateOfRelease" cssClass="error"/></td>
     </tr>
     <tr>
@@ -32,7 +35,7 @@
         <th><form:label path="musician"><fmt:message key="album.musician.name"/></form:label></th>
         <td><form:select path="musician">
             <c:forEach items="${musicians}" var="musician">
-                <form:option value="${musician}"><c:out value="${musician.name}"/></form:option>
+                <form:option value="${musician.id}"><c:out value="${musician.name}"/></form:option>
             </c:forEach>
         </form:select></td>
         <td><form:errors path="musician" cssClass="error"/></td>

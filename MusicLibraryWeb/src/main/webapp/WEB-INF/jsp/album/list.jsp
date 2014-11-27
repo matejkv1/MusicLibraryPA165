@@ -14,7 +14,7 @@
     <jsp:attribute name="body">
         
         <p><fmt:message key="album.list.all"/></p>
-        <a href="${pageContext.request.contextPath}/album/edit"><fmt:message key="album.list.add"/></a>
+        <a href="${pageContext.request.contextPath}/album/new"><fmt:message key="album.list.add"/></a>
         
         <table class="basic">
             <tr>
