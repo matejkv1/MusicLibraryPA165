@@ -24,7 +24,7 @@
         <div id="header">
             <table class="basic">
                 <tr>
-                    <td><img src="http://i.imgur.com/euNuShD.jpg" alt="Album art" height="64" width="64"></td>
+                    <td><a href="${pageContext.request.contextPath}/"><img src="http://i.imgur.com/euNuShD.jpg" alt="Album art" height="64" width="64"></a></td>
                     <td><b>
                         <a href="${pageContext.request.contextPath}/musician"><fmt:message key="navigation.musicians"/></a>  |  
                         <a href="${pageContext.request.contextPath}/album"><fmt:message key="navigation.albums"/></a>  |  
