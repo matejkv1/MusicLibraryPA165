@@ -9,7 +9,7 @@
 <%@ taglib tagdir="/WEB-INF/tags" prefix="my" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<fmt:message var="title" key="agenre.list.title"/>
+<fmt:message var="title" key="genre.list.title"/>
 <my:layout title="${title}">
     <jsp:attribute name="body">
         
