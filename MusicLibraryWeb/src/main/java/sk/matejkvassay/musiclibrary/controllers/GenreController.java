@@ -35,6 +35,8 @@ public class GenreController {
     private SongService songService;
     @Inject
     private MessageSource messageSource;
+    @Inject 
+    private GenreSpringValidation validator;
 
     public GenreService getGenreService() {
         return genreService;
@@ -92,9 +94,9 @@ public class GenreController {
         return "redirect:" + uriBuilder.path("/genre/list").build();
     }
     
-    @InitBinder
+    @InitBinder("genre")
     protected void initBinder(WebDataBinder binder) {
-        binder.addValidators(new GenreSpringValidation());
+        binder.addValidators(validator);
     }
     
     @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
@@ -105,7 +107,7 @@ public class GenreController {
     }
     
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public String update(@Valid @ModelAttribute GenreDto genre, BindingResult bindingResult, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder, Locale locale) {
+    public String update(@Valid @ModelAttribute("genre") GenreDto genre, BindingResult bindingResult, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder, Locale locale) {
 
         if (bindingResult.hasErrors()) {
             return "genre/edit";
