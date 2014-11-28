@@ -56,7 +56,11 @@ public class GenreServiceImplTest {
 
     @Test
     public void removeGenreTest() {
+        long fakeId = 123;
         GenreDto genre = new GenreDto();
+        genre.setId(fakeId);
+        
+        Mockito.doReturn(dtoToEntity(genre)).when(genreDaoMock).findGenreById(fakeId);
         Mockito.doNothing().when(genreDaoMock).removeGenre(dtoToEntity(genre));
         genreService.removeGenre(genre);
         Mockito.verify(genreDaoMock, Mockito.times(1)).removeGenre(dtoToEntity(genre));
