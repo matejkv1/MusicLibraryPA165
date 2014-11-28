@@ -16,7 +16,18 @@
     <jsp:attribute name="body">
         <form:form method="post" action="${pageContext.request.contextPath}/genre/update" modelAttribute="genre">
             <form:hidden path="id"/>
-            <fieldset><legend><fmt:message key="genre.edit.edit"/></legend>
+            <fieldset>
+                <legend>
+                    <c:if test="${empty genre.id}">
+                        
+                        <fmt:message key="genre.add.new"/>
+                    </c:if>
+                    <c:if test="${not empty genre.id}">
+                        <fmt:message key="genre.edit.editgenre"/></legend>
+                    </c:if>
+                
+                
+                </legend>
                 <%@include file="form.jsp"%>
                 <input type="submit" value="<fmt:message key='genre.edit.save'/>">
             </fieldset>

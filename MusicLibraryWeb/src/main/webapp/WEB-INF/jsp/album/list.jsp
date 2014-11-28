@@ -14,7 +14,10 @@
     <jsp:attribute name="body">
         
         <p><fmt:message key="album.list.all"/></p>
-        <a href="${pageContext.request.contextPath}/album/new"><fmt:message key="album.list.add"/></a>
+        
+        <form method="get" action="${pageContext.request.contextPath}/album/new">
+            <input type="submit" value="<fmt:message key='album.list.add'/>">
+        </form>
         
         <table class="basic">
             <tr>

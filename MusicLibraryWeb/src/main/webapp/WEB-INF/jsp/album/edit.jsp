@@ -16,10 +16,18 @@
     <jsp:attribute name="body">
         <form:form method="post" action="${pageContext.request.contextPath}/album/update" modelAttribute="album">
             <form:hidden path="id"/>
-            <fieldset><legend><fmt:message key="album.edit.edit"/></legend>
-                <%@include file="form.jsp"%>
-                <input type="submit" value="<fmt:message key='album.edit.save'/>">
-            </fieldset>
-        </form:form>
-    </jsp:attribute>
+            <fieldset>
+                <legend>
+                    <c:if test="${empty album.id}">
+                        <fmt:message key="album.list.add"/>
+                    </c:if>
+                    <c:if test="${not empty album.id}">
+                        <fmt:message key="album.edit.editalbum"/></legend>
+                    </c:if>
+            </legend>
+            <%@include file="form.jsp"%>
+            <input type="submit" value="<fmt:message key='album.edit.save'/>">
+        </fieldset>
+    </form:form>
+</jsp:attribute>
 </my:layout>

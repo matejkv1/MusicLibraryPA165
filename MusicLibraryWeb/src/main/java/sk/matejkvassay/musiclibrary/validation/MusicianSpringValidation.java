@@ -49,8 +49,8 @@ public class MusicianSpringValidation implements Validator {
         for (MusicianDto musician1 : musicians) {
             names.add(musician1.getName());
         }
-        //if names is already in DB - error
-        if(names.contains(musician.getName())){
+        //if names is already in DB - error, but only if we are creating new musician
+        if( musician.getId() == null && names.contains(musician.getName())){
             errors.rejectValue("name", "musician.name.notunique");
         }
         

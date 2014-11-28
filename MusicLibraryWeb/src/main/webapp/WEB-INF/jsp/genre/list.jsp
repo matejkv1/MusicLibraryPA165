@@ -13,9 +13,13 @@
 <my:layout title="${title}">
     <jsp:attribute name="body">
         
-        <a href="${pageContext.request.contextPath}/genre/edit"><fmt:message key="genre.add.new"/></a>
+        
         
         <p><fmt:message key="genre.list.all"/></p>
+        
+        <form method="get" action="${pageContext.request.contextPath}/genre/edit">
+            <input type="submit" value="<fmt:message key='genre.add.new'/>">
+        </form>
         
         <table class="basic">
             <tr>

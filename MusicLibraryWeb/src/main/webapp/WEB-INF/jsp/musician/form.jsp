@@ -9,7 +9,7 @@
         </tr>
         <tr>
             <th><form:label path="biography"><fmt:message key="musician.biography"/></form:label></th>
-            <td><form:input path="biography"/></td>
+            <td><form:textarea path="biography"/></td>
             <td><form:errors path="biography" cssClass="error"/></td>
         </tr>
     </table>

@@ -7,6 +7,7 @@ package sk.matejkvassay.musiclibrary.Entity;
 
 import java.util.Objects;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Column;
@@ -29,7 +30,7 @@ public class Musician {
     @Column(length = 1000)
     private String biography;
     
-    @OneToMany(mappedBy="musician")
+    @OneToMany(mappedBy="musician", cascade = CascadeType.REMOVE)
     private Set<Album> albums;
     
     @OneToMany(mappedBy="musician")

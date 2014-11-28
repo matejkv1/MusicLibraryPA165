@@ -13,9 +13,12 @@
 <my:layout title="${title}">
     <jsp:attribute name="body">
         
-        <a href="${pageContext.request.contextPath}/song/edit"><fmt:message key="song.add.new"/></a>
         
         <p><fmt:message key="song.list.all"/></p>
+        
+        <form method="get" action="${pageContext.request.contextPath}/song/edit">
+            <input type="submit" value="<fmt:message key='song.add.new'/>">
+        </form>
         
         <table class="basic">
             <tr>

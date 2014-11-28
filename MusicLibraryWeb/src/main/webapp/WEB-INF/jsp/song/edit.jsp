@@ -16,7 +16,15 @@
     <jsp:attribute name="body">
         <form:form method="post" action="${pageContext.request.contextPath}/song/update" modelAttribute="song">
             <form:hidden path="id"/>
-            <fieldset><legend><fmt:message key="song.edit.edit"/></legend>
+            <fieldset>
+                <legend>
+                    <c:if test="${empty song.id}">
+                        <fmt:message key="song.add.new"/>
+                    </c:if>
+                    <c:if test="${not empty song.id}">
+                        <fmt:message key="song.edit.editsong"/></legend>
+                    </c:if>
+                </legend>
                 <%@include file="form.jsp"%>
                 <input type="submit" value="<fmt:message key='song.edit.save'/>">
             </fieldset>

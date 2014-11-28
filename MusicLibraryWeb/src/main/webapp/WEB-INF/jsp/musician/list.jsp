@@ -9,7 +9,8 @@
 <my:layout title="${title}">
     <jsp:attribute name="body">
 
-<!--        <p><fmt:message key="book.list.allbooks"/></p>-->
+        <p><fmt:message key="musician.list.all"/></p>
+        
         <form method="get" action="${pageContext.request.contextPath}/musician/new">
             <input type="submit" value="<fmt:message key='musician.list.createmusician'/>">
         </form>
@@ -17,7 +18,7 @@
 
         <table class="basic">
             <tr>
-                <th>id</th>
+<!--                <th>id</th>-->
                 <th><fmt:message key="musician.name"/></th>
                 <th><fmt:message key="musician.biography"/></th>
                 <th></th>
@@ -25,7 +26,7 @@
             </tr>
             <c:forEach items="${musicians}" var="musician">
                 <tr>
-                    <td>${musician.id}</td>
+<!--                    <td>${musician.id}</td>-->
                     <td><my:a href="/musician/${musician.id}"><c:out value="${musician.name}"/></my:a></td>
                     <td><c:out value="${musician.biography}"/></td>
                     

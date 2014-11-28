@@ -16,11 +16,12 @@
                         <fmt:message key="musician.list.createmusician"/>
 
                     </c:if>
-                </legend>
-                <c:if test="${not empty musician.id}">
-                    <fmt:message key="musician.edit.edit"/></legend>
-                </c:if>
-                <%@include file="form.jsp"%>
+                    <c:if test="${not empty musician.id}">
+                        <fmt:message key="musician.edit.edit"/></legend>
+                    </c:if>
+            </legend>
+
+            <%@include file="form.jsp"%>
             <input type="submit" value="<fmt:message key='musician.edit.save'/>">
         </fieldset>
     </form:form>

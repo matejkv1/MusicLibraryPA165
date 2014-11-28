@@ -55,9 +55,14 @@ public class AlbumController {
 //        return albumService.getAllAlbums();
 //    }
     
-    @InitBinder
+    @InitBinder("album")
     protected void initBinder(WebDataBinder binder) {
         binder.addValidators(new AlbumSpringValidation());
+    }
+    
+    @InitBinder
+    protected void initBinder2(WebDataBinder binder) {
+        
         binder.registerCustomEditor(MusicianDto.class, new MusicianEditor(this.musicianService));
     }
     
@@ -120,7 +125,7 @@ public class AlbumController {
     }
     
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public String update(@Valid @ModelAttribute AlbumDto album, BindingResult bindingResult, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder, Locale locale) {
+    public String update(@Valid @ModelAttribute("album") AlbumDto album, BindingResult bindingResult, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder, Locale locale) {
         log.debug("update(): updating DB");
         if (bindingResult.hasErrors()) {
             log.debug("binding errors");
