@@ -19,9 +19,8 @@
             </form>
             <br>
             
-            <object data="${pageContext.request.contextPath}/resources/images/default-album.png" type="image/png" width="256" height="256">
-                <img src="${album.albumArt}" height="256" width="256"><br>
-            </object>
+            <img src="${album.albumArt}" height="256" width="256" onerror="this.src='${pageContext.request.contextPath}/resources/images/default-album.png'"><br>
+            
             <br>
             
             <b><fmt:message key="album.detail.musicianName"/>: </b>

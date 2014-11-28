@@ -46,6 +46,8 @@
                 </tr>
             </c:forEach>
         </table>        
+                <hr>
+                <p><i><c:out value="${genre.list.deletewarning}"/></i></p>
     </jsp:attribute>
 </my:layout>
 

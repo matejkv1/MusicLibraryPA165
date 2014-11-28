@@ -10,8 +10,25 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <fmt:message var="title" key="index.title"/>
-<my:layout title="${title}">
-    <jsp:attribute name="body">
-        <h1><a href="<c:url value='/'/>">Hello World!</a></h1>
-    </jsp:attribute>
-</my:layout>
+<%--<my:layout title="${title}">--%>
+<%--<jsp:attribute name="body">--%>
+<html lang="${pageContext.request.locale}">
+    <head>
+        <title><c:out value="${title}"/></title>
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style.css"/>
+        <%--<jsp:invoke fragment="head"/>--%>
+    </head>
+
+    <body>
+        <div id="index">
+            <img src="${pageContext.request.contextPath}/resources/images/logo.png">
+            <br>
+            <a href="${pageContext.request.contextPath}/musician/list"><fmt:message key="navigation.musicians"/></a>  |  
+            <a href="${pageContext.request.contextPath}/album/list"><fmt:message key="navigation.albums"/></a>  |  
+            <a href="${pageContext.request.contextPath}/song/list"><fmt:message key="navigation.songs"/></a>  |  
+            <a href="${pageContext.request.contextPath}/genre/list"><fmt:message key="navigation.genres"/></a>
+        </div>
+    </body>
+</html>
+<%--</jsp:attribute>--%>
+<%--</my:layout>--%>

@@ -30,9 +30,8 @@
             </tr>
             <c:forEach items="${albums}" var="album">
                 <tr>
-                    <td><object data="${pageContext.request.contextPath}/resources/images/default-album.png" type="image/png" height="32" width="32">
-                        <img src="${album.albumArt}" height="32" width="32">
-                    </object></td>
+                    
+                    <td><img src="${album.albumArt}" height="32" width="32" onerror="this.src='${pageContext.request.contextPath}/resources/images/default-album.png'"></td>
                     
                     <td><a href="${pageContext.request.contextPath}/album/${album.id}"><c:out value="${album.title}"/></a></td>
                     <td><a href="${pageContext.request.contextPath}/musician/${album.musician.id}"><c:out value="${album.musician.name}"/></a></td>
@@ -50,6 +49,8 @@
                 </tr>
             </c:forEach>
         </table>
+                <hr>
+                <!--<p><i><c:out value="${album.list.deletewarning}"/></i></p>-->
         
     </jsp:attribute>
 </my:layout>

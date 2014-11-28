@@ -43,6 +43,8 @@
                 </tr>
             </c:forEach>
         </table>
+                <hr>
+                <p><i><c:out value="${musician.list.deletewarning}"/></i></p>
 <!--
         <form:form method="post" action="${pageContext.request.contextPath}/musician/update" modelAttribute="musician">
             <fieldset><legend><fmt:message key="musician.list.newmusician"/></legend>
