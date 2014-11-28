@@ -1,11 +1,10 @@
 package sk.matejkvassay.musiclibrary.validation;
 
-import javax.inject.Inject;
+import java.util.Calendar;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 import sk.matejkvassay.musiclibrarybackendapi.Dto.AlbumDto;
-import sk.matejkvassay.musiclibrarybackendapi.Service.AlbumService;
 
 /**
  *
@@ -14,9 +13,6 @@ import sk.matejkvassay.musiclibrarybackendapi.Service.AlbumService;
 @Component
 public class AlbumSpringValidation implements Validator {
 
-//    @Inject
-//    private AlbumService albumService;
-    
     @Override
     public boolean supports(Class<?> type) {
         return AlbumDto.class.isAssignableFrom(type);
@@ -29,19 +25,21 @@ public class AlbumSpringValidation implements Validator {
         if (title.length() < 1) {
             errors.rejectValue("title", "empty.title");
         }
+        
         if (album.getMusician() == null) {
             errors.rejectValue("musician", "empty.musician");
         }
-        // date format validation
-        // msg: wrongFormat.date
+        
+        // year between 1000 and 3000
+        Calendar cal = Calendar.getInstance();
+        if (album.getDateOfRelease() != null) {
+            cal.setTime(album.getDateOfRelease());
+            int year = cal.get(Calendar.YEAR);
+            if (year < 1000 || year > 3000) {
+                errors.rejectValue("dateOfRelease", "invalidyear");
+            }
+        }
     }
     
-//    public AlbumService getAlbumService() {
-//        return albumService;
-//    }
-//
-//    public void setAlbumService(AlbumService albumService) {
-//        this.albumService = albumService;
-//    }
     
 }
