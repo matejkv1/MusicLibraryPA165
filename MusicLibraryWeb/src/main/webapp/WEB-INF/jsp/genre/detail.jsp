@@ -12,21 +12,16 @@
 <my:layout title="${genre.name} - details">
     <jsp:attribute name="body">
         <div id="detail">
-            <h1>${album.title}</h1>
+            <h1><c:out value="${genre.name}"/></h1>
             
-            <b><fmt:message key="genre.detail.name"/>:</b>
-            <p>${genre.name}</p>
+            <form method="get" action="${pageContext.request.contextPath}/genre/update/${genre.id}">
+                <input type="submit" value="<fmt:message key='genre.edit.button'/>">
+            </form>
+            <br>
             
             <b><fmt:message key="genre.detail.description"/>: </b>
             <p>${genre.description}</p>
-            
-            <form method="get" action="${pageContext.request.contextPath}/genre/update/${genre.id}">
-                                 <input type="submit" value="<fmt:message key='genre.edit.button'/>">
-            </form>
-            
-        </div>
 
-        <div>
             <b><fmt:message key="genre.detail.songs"/>:</b>
             <table class="basic">
                      <tr>

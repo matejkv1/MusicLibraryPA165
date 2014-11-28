@@ -13,9 +13,10 @@
     <jsp:attribute name="body">
         <div id="detail">
             <h1>${song.title}</h1>
-            <!--<form method="get" action="${pageContext.request.contextPath}/book/update/${book.id}">-->
-                <a href="${pageContext.request.contextPath}/song/update/${song.id}"><fmt:message key='song.detail.edit'/></a>
-            <!--</form>-->
+            
+            <form method="get" action="${pageContext.request.contextPath}/song/update/${song.id}">
+                <input type="submit" value="<fmt:message key='song.list.edit'/>">
+            </form>
             <br>
             
             <b><fmt:message key="song.detail.bitrate"/>: </b><p><c:out value="${song.bitrate}"/></p>
