@@ -30,7 +30,10 @@
             </tr>
             <c:forEach items="${albums}" var="album">
                 <tr>
-                    <td><img src="${album.albumArt}" height="32" width="32"></td>
+                    <td><object data="${pageContext.request.contextPath}/resources/images/default-album.png" type="image/png" height="32" width="32">
+                        <img src="${album.albumArt}" height="32" width="32">
+                    </object></td>
+                    
                     <td><a href="${pageContext.request.contextPath}/album/${album.id}"><c:out value="${album.title}"/></a></td>
                     <td><a href="${pageContext.request.contextPath}/musician/${album.musician.id}"><c:out value="${album.musician.name}"/></a></td>
                     <td><c:out value="${album.dateOfRelease}"/></td>

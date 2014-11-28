@@ -24,7 +24,6 @@
         <div id="header">
             <table class="basic">
                 <tr>
-                    <!--http://i.imgur.com/euNuShD.jpg default img-->
                     <td><a href="${pageContext.request.contextPath}/"><img src="${pageContext.request.contextPath}/resources/images/logo-small.png" alt="Logo" height="64" width="64"></a></td>
                     <td><b>
                         <a href="${pageContext.request.contextPath}/musician/list"><fmt:message key="navigation.musicians"/></a>  |  

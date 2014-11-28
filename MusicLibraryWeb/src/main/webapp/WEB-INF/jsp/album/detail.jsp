@@ -15,11 +15,15 @@
             <h1>${album.title}</h1>
             
             <form method="get" action="${pageContext.request.contextPath}/album/update/${album.id}">
-                <input type="submit" value="<fmt:message key='album.list.edit'/>">
+                <input type="submit" value="<fmt:message key='album.detail.edit'/>">
             </form>
             <br>
             
-            <img src="${album.albumArt}" height="256" width="256"><br>
+            <object data="${pageContext.request.contextPath}/resources/images/default-album.png" type="image/png" width="256" height="256">
+                <img src="${album.albumArt}" height="256" width="256"><br>
+            </object>
+            <br>
+            
             <b><fmt:message key="album.detail.musicianName"/>: </b>
                 <p>
                     <a href="${pageContext.request.contextPath}/musician/${musician.id}"><c:out value="${musician.name}"/></a>
