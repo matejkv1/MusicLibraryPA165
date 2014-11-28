@@ -1,15 +1,22 @@
 package sk.matejkvassay.musiclibrary.validation;
 
+import javax.inject.Inject;
+import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 import sk.matejkvassay.musiclibrarybackendapi.Dto.AlbumDto;
+import sk.matejkvassay.musiclibrarybackendapi.Service.AlbumService;
 
 /**
  *
  * @author Matej Bordáč
  */
+@Component
 public class AlbumSpringValidation implements Validator {
 
+//    @Inject
+//    private AlbumService albumService;
+    
     @Override
     public boolean supports(Class<?> type) {
         return AlbumDto.class.isAssignableFrom(type);
@@ -28,5 +35,13 @@ public class AlbumSpringValidation implements Validator {
         // date format validation
         // msg: wrongFormat.date
     }
+    
+//    public AlbumService getAlbumService() {
+//        return albumService;
+//    }
+//
+//    public void setAlbumService(AlbumService albumService) {
+//        this.albumService = albumService;
+//    }
     
 }

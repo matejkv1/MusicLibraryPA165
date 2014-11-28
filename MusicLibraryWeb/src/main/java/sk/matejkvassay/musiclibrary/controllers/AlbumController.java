@@ -1,6 +1,7 @@
 package sk.matejkvassay.musiclibrary.controllers;
 
 import java.beans.PropertyEditorSupport;
+import java.util.List;
 import java.util.Locale;
 import javax.inject.Inject;
 import javax.validation.Valid;
@@ -47,12 +48,11 @@ public class AlbumController {
     @Inject
     private MessageSource messageSource;
     
-//    TODO: probably delete
-//    @ModelAttribute("albums")
-//    public List<AlbumDto> allAlbums() {
-//        log.debug("allAlbums(): settings albums attribute");
-//        return albumService.getAllAlbums();
-//    }
+    @ModelAttribute("albums")
+    public List<AlbumDto> allAlbums() {
+        log.debug("allAlbums(): settings albums attribute");
+        return albumService.getAllAlbums();
+    }
     
     @InitBinder("album")
     protected void initBinder(WebDataBinder binder) {
@@ -61,9 +61,16 @@ public class AlbumController {
     
     @InitBinder
     protected void initBinder2(WebDataBinder binder) {
-        
         binder.registerCustomEditor(MusicianDto.class, new MusicianEditor(this.musicianService));
     }
+    
+    
+    // NYI
+    /*@RequestMapping(value = "/search/{searchStr}", method = RequestMethod.GET)
+    public String searchByTitle(@PathVariable String searchStr, Model model) {
+        
+        return "album/list";
+    }*/
     
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String list(Model model) {
@@ -83,13 +90,6 @@ public class AlbumController {
         model.addAttribute("musician", musicianService.getMusicianByAlbum(album));
         return "album/detail";
     }
-    
-    // NYI
-    /*@RequestMapping(value = "/search/{searchStr}", method = RequestMethod.GET)
-    public String searchByTitle(@PathVariable String searchStr, Model model) {
-        
-        return "album/list";
-    }*/
     
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     public String delete(@PathVariable long id, RedirectAttributes redirectAttributes, Locale locale, UriComponentsBuilder uriBuilder) {
@@ -134,7 +134,7 @@ public class AlbumController {
             for (FieldError fe : bindingResult.getFieldErrors()) {
                 log.debug("FieldError: {}", fe);
             }
-            return album.getId() == null ? "/album/list" : "album/edit";
+            return "/album/edit";
         }
         
         if (album.getId() == null) {
@@ -156,19 +156,21 @@ public class AlbumController {
         return "redirect:" + uriBuilder.path("/album/list").build();
     }
     
-}
 
-class MusicianEditor extends PropertyEditorSupport {
-    
-    private final MusicianService musicianService;
- 
-    public MusicianEditor(MusicianService musicianService) {
-        this.musicianService = musicianService;
+    // private class for transforming string into DTO
+    class MusicianEditor extends PropertyEditorSupport {
+
+        private final MusicianService musicianService;
+
+        public MusicianEditor(MusicianService musicianService) {
+            this.musicianService = musicianService;
+        }
+
+        @Override
+        public void setAsText(String text) throws IllegalArgumentException {
+            MusicianDto m = musicianService.getMusicianById(Long.parseLong(text));
+            setValue(m);
+        }
     }
-    
-    @Override
-    public void setAsText(String text) throws IllegalArgumentException {
-        MusicianDto country = musicianService.getMusicianById(Long.parseLong(text));
-        setValue(country);
-    }
+
 }

@@ -1,5 +1,6 @@
 package sk.matejkvassay.musiclibrary.controllers;
 
+import java.beans.PropertyEditorSupport;
 import java.util.List;
 import java.util.Locale;
 import javax.inject.Inject;
@@ -21,9 +22,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponentsBuilder;
 import sk.matejkvassay.musiclibrary.DaoImpl.Exception.MusicianNameNullException;
-import static sk.matejkvassay.musiclibrary.controllers.MusicianController.log;
 import sk.matejkvassay.musiclibrary.validation.SongSpringValidation;
+import sk.matejkvassay.musiclibrarybackendapi.Dto.AlbumDto;
 import sk.matejkvassay.musiclibrarybackendapi.Dto.GenreDto;
+import sk.matejkvassay.musiclibrarybackendapi.Dto.MusicianDto;
 import sk.matejkvassay.musiclibrarybackendapi.Dto.SongDto;
 import sk.matejkvassay.musiclibrarybackendapi.Service.AlbumService;
 import sk.matejkvassay.musiclibrarybackendapi.Service.GenreService;
@@ -62,13 +64,27 @@ public class SongController {
         model.addAttribute("song", new SongDto());
         return "song/list";
     }
+    
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public String showDetail(@PathVariable long id, Model model) {
+        log.debug("showDetail(): displaying song details");
+        SongDto song = songService.getSongById(id);
+        
+        model.addAttribute("album", albumService.getAlbumBySong(song));
+        model.addAttribute("genre", genreService.findGenreBySong(song));
+        model.addAttribute("musician", musicianService.getMusicianBySong(song));
+        
+        return "album/detail";
+    }
 
-    @RequestMapping(value = "/edit", method = RequestMethod.GET)
+    @RequestMapping(value = "/new", method = RequestMethod.GET)
     public String edit(Model model) {
         model.addAttribute("song", new SongDto());
-		//model.addAttribute("musicians", musicianService.getAllMusicians());
-        //model.addAttribute("albums", albumService.getAllAlbums());
-        //model.addAttribute("genres", genreService.getAllGenres());
+        model.addAttribute("musicians", musicianService.getAllMusicians());
+        model.addAttribute("albums", albumService.getAllAlbums());
+        model.addAttribute("genres", genreService.getAllGenres());
+        
+        log.debug("edit(model={})", model);
 
         return "song/edit";
     }
@@ -88,16 +104,17 @@ public class SongController {
     public String update_form(@PathVariable long id, Model model) {
         SongDto song = songService.getSongById(id);
         model.addAttribute("song", song);
+        model.addAttribute("musicians", musicianService.getAllMusicians());
+        model.addAttribute("albums", albumService.getAllAlbums());
+        model.addAttribute("genres", genreService.getAllGenres());
+        
         log.debug("update_form(model={})", model);
         return "song/edit";
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public String update(@Valid @ModelAttribute("song") SongDto song, BindingResult bindingResult, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder, Locale locale) throws MusicianNameNullException {
-//        if (bindingResult.hasErrors()) {
-//            return song.getId() == null? "song/list":"song/edit";
-//        }
-
+        
         if (bindingResult.hasErrors()) {
             log.debug("binding errors");
             for (ObjectError ge : bindingResult.getGlobalErrors()) {
@@ -129,4 +146,58 @@ public class SongController {
     protected void initBinder(WebDataBinder binder) {
         binder.addValidators(new SongSpringValidation());
     }
+    
+    @InitBinder("song")
+    protected void initBinder2(WebDataBinder binder) {
+        binder.registerCustomEditor(MusicianDto.class, new MusicianEditor(this.musicianService));
+        binder.registerCustomEditor(AlbumDto.class, new AlbumEditor(this.albumService));
+        binder.registerCustomEditor(GenreDto.class, new GenreEditor(this.genreService));
+    }
+
+    // private classes for transforming string into DTO
+    class MusicianEditor extends PropertyEditorSupport {
+
+        private final MusicianService musicianService;
+
+        public MusicianEditor(MusicianService musicianService) {
+            this.musicianService = musicianService;
+        }
+
+        @Override
+        public void setAsText(String text) throws IllegalArgumentException {
+            MusicianDto m = musicianService.getMusicianById(Long.parseLong(text));
+            setValue(m);
+        }
+    }
+
+    class AlbumEditor extends PropertyEditorSupport {
+
+        private final AlbumService albumService;
+
+        public AlbumEditor(AlbumService albumService) {
+            this.albumService = albumService;
+        }
+
+        @Override
+        public void setAsText(String text) throws IllegalArgumentException {
+            AlbumDto a = albumService.getAlbumById(Long.parseLong(text));
+            setValue(a);
+        }
+    }
+
+    class GenreEditor extends PropertyEditorSupport {
+
+        private final GenreService genreService;
+
+        public GenreEditor(GenreService genreService) {
+            this.genreService = genreService;
+        }
+
+        @Override
+        public void setAsText(String text) throws IllegalArgumentException {
+            GenreDto g = genreService.findGenreById(Long.parseLong(text));
+            setValue(g);
+        }
+    }
+
 }
