@@ -14,12 +14,12 @@
     </tr>
 	<tr>
         <th><form:label path="positionInAlbum"><fmt:message key="song.positionInAlbum"/></form:label></th>
-        <td><form:input path="positionInAlbum"/></td>
+        <td><form:input path="positionInAlbum" type="number" min="1"/></td>
         <td><form:errors path="positionInAlbum" cssClass="error"/></td>
     </tr>
 	<tr>
         <th><form:label path="bitrate"><fmt:message key="song.bitrate"/></form:label></th>
-        <td><form:input path="bitrate"/></td>
+        <td><form:input path="bitrate" type="number" min="1"/></td>
         <td><form:errors path="bitrate" cssClass="error"/></td>
     </tr>
 	<tr>
