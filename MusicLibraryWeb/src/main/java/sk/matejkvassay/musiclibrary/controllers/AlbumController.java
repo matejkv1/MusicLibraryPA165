@@ -1,12 +1,15 @@
 package sk.matejkvassay.musiclibrary.controllers;
 
 import java.beans.PropertyEditorSupport;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import javax.inject.Inject;
 import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -61,7 +64,12 @@ public class AlbumController {
     
     @InitBinder
     protected void initBinder2(WebDataBinder binder) {
+        // custom editor from string to musician dto
         binder.registerCustomEditor(MusicianDto.class, new MusicianEditor(this.musicianService));
+        
+        // allowed date format
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
     }
     
     
@@ -139,6 +147,7 @@ public class AlbumController {
         
         if (album.getId() == null) {
             log.debug("adding album");
+            log.debug("Album date: {}", album.getDateOfRelease());
             albumService.addAlbum(album);
             redirectAttributes.addFlashAttribute(
                     "message",

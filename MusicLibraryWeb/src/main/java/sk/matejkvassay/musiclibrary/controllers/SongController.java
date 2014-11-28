@@ -69,12 +69,13 @@ public class SongController {
     public String showDetail(@PathVariable long id, Model model) {
         log.debug("showDetail(): displaying song details");
         SongDto song = songService.getSongById(id);
+        model.addAttribute("song", song);
         
         model.addAttribute("album", albumService.getAlbumBySong(song));
         model.addAttribute("genre", genreService.findGenreBySong(song));
         model.addAttribute("musician", musicianService.getMusicianBySong(song));
         
-        return "album/detail";
+        return "song/detail";
     }
 
     @RequestMapping(value = "/new", method = RequestMethod.GET)
