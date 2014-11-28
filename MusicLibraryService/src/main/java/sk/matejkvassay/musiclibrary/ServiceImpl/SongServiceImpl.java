@@ -66,8 +66,11 @@ public class SongServiceImpl implements SongService {
 		songDto.setPositionInAlbum(song.getPositionInAlbum());
 		songDto.setTitle(song.getTitle());
                 
+		if(song.getGenre() != null)
                 songDto.setGenre(GenreServiceImpl.entityToDto(song.getGenre()));
+		if(song.getMusician() != null)
                 songDto.setMusician(MusicianServiceImpl.toDto(song.getMusician()));
+		if(song.getAlbum() != null)
                 songDto.setAlbum(AlbumServiceImpl.toDto(song.getAlbum()));
 		
 		return songDto;
@@ -84,10 +87,13 @@ public class SongServiceImpl implements SongService {
 		song.setCommentary(songDto.getCommentary());
 		song.setPositionInAlbum(songDto.getPositionInAlbum());
 		song.setTitle(songDto.getTitle());
-                
-                song.setGenre(GenreServiceImpl.dtoToEntity(songDto.getGenre()));
-                song.setMusician(MusicianServiceImpl.fromDto(songDto.getMusician()));
-                song.setAlbum(AlbumServiceImpl.fromDto(songDto.getAlbum()));
+          
+		if(songDto.getGenre() != null)
+			song.setGenre(GenreServiceImpl.dtoToEntity(songDto.getGenre()));
+		if(songDto.getMusician() != null)
+			song.setMusician(MusicianServiceImpl.fromDto(songDto.getMusician()));
+		if(songDto.getAlbum() != null)
+			song.setAlbum(AlbumServiceImpl.fromDto(songDto.getAlbum()));
 
         return song;
     }
