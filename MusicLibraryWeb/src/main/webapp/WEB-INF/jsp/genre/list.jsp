@@ -47,7 +47,7 @@
             </c:forEach>
         </table>        
                 <hr>
-                <p><i><c:out value="${genre.list.deletewarning}"/></i></p>
+                <p><i><fmt:message key='genre.deletewarning'/></i></p>
     </jsp:attribute>
 </my:layout>
 

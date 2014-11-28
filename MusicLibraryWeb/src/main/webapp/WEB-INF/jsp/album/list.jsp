@@ -50,7 +50,7 @@
             </c:forEach>
         </table>
                 <hr>
-                <p><i><c:out value="${album.list.deletewarning}"/></i></p>
+                <p><i><fmt:message key='album.deletewarning'/></i></p>
         
     </jsp:attribute>
 </my:layout>
