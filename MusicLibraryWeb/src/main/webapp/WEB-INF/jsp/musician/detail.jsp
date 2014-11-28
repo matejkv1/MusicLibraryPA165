@@ -24,10 +24,10 @@
             <p><c:out value="${musician.biography}"/></p>
             
             <b><fmt:message key="musician.detail.albumstitle"/>:</b>
-            <table class="tracklist">
+            <table class="basic">
             <tr>
-                    <th></th>
-                    <th></th>
+                    <th><fmt:message key="album.title"/></th>
+                    <th><fmt:message key="album.releaseDate"/></th>
             </tr>
             
             <c:forEach items="${albums}" var="album">

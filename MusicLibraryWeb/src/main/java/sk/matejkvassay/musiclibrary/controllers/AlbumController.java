@@ -25,6 +25,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import sk.matejkvassay.musiclibrary.validation.AlbumSpringValidation;
+import sk.matejkvassay.musiclibrary.validation.InitializerBean;
 import sk.matejkvassay.musiclibrarybackendapi.Dto.AlbumDto;
 import sk.matejkvassay.musiclibrarybackendapi.Dto.MusicianDto;
 import sk.matejkvassay.musiclibrarybackendapi.Service.AlbumService;
@@ -48,6 +49,8 @@ public class AlbumController {
     @Inject
     private MusicianService musicianService;
 
+    @Inject
+    private InitializerBean init;
     @Inject
     private MessageSource messageSource;
     
