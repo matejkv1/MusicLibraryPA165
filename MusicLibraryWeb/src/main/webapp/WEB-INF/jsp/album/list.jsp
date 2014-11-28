@@ -29,7 +29,7 @@
                 <tr>
                     <td><img src="${album.albumArt}" height="32" width="32"></td>
                     <td><a href="${pageContext.request.contextPath}/album/${album.id}"><c:out value="${album.title}"/></a></td>
-                    <td><a href="${pageContext.request.contextPath}/musician/${musician.id}"><c:out value="${album.musician.name}"/></a></td>
+                    <td><a href="${pageContext.request.contextPath}/musician/${album.musician.id}"><c:out value="${album.musician.name}"/></a></td>
                     <td><c:out value="${album.dateOfRelease}"/></td>
                     <td>
                         <form method="get" action="${pageContext.request.contextPath}/album/update/${album.id}">

@@ -7,9 +7,13 @@
 
 <fmt:message var="title" key="musician.list.title"/>
 <my:layout title="${title}">
- <jsp:attribute name="body">
+    <jsp:attribute name="body">
 
 <!--        <p><fmt:message key="book.list.allbooks"/></p>-->
+        <form method="get" action="${pageContext.request.contextPath}/musician/new">
+            <input type="submit" value="<fmt:message key='musician.list.createmusician'/>">
+        </form>
+
 
         <table class="basic">
             <tr>
@@ -22,9 +26,9 @@
             <c:forEach items="${musicians}" var="musician">
                 <tr>
                     <td>${musician.id}</td>
-                    <td><c:out value="${musician.name}"/></td>
+                    <td><my:a href="/musician/${musician.id}"><c:out value="${musician.name}"/></my:a></td>
                     <td><c:out value="${musician.biography}"/></td>
-                    <td/>
+                    
                     <td>
                         <form method="get" action="${pageContext.request.contextPath}/musician/update/${musician.id}">
                             <input type="submit" value="<fmt:message key='musician.list.edit'/>">
@@ -38,12 +42,13 @@
                 </tr>
             </c:forEach>
         </table>
-
-<form:form method="post" action="${pageContext.request.contextPath}/musician/update" modelAttribute="musician">
-    <fieldset><legend><fmt:message key="musician.list.newmusician"/></legend>
-    <%@include file="form.jsp"%>
-    <input type="submit" value="<fmt:message key='musician.list.createmusician'/>">
-    </fieldset>
-</form:form>
-</jsp:attribute>
+<!--
+        <form:form method="post" action="${pageContext.request.contextPath}/musician/update" modelAttribute="musician">
+            <fieldset><legend><fmt:message key="musician.list.newmusician"/></legend>
+                <%@include file="form.jsp"%>
+                <input type="submit" value="<fmt:message key='musician.list.createmusician'/>">
+            </fieldset>
+        </form:form>
+                -->
+    </jsp:attribute>
 </my:layout>

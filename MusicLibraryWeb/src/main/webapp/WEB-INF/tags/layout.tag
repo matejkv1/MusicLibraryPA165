@@ -40,6 +40,7 @@
             <c:if test="${not empty message}">
                 <div class="message"><c:out value="${message}"/></div>
             </c:if>
+                <br/>
             <jsp:invoke fragment="body"/>
         </div>
     </body>

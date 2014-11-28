@@ -29,6 +29,7 @@ h1 {
 table.basic {
     border-collapse: collapse;
     margin: 10px;
+    margin-left: 0px;
 }
 
 table.basic th, table.basic td {

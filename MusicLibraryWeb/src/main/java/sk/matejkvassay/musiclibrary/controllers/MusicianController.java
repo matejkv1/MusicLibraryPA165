@@ -22,7 +22,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponentsBuilder;
 import sk.matejkvassay.musiclibrary.DaoImpl.Exception.MusicianNameNullException;
+import static sk.matejkvassay.musiclibrary.controllers.AlbumController.log;
+import sk.matejkvassay.musiclibrary.validation.MusicianSpringValidation;
+import sk.matejkvassay.musiclibrarybackendapi.Dto.AlbumDto;
 import sk.matejkvassay.musiclibrarybackendapi.Dto.MusicianDto;
+import sk.matejkvassay.musiclibrarybackendapi.Service.AlbumService;
 import sk.matejkvassay.musiclibrarybackendapi.Service.MusicianService;
 
 /**
@@ -39,7 +43,13 @@ public class MusicianController {
     private MusicianService musicianService;
     
     @Inject
+    private AlbumService albumService;
+    
+    @Inject
     private MessageSource messageSource;
+    
+    @Inject
+    private MusicianSpringValidation validator;
     
     @ModelAttribute("musicians")
     public List<MusicianDto> allMusicians() {
@@ -54,6 +64,16 @@ public class MusicianController {
         return "musician/list";
     }
     
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public String showDetail(@PathVariable long id, Model model) {
+        log.debug("showDetail(): displaying musician details");
+        MusicianDto musician = musicianService.getMusicianById(id);
+        model.addAttribute("musician", musician);
+        
+        model.addAttribute("albums", albumService.getAlbumsByMusician(musician));
+        return "musician/detail";
+    }
+    
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     public String delete(@PathVariable long id, RedirectAttributes redirectAttributes, Locale locale, UriComponentsBuilder uriBuilder) {
         log.debug("delete({})", id);
@@ -66,6 +86,15 @@ public class MusicianController {
         return "redirect:" + uriBuilder.path("/musician/list").build();
     }
     
+    @RequestMapping(value = "/new", method = RequestMethod.GET)
+    public String addNew(Model model) {
+        model.addAttribute("musician", new MusicianDto());
+        
+        log.debug("addNew(): editing musician");
+        
+        return "musician/edit";
+    }
+    
     @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
     public String update_form(@PathVariable long id, Model model) {
         MusicianDto musician = musicianService.getMusicianById(id);
@@ -75,7 +104,7 @@ public class MusicianController {
     }
     
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public String update(@Valid @ModelAttribute MusicianDto musician, BindingResult bindingResult, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder, Locale locale) throws MusicianNameNullException {
+    public String update(@Valid @ModelAttribute("musician") MusicianDto musician, BindingResult bindingResult, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder, Locale locale) throws MusicianNameNullException {
         log.debug("update(locale={}, musician={})", locale, musician);
         if (bindingResult.hasErrors()) {
             log.debug("binding errors");
@@ -85,7 +114,7 @@ public class MusicianController {
             for (FieldError fe : bindingResult.getFieldErrors()) {
                 log.debug("FieldError: {}", fe);
             }
-            return musician.getId() == null? "musician/list":"musician/edit";
+            return "musician/edit";
         }
         if (musician.getId() == null) {
             musicianService.addMusician(musician);
@@ -104,6 +133,10 @@ public class MusicianController {
     }
     
     
+    @InitBinder()
+    protected void initBinder(WebDataBinder binder) {
+        binder.addValidators(validator);
+    }
     
     
     

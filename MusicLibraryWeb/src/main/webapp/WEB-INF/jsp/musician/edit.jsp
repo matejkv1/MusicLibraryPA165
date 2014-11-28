@@ -7,13 +7,22 @@
 
 <fmt:message var="title" key="musician.edit.title"/>
 <my:layout title="${title}">
- <jsp:attribute name="body">
-<form:form method="post" action="${pageContext.request.contextPath}/musician/update" modelAttribute="musician">
-    <form:hidden path="id"/>
-    <fieldset><legend><fmt:message key="musician.edit.edit"/></legend>
-        <%@include file="form.jsp"%>
-        <input type="submit" value="<fmt:message key='musician.edit.save'/>">
-    </fieldset>
-</form:form>
+    <jsp:attribute name="body">
+        <form:form method="post" action="${pageContext.request.contextPath}/musician/update" modelAttribute="musician">
+            <form:hidden path="id"/>
+            <fieldset>
+                <legend>
+                    <c:if test="${empty musician.id}">
+                        <fmt:message key="musician.list.createmusician"/>
+
+                    </c:if>
+                </legend>
+                <c:if test="${not empty musician.id}">
+                    <fmt:message key="musician.edit.edit"/></legend>
+                </c:if>
+                <%@include file="form.jsp"%>
+            <input type="submit" value="<fmt:message key='musician.edit.save'/>">
+        </fieldset>
+    </form:form>
 </jsp:attribute>
 </my:layout>
