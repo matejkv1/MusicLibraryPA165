@@ -12,34 +12,41 @@
 <fmt:message var="title" key="song.list.title"/>
 <my:layout title="${title}">
     <jsp:attribute name="body">
-        
-        
+
+
         <p><fmt:message key="song.list.all"/></p>
-        
-        <form method="get" action="${pageContext.request.contextPath}/song/edit">
+
+        <form method="get" action="${pageContext.request.contextPath}/song/new">
             <input type="submit" value="<fmt:message key='song.add.new'/>">
         </form>
-        
+
         <table class="basic">
             <tr>
                 <th><fmt:message key="song.list.table.headder"/></th>
-				<th><fmt:message key="song.list.table.position"/></th>
-				<th><fmt:message key="song.list.table.bitrate"/></th>
+                <th><fmt:message key="song.list.table.musician"/></th>
+                <th><fmt:message key="song.list.table.album"/></th>
+                <th><fmt:message key="song.list.table.genre"/></th>
                 <th></th>
                 <th></th>
             </tr>
             <c:forEach items="${songs}" var="song">
                 <tr>
                     <td>
-                        <a href="${pageContext.request.contextPath}/song/detail/${song.id}"><c:out value="${song.title}"/></a>
+                        <a href="${pageContext.request.contextPath}/song/${song.id}"><c:out value="${song.title}"/></a>
                     </td>
-					<td>
-						${song.positionInAlbum}
-					</td>
-					<td>
-						${song.bitrate}
-					</td>
-     
+                    
+                    <td>
+                        <a href="${pageContext.request.contextPath}/musician/${song.musician.id}"><c:out value="${song.musician.name}"/></a>
+                    </td>
+                    
+                    <td>
+                        <a href="${pageContext.request.contextPath}/album/${song.album.id}"><c:out value="${song.album.title}"/></a>
+                    </td>
+                    
+                    <td>
+                        <a href="${pageContext.request.contextPath}/genre/${song.genre.id}"><c:out value="${song.genre.name}"/></a>
+                    </td>
+
                     <td>
                         <form method="get" action="${pageContext.request.contextPath}/song/update/${song.id}">
                             <input type="submit" value="<fmt:message key='song.edit.button'/>">

@@ -22,7 +22,6 @@
         <td><form:input path="bitrate"/></td>
         <td><form:errors path="bitrate" cssClass="error"/></td>
     </tr>
-	<!--
 	<tr>
         <th><form:label path="musician"><fmt:message key="song.musician.name"/></form:label></th>
         <td><form:select path="musician">
@@ -50,6 +49,5 @@
         </form:select></td>
         <td><form:errors path="album" cssClass="error"/></td>
     </tr>
-	-->
 </table>
 

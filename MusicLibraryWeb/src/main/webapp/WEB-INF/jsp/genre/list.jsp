@@ -17,7 +17,7 @@
         
         <p><fmt:message key="genre.list.all"/></p>
         
-        <form method="get" action="${pageContext.request.contextPath}/genre/edit">
+        <form method="get" action="${pageContext.request.contextPath}/genre/new">
             <input type="submit" value="<fmt:message key='genre.add.new'/>">
         </form>
         
@@ -30,7 +30,7 @@
             <c:forEach items="${allGenres}" var="genre">
                 <tr>
                     <td>
-                        <a href="${pageContext.request.contextPath}/genre/detail/${genre.id}"><c:out value="${genre.name}"/></a>
+                        <a href="${pageContext.request.contextPath}/genre/${genre.id}"><c:out value="${genre.name}"/></a>
                     </td>
      
                     <td>

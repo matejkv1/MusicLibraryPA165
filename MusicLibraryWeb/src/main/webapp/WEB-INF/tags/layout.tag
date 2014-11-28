@@ -25,12 +25,12 @@
             <table class="basic">
                 <tr>
                     <!--http://i.imgur.com/euNuShD.jpg default img-->
-                    <td><a href="${pageContext.request.contextPath}/"><img src="${pageContext.request.contextPath}/resources/images/logo.png" alt="Logo" height="64" width="64"></a></td>
+                    <td><a href="${pageContext.request.contextPath}/"><img src="${pageContext.request.contextPath}/resources/images/logo-small.png" alt="Logo" height="64" width="64"></a></td>
                     <td><b>
                         <a href="${pageContext.request.contextPath}/musician/list"><fmt:message key="navigation.musicians"/></a>  |  
                         <a href="${pageContext.request.contextPath}/album/list"><fmt:message key="navigation.albums"/></a>  |  
                         <a href="${pageContext.request.contextPath}/song/list"><fmt:message key="navigation.songs"/></a>  |  
-                        <a href="${pageContext.request.contextPath}/genre"><fmt:message key="navigation.genres"/></a>
+                        <a href="${pageContext.request.contextPath}/genre/list"><fmt:message key="navigation.genres"/></a>
                     </b></td>
                 </tr>
             </table>

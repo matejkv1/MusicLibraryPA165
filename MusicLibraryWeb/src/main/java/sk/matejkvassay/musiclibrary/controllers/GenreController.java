@@ -61,19 +61,19 @@ public class GenreController {
     
     
    
-    @RequestMapping(value="/edit", method=RequestMethod.GET)
+    @RequestMapping(value="/new", method=RequestMethod.GET)
     public String edit(Model model){
         model.addAttribute("genre",new GenreDto());
         return "genre/edit";
     }
     
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String list(Model model) {
         model.addAttribute("genres", new GenreDto());
         return "genre/list";
     }
     
-    @RequestMapping(value = "/detail/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String detail(@PathVariable long id, Model model,RedirectAttributes redirectAttributes, Locale locale, UriComponentsBuilder uriBuilder){
         GenreDto genre=genreService.findGenreById(id);
         model.addAttribute("genre", genre);
@@ -89,7 +89,7 @@ public class GenreController {
                 "message",
                 messageSource.getMessage("genre.delete.message", new Object[]{genre.getName()}, locale)
         );
-        return "redirect:" + uriBuilder.path("/genre").build();
+        return "redirect:" + uriBuilder.path("/genre/list").build();
     }
     
     @InitBinder
@@ -108,7 +108,7 @@ public class GenreController {
     public String update(@Valid @ModelAttribute GenreDto genre, BindingResult bindingResult, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder, Locale locale) {
 
         if (bindingResult.hasErrors()) {
-            return genre.getId()==null?"genre/list":"genre/edit";
+            return "genre/edit";
         }
         
         //create new
@@ -127,6 +127,6 @@ public class GenreController {
                     messageSource.getMessage("genre.updated.message", new Object[]{genre.getName()}, locale)
             );
         }
-        return "redirect:" + uriBuilder.path("/genre").build();
+        return "redirect:" + uriBuilder.path("/genre/list").build();
     }
 }
