@@ -54,6 +54,9 @@ public class SongController {
     @Inject
     private MessageSource messageSource;
 
+    @Inject
+    private SongSpringValidation validator;
+
     @ModelAttribute("songs")
     public List<SongDto> allSongs() {
         return songService.getAllSongs();
@@ -64,7 +67,7 @@ public class SongController {
         model.addAttribute("song", new SongDto());
         return "song/list";
     }
-    
+
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String showDetail(@PathVariable long id, Model model) {
         log.debug("showDetail(): displaying song details");
@@ -84,7 +87,7 @@ public class SongController {
         model.addAttribute("musicians", musicianService.getAllMusicians());
         model.addAttribute("albums", albumService.getAllAlbums());
         model.addAttribute("genres", genreService.getAllGenres());
-        
+
         log.debug("edit(model={})", model);
 
         return "song/edit";
@@ -108,14 +111,14 @@ public class SongController {
         model.addAttribute("musicians", musicianService.getAllMusicians());
         model.addAttribute("albums", albumService.getAllAlbums());
         model.addAttribute("genres", genreService.getAllGenres());
-        
+
         log.debug("update_form(model={})", model);
         return "song/edit";
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public String update(@Valid @ModelAttribute("song") SongDto song, BindingResult bindingResult, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder, Locale locale) throws MusicianNameNullException {
-        
+    public String update(@Valid @ModelAttribute("song") SongDto song, BindingResult bindingResult, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder, Locale locale, Model model) throws MusicianNameNullException {
+
         if (bindingResult.hasErrors()) {
             log.debug("binding errors");
             for (ObjectError ge : bindingResult.getGlobalErrors()) {
@@ -124,6 +127,10 @@ public class SongController {
             for (FieldError fe : bindingResult.getFieldErrors()) {
                 log.debug("FieldError: {}", fe);
             }
+            model.addAttribute("musicians", musicianService.getAllMusicians());
+            model.addAttribute("albums", albumService.getAllAlbums());
+            model.addAttribute("genres", genreService.getAllGenres());
+
             return "song/edit";
         }
 
@@ -142,12 +149,12 @@ public class SongController {
         }
         return "redirect:" + uriBuilder.path("/song/list").build();
     }
-    
+
     @InitBinder("song")
     protected void initBinder(WebDataBinder binder) {
-        binder.addValidators(new SongSpringValidation());
+        binder.addValidators(validator);
     }
-    
+
     @InitBinder("song")
     protected void initBinder2(WebDataBinder binder) {
         binder.registerCustomEditor(MusicianDto.class, new MusicianEditor(this.musicianService));

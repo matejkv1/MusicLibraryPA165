@@ -8,6 +8,7 @@ package sk.matejkvassay.musiclibrary.Entity;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Column;
@@ -40,7 +41,7 @@ public class Album {
     @Column
     private String albumArt;
     
-    @OneToMany(mappedBy="album")
+    @OneToMany(mappedBy="album", cascade = CascadeType.REMOVE)
     private List<Song> songs;
     
     @ManyToOne

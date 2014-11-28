@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.OneToMany;
 import java.util.List;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 /**
  *
  * @author Matej Kvassay <www.matejkvassay.sk>
@@ -31,7 +32,7 @@ public class Genre {
     @Column
     private String description;    
     
-    @OneToMany(mappedBy="genre")  
+    @OneToMany(mappedBy="genre", cascade = CascadeType.REMOVE)  
     private List<Song> songs;
 
     public Long getId() {

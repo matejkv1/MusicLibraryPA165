@@ -33,7 +33,7 @@ public class Musician {
     @OneToMany(mappedBy="musician", cascade = CascadeType.REMOVE)
     private Set<Album> albums;
     
-    @OneToMany(mappedBy="musician")
+    @OneToMany(mappedBy="musician", cascade = CascadeType.REMOVE)
     private Set<Song>songs;
 
     public Set<Album> getAlbums() {

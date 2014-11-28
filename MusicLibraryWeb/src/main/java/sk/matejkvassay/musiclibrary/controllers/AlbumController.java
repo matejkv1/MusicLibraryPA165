@@ -132,7 +132,7 @@ public class AlbumController {
     }
     
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public String update(@Valid @ModelAttribute("album") AlbumDto album, BindingResult bindingResult, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder, Locale locale) {
+    public String update(@Valid @ModelAttribute("album") AlbumDto album, BindingResult bindingResult, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder, Locale locale, Model model) {
         log.debug("update(): updating DB");
         if (bindingResult.hasErrors()) {
             log.debug("binding errors");
@@ -142,6 +142,8 @@ public class AlbumController {
             for (FieldError fe : bindingResult.getFieldErrors()) {
                 log.debug("FieldError: {}", fe);
             }
+            
+            model.addAttribute("musicians", musicianService.getAllMusicians());
             return "/album/edit";
         }
         

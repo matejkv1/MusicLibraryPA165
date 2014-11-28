@@ -24,7 +24,6 @@
                     <c:if test="${not empty album.id}">
                         <fmt:message key="album.edit.editalbum"/></legend>
                     </c:if>
-            </legend>
             <%@include file="form.jsp"%>
             <input type="submit" value="<fmt:message key='album.edit.save'/>">
         </fieldset>
