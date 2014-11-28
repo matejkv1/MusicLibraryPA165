@@ -22,6 +22,11 @@ public class AlbumSpringValidation implements Validator {
         if (title.length() < 1) {
             errors.rejectValue("title", "empty.title");
         }
+        if (album.getMusician() == null) {
+            errors.rejectValue("musician", "empty.musician");
+        }
+        // date format validation
+        // msg: wrongFormat.date
     }
     
 }

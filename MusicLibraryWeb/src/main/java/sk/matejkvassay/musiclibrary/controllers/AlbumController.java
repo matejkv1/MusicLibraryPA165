@@ -1,7 +1,6 @@
 package sk.matejkvassay.musiclibrary.controllers;
 
 import java.beans.PropertyEditorSupport;
-import java.util.List;
 import java.util.Locale;
 import javax.inject.Inject;
 import javax.validation.Valid;
@@ -109,7 +108,7 @@ public class AlbumController {
         model.addAttribute("album", new AlbumDto());
         model.addAttribute("musicians", musicianService.getAllMusicians());
         
-        log.debug("addNew(): editing album");
+        log.debug("addNew(): adding album");
         
         return "album/edit";
     }
