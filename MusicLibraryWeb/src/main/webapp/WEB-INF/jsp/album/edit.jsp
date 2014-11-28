@@ -22,8 +22,9 @@
                         <fmt:message key="album.list.add"/>
                     </c:if>
                     <c:if test="${not empty album.id}">
-                        <fmt:message key="album.edit.editalbum"/></legend>
+                        <fmt:message key="album.edit.editalbum"/>
                     </c:if>
+                    </legend>
             <%@include file="form.jsp"%>
             <input type="submit" value="<fmt:message key='album.edit.save'/>">
         </fieldset>
