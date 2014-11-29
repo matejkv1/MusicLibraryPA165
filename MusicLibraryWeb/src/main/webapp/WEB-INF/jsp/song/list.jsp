@@ -14,7 +14,7 @@
     <jsp:attribute name="body">
 
 
-        <p><fmt:message key="song.list.all"/></p>
+        <p id='listTitle'><fmt:message key="song.list.all"/></p>
 
         <form method="get" action="${pageContext.request.contextPath}/song/new">
             <input type="submit" value="<fmt:message key='song.add.new'/>">
@@ -60,6 +60,7 @@
                 </tr>
             </c:forEach>
         </table>        
+                <hr>
     </jsp:attribute>
 </my:layout>
 

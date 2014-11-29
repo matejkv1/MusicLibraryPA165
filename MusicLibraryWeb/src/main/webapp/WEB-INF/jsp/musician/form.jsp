@@ -1,6 +1,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+    <div id="form">
     <table>
         <tr>
             <th><form:label path="name"><fmt:message key="musician.name"/></form:label></th>
@@ -13,3 +14,4 @@
             <td><form:errors path="biography" cssClass="error"/></td>
         </tr>
     </table>
+    </div>

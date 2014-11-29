@@ -24,15 +24,15 @@
             <br>
             
             <b><fmt:message key="album.detail.musicianName"/>: </b>
-                <p>
+                
                     <a href="${pageContext.request.contextPath}/musician/${musician.id}"><c:out value="${musician.name}"/></a>
-                </p>
-            <b><fmt:message key="album.detail.releaseDate"/>: </b><p><c:out value="${album.dateOfRelease}"/></p>
-            <b><fmt:message key="album.detail.commentary"/>: </b><p><c:out value="${album.commentary}"/></p>
+                    <br>
+            <b><fmt:message key="album.detail.releaseDate"/>: </b><c:out value="${album.dateOfRelease}"/><br>
+            <b><fmt:message key="album.detail.commentary"/>: </b><c:out value="${album.commentary}"/><br>
             
             <table class="tracklist">
                 <tr>
-                    <th></th>
+                    <th>#</th>
                     <th><fmt:message key="album.detail.tracklist"/></th>
                 </tr>
                 <c:forEach items="${songs}" var="song">

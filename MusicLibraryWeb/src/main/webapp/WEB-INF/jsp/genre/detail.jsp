@@ -20,10 +20,10 @@
             <br>
             
             <b><fmt:message key="genre.detail.description"/>: </b>
-            <p>${genre.description}</p>
+            ${genre.description}<br>
 
             <b><fmt:message key="genre.detail.songs"/>:</b>
-            <table class="basic">
+            <table class="tracklist">
                      <tr>
                          <th><fmt:message key="genre.detail.musician"/></th>
                          <th><fmt:message key="genre.detail.song"/></th>

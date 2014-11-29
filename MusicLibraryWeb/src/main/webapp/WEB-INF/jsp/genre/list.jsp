@@ -15,7 +15,7 @@
         
         
         
-        <p><fmt:message key="genre.list.all"/></p>
+        <p id='listTitle'><fmt:message key="genre.list.all"/></p>
         
         <form method="get" action="${pageContext.request.contextPath}/genre/new">
             <input type="submit" value="<fmt:message key='genre.add.new'/>">

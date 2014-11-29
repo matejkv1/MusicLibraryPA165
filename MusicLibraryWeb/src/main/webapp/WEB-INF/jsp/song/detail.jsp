@@ -19,21 +19,18 @@
             </form>
             <br>
             
-            <b><fmt:message key="song.detail.bitrate"/>: </b><p><c:out value="${song.bitrate}"/></p>
+            <b><fmt:message key="song.detail.bitrate"/>: </b><c:out value="${song.bitrate}"/><br>
             <b><fmt:message key="song.detail.genre"/>: </b>
-                <p>
-                    <a href="${pageContext.request.contextPath}/genre/${genre.id}"><c:out value="${genre.name}"/></a>
-                </p>
+                <a href="${pageContext.request.contextPath}/genre/${genre.id}"><c:out value="${genre.name}"/></a>
+                <br>
             <b><fmt:message key="song.detail.musicianName"/>: </b>
-                <p>
-                    <a href="${pageContext.request.contextPath}/musician/${musician.id}"><c:out value="${musician.name}"/></a>
-                </p>
+                <a href="${pageContext.request.contextPath}/musician/${musician.id}"><c:out value="${musician.name}"/></a>
+                <br>
             <b><fmt:message key="song.detail.album"/>: </b>
-                <p>
-                    <a href="${pageContext.request.contextPath}/album/${album.id}"><c:out value="${album.title}"/></a>
-                </p>
-            <b><fmt:message key="song.detail.positionInAlbum"/>: </b><p><c:out value="${song.positionInAlbum}"/></p>
-            <b><fmt:message key="song.detail.commentary"/>: </b><p><c:out value="${song.commentary}"/></p>
+                <a href="${pageContext.request.contextPath}/album/${album.id}"><c:out value="${album.title}"/></a>
+                <br>
+            <b><fmt:message key="song.detail.positionInAlbum"/>: </b><c:out value="${song.positionInAlbum}"/><br>
+            <b><fmt:message key="song.detail.commentary"/>: </b><c:out value="${song.commentary}"/><br>
             
         </div>
     </jsp:attribute>

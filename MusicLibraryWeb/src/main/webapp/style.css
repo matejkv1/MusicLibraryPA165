@@ -1,42 +1,71 @@
 #index {
     text-align: center;
     margin-top: 100px;
-    
 }
 
 #content {
     background-color: #FFD98C;
-    padding: 10px;
-    margin-left: 15px;
-    margin-right: 15px;
+    padding: 20px;
+    margin-left: 12px;
+    margin-right: 12px;
+    border-radius: 5px;
+}
+
+#content hr {
+    color: #cc9900;
+    border-width: 1px;
+    border-style: solid;
+    display: block;
+    margin-right: 33%;
+}
+
+#header hr {
+    color: gray;
+    border-width: 1px;
+    border-style: none;
+}
+
+p#listTitle {
+    font-weight: bold;
+    font-size: 22px;
 }
 
 a:link {
     color: #424242;
+    text-decoration: none;
 }
 
 a:hover {
     color: #8A7F5E;
+    text-decoration: underline;
 }
 
 a:visited {
     color: #635B43;
+    text-decoration: none;
 }
 
 a:active {
     color: #424242;
+    text-decoration: underline;
 }
 
 .message {
-    background-color: lightgreen;
-    border: 1px solid darkgreen;
+    background-color: #ff6100;
+    border: transparent;
+    border-radius: 6px;
     padding: 1em;
 }
 
 span.error {
-    background-color: yellow;
-    color: red;
+    padding: 1px;
+    padding-left: 2px;
+    padding-right: 2px;
+    background-color: #ff6600;
+    color: white;
     font-weight: bold;
+    font-size: 85%;
+    border-radius: 5px;
 }
 
 input.error {
@@ -49,10 +78,107 @@ body {
 }
 
 h1 {
-    text-align: center;
-    text-decoration: underline;
-    text-shadow: aquamarine;
+    text-align: left;
     text-transform: capitalize;
+    font-size: 30px;
+}
+
+input[type="submit"] {
+    background-color:#ffec64;
+    border-radius:6px;
+    border:1px solid #ffaa22;
+    display:inline-block;
+    cursor:pointer;
+    color:#333333;
+    font-weight:bold;
+    padding:3px 6px;
+    text-decoration:none;
+}
+input[type="submit"]:hover {
+    background-color:#ffab23;
+}
+input[type="submit"]:active {
+    position:relative;
+    top:1px;
+}
+
+/*input[type="submit"] {
+	background-color:#f9f9f9;
+	border-radius:6px;
+	border:1px solid #dcdcdc;
+	display:inline-block;
+	cursor:pointer;
+	color:#666666;
+	font-weight:bold;
+	padding:3px 6px;
+	text-decoration:none;
+}
+input[type="submit"]:hover {
+	background-color:#e9e9e9;
+}
+input[type="submit"]:active {
+	position:relative;
+	top:1px;
+}*/
+
+
+
+
+fieldset {
+    border: dotted 1px gray;
+}
+
+#form table th {
+    text-align: right;
+    vertical-align: top;
+}
+
+#form input {
+    width: 200px;
+    
+}
+
+#form textarea {
+    width: 198px;
+    max-width: 198px;
+    height: 30px;
+}
+
+#form select {
+    width: 204px;
+    max-width: 204px;
+}
+
+table.tracklist {
+    border-collapse: collapse;
+    margin: 10px;
+    margin-left: 0px;
+}
+
+table.tracklist th {
+    padding: 4px;
+    border: solid 1px gray;
+    border-bottom: solid 2px black;
+}
+
+table.tracklist td {
+    padding: 4px;
+    border: solid 1px gray;
+}
+
+table.tracklist tr:first-child th {
+    border-top: 0;
+}
+table.tracklist tr:last-child td {
+    border-bottom: 0;
+}
+table.tracklist tr td:first-child,
+table.tracklist tr th:first-child {
+    border-left: 0;
+}
+table.tracklist tr td:last-child,
+table.tracklist tr th:last-child {
+    border-right: 0;
 }
 
 table.basic {
@@ -73,8 +199,6 @@ table.basic td {
     border: solid 1px gray;
 }
 
-
-/*  http://www.alistapart.com/articles/taminglists/ */
 table.header {
     border: transparent;
     padding: 5px;

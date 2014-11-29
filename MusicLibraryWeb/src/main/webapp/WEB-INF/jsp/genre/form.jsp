@@ -7,6 +7,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<div id="form">
 <table>
     <tr>
         <th><form:label path="name"><fmt:message key="genre.name"/></form:label></th>
@@ -19,3 +20,4 @@
         <td><form:errors path="description" cssClass="error"/></td>
     </tr>
 </table>
+</div>

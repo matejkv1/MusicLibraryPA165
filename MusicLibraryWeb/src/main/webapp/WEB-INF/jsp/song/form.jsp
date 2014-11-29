@@ -1,6 +1,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<div id="form">
 <table>
     <tr>
         <th><form:label path="title"><fmt:message key="song.title"/></form:label></th>
@@ -14,7 +15,7 @@
     </tr>
 	<tr>
         <th><form:label path="positionInAlbum"><fmt:message key="song.positionInAlbum"/></form:label></th>
-        <td><form:input path="positionInAlbum" type="number" min="1"/></td>
+        <td><form:input path="positionInAlbum" type="number" min="1" /></td>
         <td><form:errors path="positionInAlbum" cssClass="error"/></td>
     </tr>
 	<tr>
@@ -50,4 +51,4 @@
         <td><form:errors path="album" cssClass="error"/></td>
     </tr>
 </table>
-
+</div>

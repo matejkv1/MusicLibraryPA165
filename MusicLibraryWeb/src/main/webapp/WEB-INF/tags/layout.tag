@@ -39,8 +39,9 @@
         <div id="content">
             <c:if test="${not empty message}">
                 <div class="message"><c:out value="${message}"/></div>
-            </c:if>
                 <br/>
+            </c:if>
+                
             <jsp:invoke fragment="body"/>
         </div>
     </body>

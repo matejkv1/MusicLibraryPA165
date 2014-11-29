@@ -9,7 +9,7 @@
 <my:layout title="${title}">
     <jsp:attribute name="body">
 
-        <p><fmt:message key="musician.list.all"/></p>
+        <p id='listTitle'><fmt:message key="musician.list.all"/></p>
         
         <form method="get" action="${pageContext.request.contextPath}/musician/new">
             <input type="submit" value="<fmt:message key='musician.list.createmusician'/>">

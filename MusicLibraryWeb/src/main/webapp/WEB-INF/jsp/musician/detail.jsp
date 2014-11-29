@@ -21,10 +21,10 @@
             <!--</form>-->
             <br>
             <b><fmt:message key="musician.biography"/>: </b>
-            <p><c:out value="${musician.biography}"/></p>
+            <c:out value="${musician.biography}"/><br>
             
             <b><fmt:message key="musician.detail.albumstitle"/>:</b>
-            <table class="basic">
+            <table class="tracklist">
             <tr>
                     <th><fmt:message key="album.title"/></th>
                     <th><fmt:message key="album.releaseDate"/></th>
