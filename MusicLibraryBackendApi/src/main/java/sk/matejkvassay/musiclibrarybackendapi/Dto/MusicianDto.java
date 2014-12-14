@@ -1,7 +1,6 @@
 package sk.matejkvassay.musiclibrarybackendapi.Dto;
 
 import java.util.Objects;
-import java.util.Set;
 
 /**
  * DTO which represents musician in application

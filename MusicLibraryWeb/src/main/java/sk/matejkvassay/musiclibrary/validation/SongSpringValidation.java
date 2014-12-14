@@ -1,6 +1,5 @@
 package sk.matejkvassay.musiclibrary.validation;
 
-import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 import org.springframework.stereotype.Component;
@@ -54,14 +53,11 @@ public class SongSpringValidation implements Validator {
         if (song.getAlbum() != null) {
             List<SongDto> songs = songService.getSongsByAlbum(song.getAlbum());
 
-            List<Integer> occupiedPositions = new ArrayList<>();
-
             for (SongDto songDto : songs) {
-                occupiedPositions.add(songDto.getPositionInAlbum());
-            }
-
-            if (song.getId() == null && occupiedPositions.contains(song.getPositionInAlbum())) {
-                errors.rejectValue("positionInAlbum", "song.positionInAlbum.notunique");
+                //if position is already occupied in DB by another song
+                if(songDto.getPositionInAlbum() == song.getPositionInAlbum() && !songDto.equals(song)){
+                    errors.rejectValue("positionInAlbum", "song.positionInAlbum.notunique");
+                }
             }
         }
     }

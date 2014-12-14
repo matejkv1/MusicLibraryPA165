@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package sk.matejkvassay.musiclibrary.validation;
 
 import java.util.Date;
@@ -13,7 +7,6 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
-import org.springframework.stereotype.Component;
 import sk.matejkvassay.musiclibrary.DaoImpl.Exception.MusicianNameNullException;
 import sk.matejkvassay.musiclibrarybackendapi.Dto.AlbumDto;
 import sk.matejkvassay.musiclibrarybackendapi.Dto.GenreDto;

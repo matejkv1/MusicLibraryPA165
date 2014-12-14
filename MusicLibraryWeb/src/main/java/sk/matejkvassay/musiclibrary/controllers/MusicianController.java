@@ -6,7 +6,6 @@ import javax.inject.Inject;
 import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,9 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponentsBuilder;
 import sk.matejkvassay.musiclibrary.DaoImpl.Exception.MusicianNameNullException;
-import static sk.matejkvassay.musiclibrary.controllers.AlbumController.log;
 import sk.matejkvassay.musiclibrary.validation.MusicianSpringValidation;
-import sk.matejkvassay.musiclibrarybackendapi.Dto.AlbumDto;
 import sk.matejkvassay.musiclibrarybackendapi.Dto.MusicianDto;
 import sk.matejkvassay.musiclibrarybackendapi.Service.AlbumService;
 import sk.matejkvassay.musiclibrarybackendapi.Service.MusicianService;
@@ -137,23 +134,4 @@ public class MusicianController {
     protected void initBinder(WebDataBinder binder) {
         binder.addValidators(validator);
     }
-    
-    
-    
-    
-    
-    /**
-     * Spring Validator added to JSR-303 Validator for this @Controller only
-     * http://docs.spring.io/spring/docs/current/spring-framework-reference/html/validation.html#validation-mvc-configuring
-     */
-//    @InitBinder
-//    protected void initBinder(WebDataBinder binder) {
-//        binder.addValidators(new BookSpringValidator());
-//    }
-    
-    
-//    @RequestMapping(value = "/musician",method = RequestMethod.GET)
-//    public String show_page() {
-//        return "musician/list";
-//    }
 }

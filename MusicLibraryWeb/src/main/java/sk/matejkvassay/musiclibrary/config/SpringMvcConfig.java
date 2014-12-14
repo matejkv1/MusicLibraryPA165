@@ -21,7 +21,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 /**
  *
- * @author
+ * @author Marián Macik
  */
 @Configuration
 @EnableWebMvc

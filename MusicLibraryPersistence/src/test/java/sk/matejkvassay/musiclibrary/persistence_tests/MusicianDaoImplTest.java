@@ -112,6 +112,9 @@ public class MusicianDaoImplTest {
             fail("MusicianException was not thrown when musician's name was not unique");
         } catch (DataAccessException ex) {
             //commit thrown error so it has already cleaned the transaction as said in documentation
+            if(!status.isCompleted()){
+                txManager.rollback(status);
+            }
         }
     }
 
