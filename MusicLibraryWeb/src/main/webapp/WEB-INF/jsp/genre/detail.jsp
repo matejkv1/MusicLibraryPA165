@@ -31,8 +31,12 @@
                      </tr>
                      <c:forEach items="${songs}" var="song">
                          <tr>
-                             <td><c:out value="${song.musician.name}"/></td>
-                             <td><c:out value="${song.title}"/></td>
+                             <td>
+                                 <a href="${pageContext.request.contextPath}/musician/${song.musician.id}"><c:out value="${song.musician.name}"/></a>
+                             </td>
+                             <td>
+                                 <a href="${pageContext.request.contextPath}/song/${song.id}"><c:out value="${song.title}"/></a>
+                             </td>
                          </tr>
                      </c:forEach>
              </table>

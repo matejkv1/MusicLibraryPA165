@@ -38,9 +38,10 @@
                 <c:forEach items="${songs}" var="song">
                     <tr>
                         <td><c:out value="${song.positionInAlbum}"/></td>
-                        <td><c:out value="${song.title}"/> <i>(
-                            <fmt:message key='album.detail.songBy'/> <a href="${pageContext.request.contextPath}/musician/${musician.id}"><c:out value="${musician.name}"/></a>
-                        )</i></td>
+                        <td>
+                            <a href="${pageContext.request.contextPath}/song/${song.id}"><c:out value="${song.title}"/></a>
+                            <i>(<fmt:message key='album.detail.songBy'/> <a href="${pageContext.request.contextPath}/musician/${musician.id}"><c:out value="${musician.name}"/></a>)</i>
+                        </td>
                     </tr>
                 </c:forEach>
             </table>
