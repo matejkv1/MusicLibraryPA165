@@ -23,7 +23,7 @@
         <th><form:label path="dateOfRelease"><fmt:message key="album.releaseDate"/></form:label></th>
         <td>
             <fmt:formatDate value="${album.dateOfRelease}" var="dateString" pattern="dd/MM/yyyy" />
-            <form:input path="dateOfRelease" value="${dateString}" />
+            <form:input path="dateOfRelease" value="${dateString}" id="datepicker" />
         </td>
         <td><form:errors path="dateOfRelease" cssClass="error"/></td>
     </tr>

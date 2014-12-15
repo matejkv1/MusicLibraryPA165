@@ -25,6 +25,10 @@
     border-style: none;
 }
 
+div.ui-datepicker{
+    font-size:11px;
+}
+
 p#listTitle {
     font-weight: bold;
     font-size: 22px;
