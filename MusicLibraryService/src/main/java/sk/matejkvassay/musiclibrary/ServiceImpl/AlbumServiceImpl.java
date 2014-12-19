@@ -1,15 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package sk.matejkvassay.musiclibrary.ServiceImpl;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.inject.Inject;
-import javax.inject.Named;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -273,7 +267,6 @@ public class AlbumServiceImpl implements AlbumService {
         albumDto.setAlbumArt(album.getAlbumArt());
         albumDto.setDateOfRelease(album.getDateOfRelease());
         albumDto.setCommentary(album.getCommentary());
-        //albumDto.setSongs(album.getSongs());
 
         return albumDto;
     }
@@ -289,7 +282,6 @@ public class AlbumServiceImpl implements AlbumService {
         album.setAlbumArt(albumDto.getAlbumArt());
         album.setDateOfRelease(albumDto.getDateOfRelease());
         album.setCommentary(albumDto.getCommentary());
-        //album.setSongs(albumDto.getSongs());
 
         return album;
     }
