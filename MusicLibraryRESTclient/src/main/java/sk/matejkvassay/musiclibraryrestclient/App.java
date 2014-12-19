@@ -26,6 +26,7 @@ public class App {
 			input = CmdLineReader.readInput("Enter command:");
 			Command com = new Command(input.toLowerCase());
 
+}
 			if("exit".equals(com.getClsType())) {
 				System.out.println("Exiting.");
 				CmdLineReader.close();
@@ -62,4 +63,3 @@ public class App {
 		System.out.println("Possibilities: [musician|genre] [getall|getcount|get|insert|update|delete]");
 		System.out.println("e.g. musician get");
 	}
-}
