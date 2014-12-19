@@ -40,7 +40,7 @@ import sk.matejkvassay.musiclibrarybackendapi.Service.SongService;
 @RequestMapping("/song")
 public class SongController {
 
-    final static Logger log = LoggerFactory.getLogger(MusicianController.class);
+    final static Logger LOG = LoggerFactory.getLogger(MusicianController.class);
 
     @Inject
     private SongService songService;
@@ -70,7 +70,7 @@ public class SongController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String showDetail(@PathVariable long id, Model model) {
-        log.debug("showDetail(): displaying song details");
+        LOG.debug("showDetail(): displaying song details");
         SongDto song = songService.getSongById(id);
         model.addAttribute("song", song);
         
@@ -88,7 +88,7 @@ public class SongController {
         model.addAttribute("albums", albumService.getAllAlbums());
         model.addAttribute("genres", genreService.getAllGenres());
 
-        log.debug("edit(model={})", model);
+        LOG.debug("edit(model={})", model);
 
         return "song/edit";
     }
@@ -105,14 +105,14 @@ public class SongController {
     }
 
     @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
-    public String update_form(@PathVariable long id, Model model) {
+    public String updateForm(@PathVariable long id, Model model) {
         SongDto song = songService.getSongById(id);
         model.addAttribute("song", song);
         model.addAttribute("musicians", musicianService.getAllMusicians());
         model.addAttribute("albums", albumService.getAllAlbums());
         model.addAttribute("genres", genreService.getAllGenres());
 
-        log.debug("update_form(model={})", model);
+        LOG.debug("update_form(model={})", model);
         return "song/edit";
     }
 
@@ -120,12 +120,12 @@ public class SongController {
     public String update(@Valid @ModelAttribute("song") SongDto song, BindingResult bindingResult, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder, Locale locale, Model model) throws MusicianNameNullException {
 
         if (bindingResult.hasErrors()) {
-            log.debug("binding errors");
+            LOG.debug("binding errors");
             for (ObjectError ge : bindingResult.getGlobalErrors()) {
-                log.debug("ObjectError: {}", ge);
+                LOG.debug("ObjectError: {}", ge);
             }
             for (FieldError fe : bindingResult.getFieldErrors()) {
-                log.debug("FieldError: {}", fe);
+                LOG.debug("FieldError: {}", fe);
             }
             model.addAttribute("musicians", musicianService.getAllMusicians());
             model.addAttribute("albums", albumService.getAllAlbums());

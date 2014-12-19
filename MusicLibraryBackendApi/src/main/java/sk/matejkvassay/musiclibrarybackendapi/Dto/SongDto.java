@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package sk.matejkvassay.musiclibrarybackendapi.Dto;
 
 import java.util.Objects;
@@ -13,9 +12,9 @@ import java.util.Objects;
  * @author Majo
  */
 public class SongDto {
-    
+
     private Long id;
-    
+
     private String title;
 
     private String commentary;
@@ -23,11 +22,11 @@ public class SongDto {
     private int positionInAlbum;
 
     private int bitrate;
-    
+
     private GenreDto genre;
 
     private AlbumDto album;
-    
+
     private MusicianDto musician;
 
     public Long getId() {
@@ -38,7 +37,7 @@ public class SongDto {
         this.id = id;
     }
 
-	public String getTitle() {
+    public String getTitle() {
         return title;
     }
 
@@ -69,7 +68,7 @@ public class SongDto {
     public void setBitrate(int bitrate) {
         this.bitrate = bitrate;
     }
-    
+
     public GenreDto getGenre() {
         return genre;
     }

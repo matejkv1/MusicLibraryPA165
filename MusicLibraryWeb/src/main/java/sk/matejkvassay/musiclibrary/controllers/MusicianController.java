@@ -34,7 +34,7 @@ import sk.matejkvassay.musiclibrarybackendapi.Service.MusicianService;
 @RequestMapping("/musician")
 public class MusicianController {
     
-    final static Logger log = LoggerFactory.getLogger(MusicianController.class);
+    final static Logger LOG = LoggerFactory.getLogger(MusicianController.class);
     
     @Inject
     private MusicianService musicianService;
@@ -50,20 +50,20 @@ public class MusicianController {
     
     @ModelAttribute("musicians")
     public List<MusicianDto> allMusicians() {
-        log.debug("allMusicians()");
+        LOG.debug("allMusicians()");
         return musicianService.getAllMusicians();
     }
     
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String list(Model model) {
-        log.debug("listMusician()");
+        LOG.debug("listMusician()");
         model.addAttribute("musician", new MusicianDto());
         return "musician/list";
     }
     
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String showDetail(@PathVariable long id, Model model) {
-        log.debug("showDetail(): displaying musician details");
+        LOG.debug("showDetail(): displaying musician details");
         MusicianDto musician = musicianService.getMusicianById(id);
         model.addAttribute("musician", musician);
         
@@ -73,7 +73,7 @@ public class MusicianController {
     
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     public String delete(@PathVariable long id, RedirectAttributes redirectAttributes, Locale locale, UriComponentsBuilder uriBuilder) {
-        log.debug("delete({})", id);
+        LOG.debug("delete({})", id);
         MusicianDto musician = musicianService.getMusicianById(id);
         musicianService.removeMusician(musician);
         redirectAttributes.addFlashAttribute(
@@ -87,29 +87,29 @@ public class MusicianController {
     public String addNew(Model model) {
         model.addAttribute("musician", new MusicianDto());
         
-        log.debug("addNew(): editing musician");
+        LOG.debug("addNew(): editing musician");
         
         return "musician/edit";
     }
     
     @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
-    public String update_form(@PathVariable long id, Model model) {
+    public String updateForm(@PathVariable long id, Model model) {
         MusicianDto musician = musicianService.getMusicianById(id);
         model.addAttribute("musician", musician);
-        log.debug("update_form(model={})", model);
+        LOG.debug("update_form(model={})", model);
         return "musician/edit";
     }
     
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public String update(@Valid @ModelAttribute("musician") MusicianDto musician, BindingResult bindingResult, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder, Locale locale) throws MusicianNameNullException {
-        log.debug("update(locale={}, musician={})", locale, musician);
+        LOG.debug("update(locale={}, musician={})", locale, musician);
         if (bindingResult.hasErrors()) {
-            log.debug("binding errors");
+            LOG.debug("binding errors");
             for (ObjectError ge : bindingResult.getGlobalErrors()) {
-                log.debug("ObjectError: {}", ge);
+                LOG.debug("ObjectError: {}", ge);
             }
             for (FieldError fe : bindingResult.getFieldErrors()) {
-                log.debug("FieldError: {}", fe);
+                LOG.debug("FieldError: {}", fe);
             }
             return "musician/edit";
         }

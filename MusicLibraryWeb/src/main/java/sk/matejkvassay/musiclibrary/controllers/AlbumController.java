@@ -40,7 +40,7 @@ import sk.matejkvassay.musiclibrarybackendapi.Service.SongService;
 @RequestMapping("/album")
 public class AlbumController {
     
-    final static Logger log = LoggerFactory.getLogger(AlbumController.class);
+    final static Logger LOG = LoggerFactory.getLogger(AlbumController.class);
     
     @Inject
     private AlbumService albumService;
@@ -56,7 +56,7 @@ public class AlbumController {
     
     @ModelAttribute("albums")
     public List<AlbumDto> allAlbums() {
-        log.debug("allAlbums(): settings albums attribute");
+        LOG.debug("allAlbums(): settings albums attribute");
         return albumService.getAllAlbums();
     }
     
@@ -85,7 +85,7 @@ public class AlbumController {
     
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String list(Model model) {
-        log.debug("list(): displaying all albums");
+        LOG.debug("list(): displaying all albums");
         // TODO order by title
         model.addAttribute("albums", albumService.getAllAlbums());
         return "album/list";
@@ -93,7 +93,7 @@ public class AlbumController {
     
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String showDetail(@PathVariable long id, Model model) {
-        log.debug("showDetail(): displaying album details");
+        LOG.debug("showDetail(): displaying album details");
         AlbumDto album = albumService.getAlbumById(id);
         model.addAttribute("album", album);
         // TODO, order songs by posiion in album
@@ -104,7 +104,7 @@ public class AlbumController {
     
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     public String delete(@PathVariable long id, RedirectAttributes redirectAttributes, Locale locale, UriComponentsBuilder uriBuilder) {
-        log.debug("delete(): deleting stuff");
+        LOG.debug("delete(): deleting stuff");
         AlbumDto album = albumService.getAlbumById(id);
         albumService.removeAlbum(album);
         redirectAttributes.addFlashAttribute(
@@ -119,7 +119,7 @@ public class AlbumController {
         model.addAttribute("album", new AlbumDto());
         model.addAttribute("musicians", musicianService.getAllMusicians());
         
-        log.debug("addNew(): adding album");
+        LOG.debug("addNew(): adding album");
         
         return "album/edit";
     }
@@ -129,21 +129,21 @@ public class AlbumController {
         model.addAttribute("album", albumService.getAlbumById(id));
         model.addAttribute("musicians", musicianService.getAllMusicians());
         
-        log.debug("getUpdateForm(): editing album");
+        LOG.debug("getUpdateForm(): editing album");
         
         return "album/edit";
     }
     
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public String update(@Valid @ModelAttribute("album") AlbumDto album, BindingResult bindingResult, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder, Locale locale, Model model) {
-        log.debug("update(): updating DB");
+        LOG.debug("update(): updating DB");
         if (bindingResult.hasErrors()) {
-            log.debug("binding errors");
+            LOG.debug("binding errors");
             for (ObjectError ge : bindingResult.getGlobalErrors()) {
-                log.debug("ObjectError: {}", ge);
+                LOG.debug("ObjectError: {}", ge);
             }
             for (FieldError fe : bindingResult.getFieldErrors()) {
-                log.debug("FieldError: {}", fe);
+                LOG.debug("FieldError: {}", fe);
             }
             
             model.addAttribute("musicians", musicianService.getAllMusicians());
@@ -151,15 +151,15 @@ public class AlbumController {
         }
         
         if (album.getId() == null) {
-            log.debug("adding album");
-            log.debug("Album date: {}", album.getDateOfRelease());
+            LOG.debug("adding album");
+            LOG.debug("Album date: {}", album.getDateOfRelease());
             albumService.addAlbum(album);
             redirectAttributes.addFlashAttribute(
                     "message",
                     messageSource.getMessage("album.add.message", new Object[]{album.getTitle(), album.getId()}, locale)
             );
         } else {
-            log.debug("changing album");
+            LOG.debug("changing album");
             albumService.updateAlbum(album);
             redirectAttributes.addFlashAttribute(
                     "message",

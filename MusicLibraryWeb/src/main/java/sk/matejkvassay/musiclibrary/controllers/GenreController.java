@@ -100,7 +100,7 @@ public class GenreController {
     }
     
     @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
-    public String update_form(@PathVariable long id, Model model) {
+    public String updateForm(@PathVariable long id, Model model) {
         GenreDto genre = genreService.findGenreById(id);
         model.addAttribute("genre", genre);
         return "genre/edit";

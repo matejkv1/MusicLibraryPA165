@@ -29,14 +29,14 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @ComponentScan(basePackages = "sk.matejkvassay")
 public class SpringMvcConfig extends WebMvcConfigurerAdapter {
     
-    final static Logger log = LoggerFactory.getLogger(SpringMvcConfig.class);
+    final static Logger LOG = LoggerFactory.getLogger(SpringMvcConfig.class);
     
     /**
      * Maps the main page to a specific view.
      */
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        log.debug("mapping URL / to home view");
+        LOG.debug("mapping URL / to home view");
         registry.addViewController("/").setViewName("index");
     }
     
@@ -53,7 +53,7 @@ public class SpringMvcConfig extends WebMvcConfigurerAdapter {
      */
     @Override
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
-        log.debug("enabling default servlet for static files");
+        LOG.debug("enabling default servlet for static files");
         configurer.enable();
     }
     
@@ -62,7 +62,7 @@ public class SpringMvcConfig extends WebMvcConfigurerAdapter {
      */
     @Bean
     public ViewResolver viewResolver() {
-        log.debug("registering JSP in /WEB-INF/jsp/ as views");
+        LOG.debug("registering JSP in /WEB-INF/jsp/ as views");
         InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
         viewResolver.setPrefix("/WEB-INF/jsp/");
         viewResolver.setSuffix(".jsp");
@@ -74,7 +74,7 @@ public class SpringMvcConfig extends WebMvcConfigurerAdapter {
      */
     @Bean
     public MessageSource messageSource() {
-        log.debug("registering ResourceBundle 'texts' for messages");
+        LOG.debug("registering ResourceBundle 'texts' for messages");
         ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
         messageSource.setBasename("texts");
         return messageSource;
@@ -85,7 +85,7 @@ public class SpringMvcConfig extends WebMvcConfigurerAdapter {
      */
     @Bean
     public Validator validator() {
-        log.debug("validator()");
+        LOG.debug("validator()");
         return new LocalValidatorFactoryBean();
     }
     
