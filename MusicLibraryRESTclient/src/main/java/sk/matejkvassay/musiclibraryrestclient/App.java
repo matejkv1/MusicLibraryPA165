@@ -57,9 +57,12 @@ public class App {
 		System.exit(0);
 	}
 	
-	
-
-	private void printHelp() {
-		System.out.println("asasdad");
+	public static void printHelp() {
+		System.out.println("Available commands:");
+		System.out.println("help - print help");
+		System.out.println("exit - exit application");
+		System.out.println("[type] [operation]");
+		System.out.println("Possibilities: [musician|genre] [get|update|delte]");
+		System.out.println("e.g. musician get");
 	}
 }
