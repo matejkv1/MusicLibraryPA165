@@ -75,14 +75,6 @@ public class AlbumController {
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
     }
     
-    
-    // NYI
-    /*@RequestMapping(value = "/search/{searchStr}", method = RequestMethod.GET)
-    public String searchByTitle(@PathVariable String searchStr, Model model) {
-        
-        return "album/list";
-    }*/
-    
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String list(Model model) {
         LOG.debug("list(): displaying all albums");
@@ -96,7 +88,7 @@ public class AlbumController {
         LOG.debug("showDetail(): displaying album details");
         AlbumDto album = albumService.getAlbumById(id);
         model.addAttribute("album", album);
-        // TODO, order songs by posiion in album
+        
         model.addAttribute("songs", songService.getSongsByAlbum(album));
         model.addAttribute("musician", musicianService.getMusicianByAlbum(album));
         return "album/detail";
