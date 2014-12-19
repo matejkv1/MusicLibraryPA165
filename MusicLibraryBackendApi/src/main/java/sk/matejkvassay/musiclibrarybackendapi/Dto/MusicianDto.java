@@ -1,11 +1,13 @@
 package sk.matejkvassay.musiclibrarybackendapi.Dto;
 
 import java.util.Objects;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * DTO which represents musician in application
  * @author Marián Macik
  */
+@XmlRootElement
 public class MusicianDto {
 
     private Long id;

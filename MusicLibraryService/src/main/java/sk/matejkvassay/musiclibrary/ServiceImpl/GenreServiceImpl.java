@@ -170,6 +170,7 @@ public class GenreServiceImpl implements GenreService{
     
     
     public static Genre dtoToEntity(GenreDto genreDto){
+        if (genreDto == null) return null;
         Genre genre=new Genre();
         genre.setId(genreDto.getId());
         genre.setDescription(genreDto.getDescription());
@@ -178,6 +179,7 @@ public class GenreServiceImpl implements GenreService{
     }
     
     public static GenreDto entityToDto(Genre genre){
+        if (genre == null) return null;
         GenreDto genreDto = new GenreDto();
         genreDto.setId(genre.getId());
         genreDto.setDescription(genre.getDescription());

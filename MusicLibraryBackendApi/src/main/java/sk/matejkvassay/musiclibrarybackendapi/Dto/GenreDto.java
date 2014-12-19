@@ -8,11 +8,13 @@ package sk.matejkvassay.musiclibrarybackendapi.Dto;
 
 import java.util.List;
 import java.util.Objects;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author Majo
  */
+@XmlRootElement
 public class GenreDto {
     
     private Long id;                
