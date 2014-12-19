@@ -38,7 +38,10 @@ public class GenreRestController {
      */
     @RequestMapping(value="{id}", method=RequestMethod.GET, headers="Accept=text/plain")
     public String getGenreAsText(@PathVariable Integer id) {
-        return genreService.findGenreById(id).toString();
+        GenreDto g = genreService.findGenreById(id);
+        if (g == null) throw new GenreNotFoundException(String.valueOf(id));
+        
+        return g.toString();
     }
     
     /**
@@ -47,15 +50,10 @@ public class GenreRestController {
      */
     @RequestMapping(value="{id}", method=RequestMethod.GET)
     public GenreDto getGenre(@PathVariable Integer id) {
-        return genreService.findGenreById(id);
-    }
-    
-    /**
-     * Returns number of existing genres
-     */
-    @RequestMapping(value="count", method=RequestMethod.GET, headers="Accept=text/plain")
-    public String getGenreCount() {
-        return String.valueOf(genreService.getAllGenres().size());
+        GenreDto g = genreService.findGenreById(id);
+        if (g == null) throw new GenreNotFoundException(String.valueOf(id));
+        
+        return g;
     }
     
     /**
@@ -106,12 +104,8 @@ public class GenreRestController {
      */
     @RequestMapping(value="{id}", method=RequestMethod.DELETE)
     public void deleteGenre(@PathVariable Integer id) throws GenreNotFoundException{
-        GenreDto g;
-        try {
-            g = genreService.findGenreById(id);
-        } catch (DataAccessException ex) {
-            throw new GenreNotFoundException(String.valueOf(id));
-        }
+        GenreDto g = genreService.findGenreById(id);
+        if (g == null) throw new GenreNotFoundException(String.valueOf(id));
         
         genreService.removeGenre(g);
     }

@@ -39,7 +39,14 @@ public class MusicianRestController {
      */
     @RequestMapping(value="{id}", method=RequestMethod.GET, headers="Accept=text/plain")
     public String getMusician(@PathVariable Long id) {
-        return musicianService.getMusicianById(id).toString();
+        MusicianDto m;
+        try {
+            m = musicianService.getMusicianById(id);
+        } catch (DataAccessException ex) {
+            throw new MusicianNotFoundException(String.valueOf(id));
+        }
+        
+        return m.toString();
     }
     
     /**
@@ -48,15 +55,14 @@ public class MusicianRestController {
      */
     @RequestMapping(value="{id}", method=RequestMethod.GET)
     public MusicianDto getMusicianAsJson(@PathVariable Long id) {
-        return musicianService.getMusicianById(id);
-    }
-    
-    /**
-     * Get musician count
-     */
-    @RequestMapping(value="count", method=RequestMethod.GET, headers="Accept=text/plain")
-    public String getMusicianCount() {
-        return String.valueOf(musicianService.getAllMusicians().size());
+        MusicianDto m;
+        try {
+            m = musicianService.getMusicianById(id);
+        } catch (DataAccessException ex) {
+            throw new MusicianNotFoundException(String.valueOf(id));
+        }
+        
+        return m;
     }
     
     /**
