@@ -10,7 +10,8 @@
         <module>MusicLibraryService</module>
         <module>MusicLibraryWeb</module>
         <module>MusicLibraryBackendApi</module>
-    </modules>
+    <module>MusicLibraryRESTclient</module>
+  </modules>
     <name>MusicLibrary</name>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
