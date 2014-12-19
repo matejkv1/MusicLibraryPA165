@@ -1,14 +1,12 @@
 package sk.matejkvassay.musiclibraryrestclient;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-
 /**
  * Hello world!
  *
  */
 public class App {
+	public static final String BASE_URL = "http://localhost:8084/pa165/rest";
+	
 	private MusicianClient mc;
 	private GenreClient genre;
 
@@ -27,7 +25,6 @@ public class App {
 		for (;;) {
 			input = CmdLineReader.readInput("Enter command:");
 			Command com = new Command(input.toLowerCase());
-			System.out.println(com.toString());
 
 			if("exit".equals(com.getClsType())) {
 				System.out.println("Exiting.");
@@ -62,7 +59,7 @@ public class App {
 		System.out.println("help - print help");
 		System.out.println("exit - exit application");
 		System.out.println("[type] [operation]");
-		System.out.println("Possibilities: [musician|genre] [get|update|delte]");
+		System.out.println("Possibilities: [musician|genre] [getall|getcount|get|insert|update|delete]");
 		System.out.println("e.g. musician get");
 	}
 }
