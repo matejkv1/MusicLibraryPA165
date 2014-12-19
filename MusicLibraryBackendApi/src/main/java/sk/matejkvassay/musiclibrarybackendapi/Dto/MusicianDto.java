@@ -64,6 +64,6 @@ public class MusicianDto {
 
     @Override
     public String toString() {
-        return "MusicianDto{" + "id=" + id + ", name=" + name + ", biography=" + biography + '}';
+        return "Musician: name = "+ this.name + ", biography = '" + this.biography + "'";
     }
 }
