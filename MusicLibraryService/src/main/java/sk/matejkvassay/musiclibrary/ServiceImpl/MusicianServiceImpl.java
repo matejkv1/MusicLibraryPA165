@@ -177,33 +177,6 @@ public class MusicianServiceImpl implements MusicianService {
         return musicianDto;
     }
     
-    @Override
-    public List<MusicianDto> getMusicianByName(String name) {
-        TransactionStatus status = null;
-        List<Musician> musicians = null;
-        
-        try {
-            DefaultTransactionDefinition def = new DefaultTransactionDefinition();
-            status = txManager.getTransaction(def);
-            musicians = musicianDao.getMusicianByName(name);
-            txManager.commit(status);
-        } catch (DataAccessException ex) {
-            if (!status.isCompleted()) {
-                txManager.rollback(status);
-            }
-            throw ex;
-        }
-        
-        List<MusicianDto> musiciansDto = new ArrayList<>();
-        if (musicians != null) {
-            for (Musician musician : musicians) {
-                musiciansDto.add(toDto(musician));
-            }
-        }
-        
-        return musiciansDto;
-    }
-    
 
     public PlatformTransactionManager getTxManager() {
         return txManager;

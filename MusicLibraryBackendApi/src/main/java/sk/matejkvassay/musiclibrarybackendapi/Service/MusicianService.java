@@ -57,5 +57,4 @@ public interface MusicianService {
      */
     public MusicianDto getMusicianBySong(SongDto song);
     
-    public List<MusicianDto> getMusicianByName(String name);
 }
