@@ -33,11 +33,12 @@ public class MusicianDaoImpl implements MusicianDao {
     }
 
     @Override
-    public void addMusician(Musician musician) throws MusicianNameNullException {
+    public Long addMusician(Musician musician) throws MusicianNameNullException {
         if (musician.getName() == null) {
             throw new MusicianNameNullException("Name of the musician cannot be NULL!");
         }
         em.persist(musician);
+        return musician.getId();
     }
 
     @Override

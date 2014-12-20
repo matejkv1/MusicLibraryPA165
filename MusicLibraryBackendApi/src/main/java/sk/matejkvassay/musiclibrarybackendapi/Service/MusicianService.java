@@ -16,7 +16,7 @@ public interface MusicianService {
      * Stores new musician
      * @param musician - musician to add
      */
-    public void addMusician(MusicianDto musician) throws MusicianNameNullException;
+    public Long addMusician(MusicianDto musician) throws MusicianNameNullException;
     
     /**
      * Removes musician
@@ -56,4 +56,6 @@ public interface MusicianService {
      * @return found musician
      */
     public MusicianDto getMusicianBySong(SongDto song);
+    
+    public List<MusicianDto> getMusicianByName(String name);
 }

@@ -2,9 +2,7 @@ package sk.matejkvassay.musiclibrary.rest;
 
 import java.util.List;
 import javax.inject.Inject;
-import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,11 +23,19 @@ public class GenreRestController {
     private GenreService genreService;
     
     /**
-     * Gets all genres
+     * Gets all genres in plain text
      */
     @RequestMapping(value="", method=RequestMethod.GET, headers="Accept=text/plain")
     public String getGenres() {
         return genreService.getAllGenres().toString();
+    }
+    
+    /**
+     * Gets all genres in json
+     */
+    @RequestMapping(value="", method=RequestMethod.GET, headers="Accept=application/json")
+    public List<GenreDto> getGenresFormated() {
+        return genreService.getAllGenres();
     }
     
     /**
@@ -59,7 +65,7 @@ public class GenreRestController {
     /**
      * Adds new genre
      */
-    @RequestMapping(value="new", method=RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value="new", method=RequestMethod.POST)
     public ResponseEntity<String> addGenreInJson(@RequestBody GenreDto genre) {
         List<GenreDto> genres = genreService.getAllGenres();
         for (GenreDto g: genres) {
@@ -68,8 +74,8 @@ public class GenreRestController {
         
         genreService.addGenre(genre);
         
-        return new ResponseEntity<String>(ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}")
-                .buildAndExpand(genre.getId()).toUriString(), HttpStatus.OK);
+        return new ResponseEntity<String>(ServletUriComponentsBuilder.fromCurrentContextPath().path("/rest/genres/{id}")
+                .buildAndExpand(genreService.findGenreByName(genre.getName()).getId()).toUriString(), HttpStatus.OK);
     }
     
     /**
@@ -77,7 +83,7 @@ public class GenreRestController {
      * 
      * @throws GenreNotFoundException 
      */
-    @RequestMapping(value="{id}", method=RequestMethod.PUT, consumes=MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value="{id}", method=RequestMethod.PUT)
     public ResponseEntity<String> editGenreInJson(@PathVariable Long id, @RequestBody GenreDto genre) throws GenreNotFoundException {
         GenreDto g = genreService.findGenreById(id);
         if (g == null) throw new GenreNotFoundException(String.valueOf(id));
@@ -93,8 +99,8 @@ public class GenreRestController {
         
         genreService.updateGenre(g);
         
-        return new ResponseEntity<String>(ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}")
-                .buildAndExpand(genre.getId()).toUriString(), HttpStatus.OK);
+        return new ResponseEntity<String>(ServletUriComponentsBuilder.fromCurrentRequestUri().path("/")
+                .toUriString(), HttpStatus.OK);
     }
     
     /**

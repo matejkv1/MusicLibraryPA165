@@ -17,7 +17,7 @@ public interface MusicianDao {
      * @param musician - musician to add
      * @throws MusicianNameNullException if name is null
      */
-    public void addMusician(Musician musician) throws MusicianNameNullException;
+    public Long addMusician(Musician musician) throws MusicianNameNullException;
     
     /**
      * Removes musician in DB

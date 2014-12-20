@@ -75,7 +75,7 @@ public class GenreDto {
 
     @Override
     public String toString(){
-        String s="Genre: name = "+this.name+", description = '"+this.description + "'";
+        String s="Genre: id = " + this.id + ", name = "+this.name+", description = '"+this.description + "'";
         return s;
     }
 }

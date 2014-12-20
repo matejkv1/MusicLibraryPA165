@@ -70,7 +70,7 @@ public class MusicianServiceImplTest {
 
     @Test
     public void addMusicianTest() throws MusicianNameNullException {
-        Mockito.doNothing().when(mDaoMock).addMusician(m1);
+        Mockito.doReturn(1L).when(mDaoMock).addMusician(m1);
 
         mService.addMusician(mDto1);
 

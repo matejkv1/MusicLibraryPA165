@@ -2,9 +2,9 @@ package sk.matejkvassay.musiclibrary.rest;
 
 import java.util.List;
 import javax.inject.Inject;
+import javax.xml.bind.annotation.XmlRootElement;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -34,6 +34,14 @@ public class MusicianRestController {
     }
     
     /**
+     * Get all musicians in json
+     */
+    @RequestMapping(value="", method=RequestMethod.GET, headers="Accept=application/json")
+    public List<MusicianDto> getMusiciansInJson() {
+        return musicianService.getAllMusicians();
+    }
+    
+    /**
      * Get single musician in plain text
      * @param id musician id
      */
@@ -50,7 +58,7 @@ public class MusicianRestController {
     }
     
     /**
-     * Get all musician in supported format (xml, json)
+     * Get musician in supported format (xml, json)
      * @param id musician id
      */
     @RequestMapping(value="{id}", method=RequestMethod.GET)
@@ -71,21 +79,22 @@ public class MusicianRestController {
      * @throws MusicianNameNullException
      * @throws MusicianInvalidArgumentException 
      */
-    @RequestMapping(value="new", method=RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value="new", method=RequestMethod.POST)
     public ResponseEntity<String> addMusicianInJson(@RequestBody MusicianDto musician) throws MusicianNameNullException, MusicianInvalidArgumentException {
         List<MusicianDto> musicians = musicianService.getAllMusicians();
         for (MusicianDto m: musicians) {
             if (m.getName().equals(musician.getName())) throw new MusicianInvalidArgumentException(String.valueOf(musician.getId()), "Name exists");
         }
         
+        Long newId;
         try {
-            musicianService.addMusician(musician);
+            newId = musicianService.addMusician(musician);
         } catch (MusicianNameNullException ex) {
             throw new MusicianInvalidArgumentException(String.valueOf(musician.getId()), ex.getMessage());
         }
         
-        return new ResponseEntity<String>(ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}")
-                .buildAndExpand(musician.getId()).toUriString(), HttpStatus.OK);
+        return new ResponseEntity<String>(ServletUriComponentsBuilder.fromCurrentContextPath().path("/rest/musicians/{id}")
+                .buildAndExpand(newId).toUriString(), HttpStatus.OK);
     }
     
     /**
@@ -94,10 +103,14 @@ public class MusicianRestController {
      * @throws MusicianNotFoundException
      * @throws MusicianNameNullException 
      */
-    @RequestMapping(value="{id}", method=RequestMethod.PUT, consumes=MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value="{id}", method=RequestMethod.PUT)
     public ResponseEntity<String> editMusicianInJson(@PathVariable Long id, @RequestBody MusicianDto musician) throws MusicianNotFoundException, MusicianNameNullException {
-        MusicianDto m = musicianService.getMusicianById(id);
-        if (m == null) throw new MusicianNotFoundException(String.valueOf(id));
+        MusicianDto m;
+        try {
+            m = musicianService.getMusicianById(id);
+        } catch (DataAccessException ex) {
+            throw new MusicianNotFoundException(String.valueOf(id));
+        }
 
         List<MusicianDto> musicians = musicianService.getAllMusicians();
         for (MusicianDto mu: musicians) {
@@ -114,8 +127,8 @@ public class MusicianRestController {
             throw new MusicianInvalidArgumentException(String.valueOf(musician.getId()), "Name null");
         }
         
-        return new ResponseEntity<String>(ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}")
-                .buildAndExpand(musician.getId()).toUriString(), HttpStatus.OK);
+        return new ResponseEntity<String>(ServletUriComponentsBuilder.fromCurrentRequestUri().path("/")
+                .toUriString(), HttpStatus.OK);
     }
     
     /**
