@@ -3,6 +3,14 @@ MusicLibraryPA165
 
 Java school project
 
+
+How to run web application:
+
+1. Navigate to MusicLibraryWeb directory. It is the directory of the module with web application. Application assumes that database is listening on port 1527 on localhost. Database name is pa165 (lowercase), username and password is also pa165.
+2. Run **mvn tomcat7:run** from command line in this directory. It will run the web application. Application si avialable on **http://localhost:8080/pa165/**.
+
+
+
 How to run REST client:
 
 1. Navigate to MusicLibraryRESTclient directory. It is the directory of the module with the client. RESTclient assume that REST API is deployed at the URL **http://localhost:8080/pa165/rest/** . If you run embedded tomcat, it is available at this particular URL.
