@@ -5,8 +5,8 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
-import sk.matejkvassay.musiclibrarybackendapi.Dto.SongDto;
-import sk.matejkvassay.musiclibrarybackendapi.Service.SongService;
+import sk.matejkvassay.musiclibrarybackendapi.dto.SongDto;
+import sk.matejkvassay.musiclibrarybackendapi.service.SongService;
 
 /**
  *

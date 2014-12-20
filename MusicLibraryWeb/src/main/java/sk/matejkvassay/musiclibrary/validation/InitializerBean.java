@@ -7,15 +7,15 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
-import sk.matejkvassay.musiclibrary.DaoImpl.Exception.MusicianNameNullException;
-import sk.matejkvassay.musiclibrarybackendapi.Dto.AlbumDto;
-import sk.matejkvassay.musiclibrarybackendapi.Dto.GenreDto;
-import sk.matejkvassay.musiclibrarybackendapi.Dto.MusicianDto;
-import sk.matejkvassay.musiclibrarybackendapi.Dto.SongDto;
-import sk.matejkvassay.musiclibrarybackendapi.Service.AlbumService;
-import sk.matejkvassay.musiclibrarybackendapi.Service.GenreService;
-import sk.matejkvassay.musiclibrarybackendapi.Service.MusicianService;
-import sk.matejkvassay.musiclibrarybackendapi.Service.SongService;
+import sk.matejkvassay.musiclibrary.daoimpl.exception.MusicianNameNullException;
+import sk.matejkvassay.musiclibrarybackendapi.dto.AlbumDto;
+import sk.matejkvassay.musiclibrarybackendapi.dto.GenreDto;
+import sk.matejkvassay.musiclibrarybackendapi.dto.MusicianDto;
+import sk.matejkvassay.musiclibrarybackendapi.dto.SongDto;
+import sk.matejkvassay.musiclibrarybackendapi.service.AlbumService;
+import sk.matejkvassay.musiclibrarybackendapi.service.GenreService;
+import sk.matejkvassay.musiclibrarybackendapi.service.MusicianService;
+import sk.matejkvassay.musiclibrarybackendapi.service.SongService;
 
 /**
  *

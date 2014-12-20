@@ -26,11 +26,11 @@ import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import sk.matejkvassay.musiclibrary.validation.AlbumSpringValidation;
 import sk.matejkvassay.musiclibrary.validation.InitializerBean;
-import sk.matejkvassay.musiclibrarybackendapi.Dto.AlbumDto;
-import sk.matejkvassay.musiclibrarybackendapi.Dto.MusicianDto;
-import sk.matejkvassay.musiclibrarybackendapi.Service.AlbumService;
-import sk.matejkvassay.musiclibrarybackendapi.Service.MusicianService;
-import sk.matejkvassay.musiclibrarybackendapi.Service.SongService;
+import sk.matejkvassay.musiclibrarybackendapi.dto.AlbumDto;
+import sk.matejkvassay.musiclibrarybackendapi.dto.MusicianDto;
+import sk.matejkvassay.musiclibrarybackendapi.service.AlbumService;
+import sk.matejkvassay.musiclibrarybackendapi.service.MusicianService;
+import sk.matejkvassay.musiclibrarybackendapi.service.SongService;
 
 /**
  *

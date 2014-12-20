@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import sk.matejkvassay.musiclibrary.DaoImpl.Exception.MusicianNameNullException;
+import sk.matejkvassay.musiclibrary.daoimpl.exception.MusicianNameNullException;
 import sk.matejkvassay.musiclibrary.rest.exceptions.MusicianInvalidArgumentException;
 import sk.matejkvassay.musiclibrary.rest.exceptions.MusicianNotFoundException;
-import sk.matejkvassay.musiclibrarybackendapi.Dto.MusicianDto;
-import sk.matejkvassay.musiclibrarybackendapi.Service.MusicianService;
+import sk.matejkvassay.musiclibrarybackendapi.dto.MusicianDto;
+import sk.matejkvassay.musiclibrarybackendapi.service.MusicianService;
 
 @RestController
 @RequestMapping("/rest/musicians")

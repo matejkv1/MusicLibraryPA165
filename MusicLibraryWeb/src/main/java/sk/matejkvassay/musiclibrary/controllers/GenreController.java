@@ -17,9 +17,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponentsBuilder;
 import sk.matejkvassay.musiclibrary.validation.GenreSpringValidation;
-import sk.matejkvassay.musiclibrarybackendapi.Dto.GenreDto;
-import sk.matejkvassay.musiclibrarybackendapi.Service.GenreService;
-import sk.matejkvassay.musiclibrarybackendapi.Service.SongService;
+import sk.matejkvassay.musiclibrarybackendapi.dto.GenreDto;
+import sk.matejkvassay.musiclibrarybackendapi.service.GenreService;
+import sk.matejkvassay.musiclibrarybackendapi.service.SongService;
 
 /**
  *

@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import sk.matejkvassay.musiclibrary.rest.exceptions.GenreInvalidArgumentException;
 import sk.matejkvassay.musiclibrary.rest.exceptions.GenreNotFoundException;
-import sk.matejkvassay.musiclibrarybackendapi.Dto.GenreDto;
-import sk.matejkvassay.musiclibrarybackendapi.Service.GenreService;
+import sk.matejkvassay.musiclibrarybackendapi.dto.GenreDto;
+import sk.matejkvassay.musiclibrarybackendapi.service.GenreService;
 
 @RestController
 @RequestMapping("/rest/genres")

@@ -23,6 +23,7 @@
         <groupId>sk.matejkvassay</groupId>
         <artifactId>MusicLibraryBackendApi</artifactId>
         <version>1.0</version>
+            <type>jar</type>
         </dependency>   
             
         <dependency>

@@ -20,11 +20,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponentsBuilder;
-import sk.matejkvassay.musiclibrary.DaoImpl.Exception.MusicianNameNullException;
+import sk.matejkvassay.musiclibrary.daoimpl.exception.MusicianNameNullException;
 import sk.matejkvassay.musiclibrary.validation.MusicianSpringValidation;
-import sk.matejkvassay.musiclibrarybackendapi.Dto.MusicianDto;
-import sk.matejkvassay.musiclibrarybackendapi.Service.AlbumService;
-import sk.matejkvassay.musiclibrarybackendapi.Service.MusicianService;
+import sk.matejkvassay.musiclibrarybackendapi.dto.MusicianDto;
+import sk.matejkvassay.musiclibrarybackendapi.service.AlbumService;
+import sk.matejkvassay.musiclibrarybackendapi.service.MusicianService;
 
 /**
  *
