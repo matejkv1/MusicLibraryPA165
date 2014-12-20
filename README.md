@@ -44,7 +44,7 @@ We are accepting these combinations:
    ```
    JSON for genre:
    ```
-   {"name":"Eminem", "description":"Rapper"}
+   {"name":"Rock", "description":"One of the most beautiful genres in the history of a music"}
    ```
   Once you have created the file, just type: **post [json|xml] [musician|genre] pathToFile**
      For example: **post xml musician newMusician.xml**  where newMusician.xml is in the directory of RESTclient module (the same from which you have to run mvn exec:java command). Your new musician/genre is created.
