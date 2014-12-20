@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.ConnectException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.logging.Level;
@@ -26,6 +27,7 @@ public class RESTclient {
 
     public static void main(String[] args) {
         try {
+            System.out.println("\n----RestClient for MusicLibrary----\n");
             if (args.length == 0) {
                 System.out.println("No parameters specified");
                 System.exit(1);
@@ -82,13 +84,19 @@ public class RESTclient {
 
             ((CloseableHttpResponse) response).close();
 
+            
+        } catch (ConnectException ex) {
+            System.out.println("Could not connect to the host. Please check that"
+                    + " host is available.");
+            System.out.println("");
+            System.exit(1);
         } catch (IOException ex) {
             Logger.getLogger(RESTclient.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
     }
 
-    private static HttpResponse processGet(String format, String entity, String id) {
+    private static HttpResponse processGet(String format, String entity, String id) throws IOException {
         try {
 
             CloseableHttpClient httpClient = HttpClients.createDefault();
@@ -124,8 +132,6 @@ public class RESTclient {
 
             return response;
 
-        } catch (IOException ex) {
-            Logger.getLogger(RESTclient.class.getName()).log(Level.SEVERE, null, ex);
         } catch (URISyntaxException ex) {
             Logger.getLogger(RESTclient.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Bad URL: " + ex.getMessage());
@@ -134,7 +140,7 @@ public class RESTclient {
         return null;
     }
 
-    private static HttpResponse processPost(String format, String entity, String file) {
+    private static HttpResponse processPost(String format, String entity, String file) throws IOException {
         try {
 
             CloseableHttpClient httpClient = HttpClients.createDefault();
@@ -178,8 +184,6 @@ public class RESTclient {
 
             return response;
 
-        } catch (IOException ex) {
-            Logger.getLogger(RESTclient.class.getName()).log(Level.SEVERE, null, ex);
         } catch (URISyntaxException ex) {
             Logger.getLogger(RESTclient.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Bad URL: " + ex.getMessage());
@@ -188,7 +192,7 @@ public class RESTclient {
         return null;
     }
 
-    private static HttpResponse processPut(String format, String entity, String id, String file) {
+    private static HttpResponse processPut(String format, String entity, String id, String file) throws IOException {
         try {
 
             CloseableHttpClient httpClient = HttpClients.createDefault();
@@ -234,8 +238,6 @@ public class RESTclient {
 
             return response;
 
-        } catch (IOException ex) {
-            Logger.getLogger(RESTclient.class.getName()).log(Level.SEVERE, null, ex);
         } catch (URISyntaxException ex) {
             Logger.getLogger(RESTclient.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Bad URL: " + ex.getMessage());
@@ -244,7 +246,7 @@ public class RESTclient {
         return null;
     }
 
-    private static HttpResponse processDelete(String entity, String id) {
+    private static HttpResponse processDelete(String entity, String id) throws IOException {
         try {
 
             CloseableHttpClient httpClient = HttpClients.createDefault();
@@ -269,8 +271,6 @@ public class RESTclient {
 
             return response;
 
-        } catch (IOException ex) {
-            Logger.getLogger(RESTclient.class.getName()).log(Level.SEVERE, null, ex);
         } catch (URISyntaxException ex) {
             Logger.getLogger(RESTclient.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Bad URL: " + ex.getMessage());
