@@ -30,6 +30,7 @@ public class RESTclient {
             System.out.println("\n----RestClient for MusicLibrary----\n");
             if (args.length == 0) {
                 System.out.println("No parameters specified");
+                printHelp();
                 System.exit(1);
             }
 
@@ -40,6 +41,7 @@ public class RESTclient {
             if ("GET".equalsIgnoreCase(method)) {
                 if (args.length != 4 && args.length != 3) {
                     System.out.println("Wrong number of parameters");
+                    printHelp();
                     System.exit(1);
                 }
                 if (args.length == 4) {
@@ -51,23 +53,27 @@ public class RESTclient {
             } else if ("POST".equalsIgnoreCase(method)) {
                 if (args.length != 4) {
                     System.out.println("Wrong number of parameters");
+                    printHelp();
                     System.exit(1);
                 }
                 response = processPost(args[1], args[2], args[3]);
             } else if ("PUT".equalsIgnoreCase(method)) {
                 if (args.length != 5) {
                     System.out.println("Wrong number of parameters");
+                    printHelp();
                     System.exit(1);
                 }
                 response = processPut(args[1], args[2], args[3], args[4]);
             } else if ("DELETE".equalsIgnoreCase(method)) {
                 if (args.length != 3) {
                     System.out.println("Wrong number of parameters");
+                    printHelp();
                     System.exit(1);
                 }
                 response = processDelete(args[1], args[2]);
             } else {
                 System.out.println("HTTP method not recognized");
+                printHelp();
                 System.exit(1);
             }
 
@@ -109,6 +115,7 @@ public class RESTclient {
                 url = url + "genres/";
             } else {
                 System.out.println("Entity not recognized");
+                printHelp();
                 System.exit(1);
             }
 
@@ -125,6 +132,7 @@ public class RESTclient {
                 getRequest.addHeader("accept", "application/json");
             } else {
                 System.out.println("Format not recognized");
+                printHelp();
                 System.exit(1);
             }
 
@@ -153,6 +161,7 @@ public class RESTclient {
                 url = url + "genres/new";
             } else {
                 System.out.println("Entity not recognized");
+                printHelp();
                 System.exit(1);
             }
 
@@ -175,6 +184,7 @@ public class RESTclient {
                 input.setContentType("application/json");
             } else {
                 System.out.println("Format not recognized");
+                printHelp();
                 System.exit(1);
             }
 
@@ -205,6 +215,7 @@ public class RESTclient {
                 url = url + "genres/";
             } else {
                 System.out.println("Entity not recognized");
+                printHelp();
                 System.exit(1);
             }
 
@@ -229,6 +240,7 @@ public class RESTclient {
                 input.setContentType("application/json");
             } else {
                 System.out.println("Format not recognized");
+                printHelp();
                 System.exit(1);
             }
 
@@ -259,6 +271,7 @@ public class RESTclient {
                 url = url + "genres/";
             } else {
                 System.out.println("Entity not recognized");
+                printHelp();
                 System.exit(1);
             }
 
@@ -277,5 +290,13 @@ public class RESTclient {
             System.exit(1);
         }
         return null;
+    }
+    
+    static void printHelp(){
+        System.out.println("\nUsage of arguments (case insensitive): \n");
+        System.out.println("\n[GET|POST|PUT|DELETE] [TEXT|XML|JSON] [MUSICIAN|GENRE] "
+                + "{id} {filepath}\n");
+        System.out.println("Use {filepath} only with POST|PUT. Do not use {id} if you "
+                + "want to get all musicians/genres or you are posting new musician/genre.");
     }
 }

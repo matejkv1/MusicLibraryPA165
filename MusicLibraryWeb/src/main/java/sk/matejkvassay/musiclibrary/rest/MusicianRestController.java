@@ -2,7 +2,6 @@ package sk.matejkvassay.musiclibrary.rest;
 
 import java.util.List;
 import javax.inject.Inject;
-import javax.xml.bind.annotation.XmlRootElement;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
