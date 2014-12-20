@@ -1,7 +1,6 @@
 package sk.matejkvassay.musiclibrary.Dao;
 
 import java.util.List;
-import sk.matejkvassay.musiclibrary.DaoImpl.Exception.MusicianNameNotUniqueException;
 import sk.matejkvassay.musiclibrary.DaoImpl.Exception.MusicianNameNullException;
 import sk.matejkvassay.musiclibrary.Entity.Album;
 import sk.matejkvassay.musiclibrary.Entity.Musician;
@@ -17,7 +16,6 @@ public interface MusicianDao {
      * Stores new musician in DB
      * @param musician - musician to add
      * @throws MusicianNameNullException if name is null
-     * @throws MusicianNameNotUniqueException if name is not unique in DB
      */
     public void addMusician(Musician musician) throws MusicianNameNullException;
     
