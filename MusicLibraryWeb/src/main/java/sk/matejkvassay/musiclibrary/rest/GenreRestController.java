@@ -4,6 +4,7 @@ import java.util.List;
 import javax.inject.Inject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -64,14 +65,17 @@ public class GenreRestController {
     
     /**
      * Adds new genre
+     * 
+     * @throws GenreInvalidArgumentException
      */
     @RequestMapping(value="new", method=RequestMethod.POST)
-    public ResponseEntity<String> addGenreInJson(@RequestBody GenreDto genre) {
+    public ResponseEntity<String> addGenreInJson(@RequestBody GenreDto genre) throws GenreInvalidArgumentException{
         List<GenreDto> genres = genreService.getAllGenres();
         for (GenreDto g: genres) {
             if (g.getName().equals(genre.getName())) throw new GenreInvalidArgumentException(String.valueOf(genre.getId()), "Name exists");
         }
         
+        if (genre.getName() == null ) throw new GenreInvalidArgumentException(String.valueOf(genre.getId()), "Name null");
         genreService.addGenre(genre);
         
         return new ResponseEntity<String>(ServletUriComponentsBuilder.fromCurrentContextPath().path("/rest/genres/{id}")
@@ -87,6 +91,7 @@ public class GenreRestController {
     public ResponseEntity<String> editGenreInJson(@PathVariable Long id, @RequestBody GenreDto genre) throws GenreNotFoundException {
         GenreDto g = genreService.findGenreById(id);
         if (g == null) throw new GenreNotFoundException(String.valueOf(id));
+        if (genre.getName() == null ) throw new GenreInvalidArgumentException(String.valueOf(genre.getId()), "Name null");
         
         List<GenreDto> genres = genreService.getAllGenres();
         for (GenreDto ge: genres) {
