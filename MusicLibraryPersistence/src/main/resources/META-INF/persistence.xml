@@ -1,28 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="1.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/ persistence http://java.sun.com/xml/ns/persistence/ persistence_1_0.xsd">
     <persistence-unit name="TestPU" transaction-type="RESOURCE_LOCAL">
-<!--        <provider>org.hibernate.ejb.HibernatePersistence</provider>
-        <properties>
-            <property name="hibernate.connection.username" value="testUser"/>
-                        <property name="hibernate.connection.driver_class" value="org.apache.derby.jdbc.ClientDriver"/>
 
-                        Setting for in-memory DB 
-                        
-            <property name="hibernate.connection.driver_class" value="org.apache.derby.jdbc.EmbeddedDriver"/>
-            
-            <property name="hibernate.connection.password" value="testUser123"/>
-            
-                        Setting for in-memory DB 
-                        
-            <property name="hibernate.connection.url" value="jdbc:derby:memory:musicLibraryTestDB;create=true"/>
-            
-                        <property name="hibernate.connection.url" value="jdbc:derby://localhost:1527/musicLibraryTestDB"/>
-            <property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>
-            <property name="hibernate.hbm2ddl.auto" value="update"/>
-            <property name="hibernate.show_sql" value="true" />
-            <property name="hibernate.format_sql" value="true" />
-            <property name="hibernate.dialect" value="org.hibernate.dialect.DerbyDialect"/>
-        </properties>-->
     </persistence-unit>
     
 </persistence>

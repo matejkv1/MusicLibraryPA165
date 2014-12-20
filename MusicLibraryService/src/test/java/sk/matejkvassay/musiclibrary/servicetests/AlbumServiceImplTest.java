@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package sk.matejkvassay.musiclibrary.servicetests;
 
 import java.util.ArrayList;
@@ -246,11 +241,9 @@ public class AlbumServiceImplTest {
         AlbumDto albumDto = new AlbumDto();
         albumDto.setId(album.getId());
         albumDto.setTitle(album.getTitle());
-        //albumDto.setMusician(album.getMusician());
         albumDto.setAlbumArt(album.getAlbumArt());
         albumDto.setDateOfRelease(album.getDateOfRelease());
         albumDto.setCommentary(album.getCommentary());
-        //albumDto.setSongs(album.getSongs());
 
         return albumDto;
     }
@@ -262,11 +255,9 @@ public class AlbumServiceImplTest {
         Album album = new Album();
         album.setId(albumDto.getId());
         album.setTitle(albumDto.getTitle());
-        //album.setMusician(albumDto.getMusician());
         album.setAlbumArt(albumDto.getAlbumArt());
         album.setDateOfRelease(albumDto.getDateOfRelease());
         album.setCommentary(albumDto.getCommentary());
-        //album.setSongs(albumDto.getSongs());
 
         return album;
     }
