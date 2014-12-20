@@ -14,7 +14,7 @@ How to run web application:
 How to run REST client:
 
 1. Navigate to MusicLibraryRESTclient directory. It is the directory of the module with the client. RESTclient assume that REST API is deployed at the URL **http://localhost:8080/pa165/rest/** . If you run embedded tomcat, it is available at this particular URL.
-2. Run command ***mvn exec:java -Dexec.args="ARGMUENTS"***
+2. Run command ***mvn exec:java -Dexec.args="ARGUMENTS"***
 
 ARGUMENTS are:
 
