@@ -62,3 +62,8 @@ We are accepting these combinations:
 
 4. DELETE method:
    when you want to delete musician/genre, just type as the arguments: **delete [musician|genre] ID** where ID is the id of the musician/genre you want to remove. 
+
+
+Common error responses:
+   **404**: Entity with specified ID has not been found
+   **400**: Entity with specified parameters cannot be processed (non-unique name, bad input format)
