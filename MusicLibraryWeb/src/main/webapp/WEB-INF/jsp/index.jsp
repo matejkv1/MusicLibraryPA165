@@ -30,9 +30,9 @@
         </div>  
         
         <div id="search_div">
-            <form name="search_form" onsubmit="OnSubmitForm()" method="post">
+            <form name="search_form" onsubmit="OnSubmitForm()" method="get">
                 <fmt:message key="index.search.title"/> <input type="text" id="q" name="q">
-                <select id="search_selection" name="search_selection">
+                <select id="search_selection">
                     <option value="song"><fmt:message key="index.search.selection.song"/></option>
                     <option value="album"><fmt:message key="index.search.selection.album"/></option>
                     <option value="musician"><fmt:message key="index.search.selection.musician"/></option>
