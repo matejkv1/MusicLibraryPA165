@@ -27,7 +27,31 @@
             <a href="${pageContext.request.contextPath}/album/list"><fmt:message key="navigation.albums"/></a>  |  
             <a href="${pageContext.request.contextPath}/song/list"><fmt:message key="navigation.songs"/></a>  |  
             <a href="${pageContext.request.contextPath}/genre/list"><fmt:message key="navigation.genres"/></a>
+        </div>  
+        
+        <div id="search_div">
+            <form name="search_form" onsubmit="OnSubmitForm()" method="post">
+                <fmt:message key="index.search.title"/> <input type="text" id="q" name="q">
+                <select id="search_selection" name="search_selection">
+                    <option value="song"><fmt:message key="index.search.selection.song"/></option>
+                    <option value="album"><fmt:message key="index.search.selection.album"/></option>
+                    <option value="musician"><fmt:message key="index.search.selection.musician"/></option>
+                </select>
+                <input type="submit" value=<fmt:message key="index.search.submit"/> />
+            </form>
+            
+            <SCRIPT language="JavaScript">
+                function OnSubmitForm()
+                {
+                    var contextPath='<%=request.getContextPath()%>';
+                    var query = document.getElementById('q').value;   
+                    var type = document.getElementById('search_selection').value; 
+                    document.search_form.action=contextPath+"/"+type+"/search?q="+query;
+                }
+            </SCRIPT>
+                
         </div>
+        
     </body>
 </html>
 <%--</jsp:attribute>--%>
