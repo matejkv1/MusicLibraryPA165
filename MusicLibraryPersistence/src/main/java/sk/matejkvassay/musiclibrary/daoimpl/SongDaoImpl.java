@@ -61,7 +61,7 @@ public class SongDaoImpl implements SongDao {
 
     @Override
     public List<Song> getSongsByName(String nameOfSong) {
-        TypedQuery q = em.createQuery("SELECT s FROM Song s WHERE s.title LIKE :nameOfSong", Song.class);
+        TypedQuery q = em.createQuery("SELECT s FROM Song s WHERE LOWER(s.title) LIKE LOWER(:nameOfSong)", Song.class);
         q.setParameter("nameOfSong", '%' + nameOfSong + '%');
         return q.getResultList();
     }

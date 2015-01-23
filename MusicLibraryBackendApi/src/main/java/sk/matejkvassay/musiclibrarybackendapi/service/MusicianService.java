@@ -57,4 +57,11 @@ public interface MusicianService {
      */
     public MusicianDto getMusicianBySong(SongDto song);
     
+    /**
+     * Finds musician containing name in title
+     * @param name name of musician to search for
+     * @return list of musicians with specified name
+     */
+    public List<MusicianDto> getMusiciansByName(String name);
+    
 }

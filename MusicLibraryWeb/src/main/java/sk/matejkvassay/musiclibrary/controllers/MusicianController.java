@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponentsBuilder;
 import sk.matejkvassay.musiclibrary.daoimpl.exception.MusicianNameNullException;
@@ -59,6 +60,19 @@ public class MusicianController {
         LOG.debug("listMusician()");
         model.addAttribute("musician", new MusicianDto());
         return "musician/list";
+    }
+    
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
+    public String search(@RequestParam("q") String q, Model model) {
+        LOG.debug("search()");
+        model.addAttribute("musician", new MusicianDto());
+        if (q.isEmpty()) {
+            return "redirect:list";
+        } else {
+            model.addAttribute("q", q);
+            model.addAttribute("musicians", musicianService.getMusiciansByName(q));
+            return "musician/search";
+        }
     }
     
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)

@@ -55,7 +55,7 @@ public class AlbumDaoImpl implements AlbumDao {
     
     @Override
     public List<Album> getAlbumsByName(String name) {
-        TypedQuery q = em.createQuery("SELECT a FROM Album a WHERE a.title LIKE :name", Album.class);
+        TypedQuery q = em.createQuery("SELECT a FROM Album a WHERE LOWER(a.title) LIKE LOWER(:name)", Album.class);
         q.setParameter("name", '%' + name + '%');
         return q.getResultList();
     }

@@ -84,7 +84,7 @@ public class MusicianDaoImpl implements MusicianDao {
 
     @Override
     public List<Musician> getMusicianByName(String name) {
-        TypedQuery q = em.createQuery("SELECT m FROM Musician m WHERE m.name LIKE :name", Album.class);
+        TypedQuery q = em.createQuery("SELECT m FROM Musician m WHERE LOWER(m.name) LIKE LOWER(:name)", Musician.class);
         q.setParameter("name", '%' + name + '%');
         return q.getResultList();  
     }

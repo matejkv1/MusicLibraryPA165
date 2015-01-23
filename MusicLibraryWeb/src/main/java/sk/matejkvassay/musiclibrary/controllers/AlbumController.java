@@ -24,6 +24,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import org.springframework.ui.Model;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.RequestParam;
 import sk.matejkvassay.musiclibrary.validation.AlbumSpringValidation;
 import sk.matejkvassay.musiclibrary.validation.InitializerBean;
 import sk.matejkvassay.musiclibrarybackendapi.dto.AlbumDto;
@@ -81,6 +82,19 @@ public class AlbumController {
         // TODO order by title
         model.addAttribute("albums", albumService.getAllAlbums());
         return "album/list";
+    }
+    
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
+    public String search(@RequestParam("q") String q, Model model) {
+        LOG.debug("search()");
+        // TODO order by title
+        if (q.isEmpty()) {
+            return "redirect:list";
+        } else {
+            model.addAttribute("q", q);
+            model.addAttribute("albums", albumService.getAlbumsByName(q));
+            return "album/search";
+        }
     }
     
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
