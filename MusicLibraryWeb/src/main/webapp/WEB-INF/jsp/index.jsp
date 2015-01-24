@@ -31,7 +31,7 @@
         
         <div id="search_div">
             <form name="search_form" onsubmit="OnSubmitForm()" method="get">
-                <fmt:message key="index.search.title"/> <input type="text" id="q" name="q">
+                <fmt:message key="index.search.title"/> <input type="text" id="q" name="q" />
                 <select id="search_selection">
                     <option value="song"><fmt:message key="index.search.selection.song"/></option>
                     <option value="album"><fmt:message key="index.search.selection.album"/></option>
