@@ -37,7 +37,7 @@
                     <option value="album"><fmt:message key="index.search.selection.album"/></option>
                     <option value="musician"><fmt:message key="index.search.selection.musician"/></option>
                 </select>
-                <input type="submit" value=<fmt:message key="index.search.submit"/> />
+                <input type="button" value=<fmt:message key="index.search.submit"/> />
             </form>
             
             <SCRIPT language="JavaScript">
