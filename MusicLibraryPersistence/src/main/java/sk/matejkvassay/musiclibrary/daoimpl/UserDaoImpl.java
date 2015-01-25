@@ -6,8 +6,6 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import sk.matejkvassay.musiclibrary.dao.UserDao;
 import sk.matejkvassay.musiclibrary.entity.User;
 

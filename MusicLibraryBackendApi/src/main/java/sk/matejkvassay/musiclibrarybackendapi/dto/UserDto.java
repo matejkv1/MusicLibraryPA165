@@ -1,46 +1,24 @@
-
-package sk.matejkvassay.musiclibrary.entity;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package sk.matejkvassay.musiclibrarybackendapi.dto;
 
 import java.util.Objects;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import sk.matejkvassay.musiclibrarybackendapi.security.Role;
+
 
 /**
  *
- * @author Matej Bordac
+ * @author Matej Kvassay <www.matejkvassay.sk>
  */
-@Entity
-public class User {
-    
-    @Id
-    @GeneratedValue
-    private Long id; 
-    
-    @Column(name = "username", unique = true, nullable = false, length = 45)
+public class UserDto {
+    private Long id;
     private String username;
-    
-    @Column(name = "password", nullable = false, length = 60)
     private String password;
-    
-    @Column(name = "enabled", nullable = false)
     private boolean enabled;
-
-    @Column(name = "role", nullable = false)
     private Role role;
-    
-    public User(){
-    }
-
-    public User(Long id, String username, String password, boolean enabled, Role role) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.enabled = enabled;
-        this.role = role;
-    }    
 
     public Long getId() {
         return id;
@@ -85,7 +63,8 @@ public class User {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 37 * hash + Objects.hashCode(this.id);
+        hash = 23 * hash + Objects.hashCode(this.id);
+        hash = 23 * hash + Objects.hashCode(this.username);
         return hash;
     }
 
@@ -97,8 +76,11 @@ public class User {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final User other = (User) obj;
+        final UserDto other = (UserDto) obj;
         if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        if (!Objects.equals(this.username, other.username)) {
             return false;
         }
         return true;
