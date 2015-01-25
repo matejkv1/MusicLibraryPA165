@@ -1,18 +1,18 @@
 
 package sk.matejkvassay.musiclibrary.daoimpl;
 
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
+import org.springframework.stereotype.Repository;
 import sk.matejkvassay.musiclibrary.dao.UserDao;
 import sk.matejkvassay.musiclibrary.entity.User;
 
 /**
  *
- * @author Matej Bordac
+ * @author Matej Kvassay <www.matejkvassay.sk>
  */
+@Repository
 public class UserDaoImpl implements UserDao {
 
     @PersistenceContext
@@ -24,21 +24,6 @@ public class UserDaoImpl implements UserDao {
     public UserDaoImpl(EntityManager em) {
         this.em = em;
     }
-    
-    @Override
-    public User findUserByName(String username) {
-        List<User> users = new ArrayList<User>();
- 
-        TypedQuery q = em.createQuery("SELECT u FROM User u WHERE LOWER(u.username) LIKE LOWER(:username)", User.class);
-        q.setParameter("username", username);
-        users = q.getResultList();
-        
-        if (users.size() > 0) {
-            return users.get(0);
-        } else {
-            return null;
-        }
-    }
 
     public EntityManager getEm() {
         return em;
@@ -46,5 +31,37 @@ public class UserDaoImpl implements UserDao {
 
     public void setEm(EntityManager em) {
         this.em = em;
+    }
+
+    @Override
+    public void addUser(User user) {
+        em.persist(user);
+    }
+
+    @Override
+    public void updateUser(User user) {
+        em.merge(user);
+    }
+
+    @Override
+    public void deleteUser(User user) {
+        em.remove(user);
+    }
+
+    @Override
+    public User getUserById(Long id) {
+        return em.createQuery("SELECT u FROM User u WHERE u.id = :id", User.class)
+                .setParameter("id", id).getSingleResult();    
+    }
+    
+    @Override
+    public User getUserByName(String username) {
+        return em.createQuery("SELECT u FROM User u WHERE u.username = :username", User.class)
+                .setParameter("username", username).getSingleResult();  
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        return em.createQuery("SELECT u FROM User u", User.class).getResultList();
     }
 }
