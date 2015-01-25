@@ -20,6 +20,9 @@
     </head>
 
     <body>
+        <div style="position: fixed; right: 15px; top: 20px" class="login">
+            <a href="${pageContext.request.contextPath}/user" >Temporary user panel</a>
+        </div>
         <div id="index">
             <img src="${pageContext.request.contextPath}/resources/images/logo.png">
             <br>

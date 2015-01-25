@@ -22,6 +22,9 @@
 
     <body>
         <div id="header">
+            <div style="position: fixed; right: 15px; top: 20px" class="login">
+                <a href="${pageContext.request.contextPath}/user" >Temporary user panel</a>
+            </div>
             <table class="header">
                 <tr>
                     <td><a href="${pageContext.request.contextPath}/"><img src="${pageContext.request.contextPath}/resources/images/logo-small.png" alt="Index" height="64" width="64"></a></td>
@@ -30,7 +33,8 @@
                         <a href="${pageContext.request.contextPath}/album/list"><fmt:message key="navigation.albums"/></a>  |  
                         <a href="${pageContext.request.contextPath}/song/list"><fmt:message key="navigation.songs"/></a>  |  
                         <a href="${pageContext.request.contextPath}/genre/list"><fmt:message key="navigation.genres"/></a>
-                    </b><br/>
+                        </b>
+                        <br/>
                         <div id="search_div">
                             <form name="search_form" onsubmit="OnSubmitForm()" method="get">
                                 <fmt:message key="index.search.title"/> <input type="text" id="q" name="q" />
@@ -54,7 +58,7 @@
 
                         </div>
                     </td>
-                </tr>
+                </tr>                
             </table>
             <hr>
         </div>

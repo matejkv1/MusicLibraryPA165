@@ -8,6 +8,6 @@
     <!-- the rest is in sk.matejkvassay.musiclibrary.config.MyStartInitializer class -->
     
     <listener>
-    <listener-class>org.jboss.weld.environment.servlet.Listener</listener-class>
-  </listener>
+        <listener-class>org.jboss.weld.environment.servlet.Listener</listener-class>
+    </listener>
 </web-app>
