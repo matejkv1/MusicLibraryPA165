@@ -54,7 +54,7 @@ public class UserServiceImpl implements UserService{
         try {
             DefaultTransactionDefinition def = new DefaultTransactionDefinition();
             status = txManager.getTransaction(def);
-            userDao.removeUser(fromDto(user));
+            userDao.deleteUser(fromDto(user));
             txManager.commit(status);
         } catch (DataAccessException ex) {
             if (!status.isCompleted()) {
@@ -174,5 +174,23 @@ public class UserServiceImpl implements UserService{
         userEntity.setRole(userDto.getRole());
         return userEntity;
     }
+
+    public PlatformTransactionManager getTxManager() {
+        return txManager;
+    }
+
+    public void setTxManager(PlatformTransactionManager txManager) {
+        this.txManager = txManager;
+    }
+
+    public UserDao getUserDao() {
+        return userDao;
+    }
+
+    public void setUserDao(UserDao userDao) {
+        this.userDao = userDao;
+    }
+    
+    
 
 }
