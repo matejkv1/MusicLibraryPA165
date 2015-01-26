@@ -1,15 +1,27 @@
 
 package sk.matejkvassay.musiclibrary.controllers;
 
+import java.util.Locale;
 import javax.inject.Inject;
+import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.util.UriComponentsBuilder;
+import sk.matejkvassay.musiclibrary.validation.UserSpringValidation;
+import sk.matejkvassay.musiclibrarybackendapi.dto.UserDto;
+import sk.matejkvassay.musiclibrarybackendapi.security.PwEncoding;
+import sk.matejkvassay.musiclibrarybackendapi.security.Role;
 import sk.matejkvassay.musiclibrarybackendapi.service.UserService;
 
 /**
@@ -28,9 +40,18 @@ public class UserController {
     @Inject
     private MessageSource messageSource;
     
+    @Inject
+    private UserSpringValidation validator;
+    
+    
+    @InitBinder()
+    protected void initBinder(WebDataBinder binder) {
+        binder.addValidators(validator);
+    }
+    
     @RequestMapping(value = "/user", method = RequestMethod.GET)
     public String list(Model model) {
-        LOG.debug("list(): displaying all albums");
+        model.addAttribute("user", new UserDto());
         return "user_panel";
     }
     
@@ -46,6 +67,35 @@ public class UserController {
 
         return "login";
  
+    }
+    
+    @RequestMapping(value = "/user/new", method = RequestMethod.POST)
+    public String addNew(@Valid @ModelAttribute("user") UserDto user,
+            BindingResult bindingResult,
+            RedirectAttributes redirectAttributes,
+            UriComponentsBuilder uriBuilder,
+            Locale locale, Model model,
+            @RequestParam(value = "role", required = false) Boolean role) {
+        
+        if (bindingResult.hasErrors()) {
+            System.out.println("BINDING ERRORS: " + bindingResult.toString());
+        }
+        
+        user.setPassword(PwEncoding.getPwHash(user.getPassword()));
+        if (role != null) {
+            user.setRole(Role.ADMIN);
+        } else {
+            user.setRole(Role.USER);
+        }
+
+        userService.addUser(user);
+        redirectAttributes.addFlashAttribute(
+                "message",
+                messageSource.getMessage("user.add.message", new Object[]{user.getUsername(), user.getId()}, locale)
+        );
+        
+        return "redirect:" + uriBuilder.path("/user").build();
+        
     }
     
     
