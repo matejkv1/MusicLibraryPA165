@@ -2,7 +2,9 @@
 package sk.matejkvassay.musiclibrary.entity;
 
 import java.util.Objects;
+import java.util.Set;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -28,13 +30,14 @@ public class UserEntity {
     @Column(name = "enabled", nullable = false)
     private boolean enabled;
 
+    @ElementCollection
     @Column(name = "role", nullable = false)
-    private Role role;
+    private Set<Role> role;
     
     public UserEntity(){
     }
 
-    public UserEntity(Long id, String username, String password, boolean enabled, Role role) {
+    public UserEntity(Long id, String username, String password, boolean enabled, Set<Role> role) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -74,11 +77,11 @@ public class UserEntity {
         this.enabled = enabled;
     }
 
-    public Role getRole() {
+    public Set<Role> getRole() {
         return role;
     }
 
-    public void setRole(Role role) {
+    public void setRole(Set<Role> role) {
         this.role = role;
     }
 
