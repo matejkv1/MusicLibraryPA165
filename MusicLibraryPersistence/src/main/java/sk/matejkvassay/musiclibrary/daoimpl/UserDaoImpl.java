@@ -6,7 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import sk.matejkvassay.musiclibrary.dao.UserDao;
-import sk.matejkvassay.musiclibrary.entity.User;
+import sk.matejkvassay.musiclibrary.entity.UserEntity;
 
 /**
  *
@@ -34,34 +34,34 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void addUser(User user) {
+    public void addUser(UserEntity user) {
         em.persist(user);
     }
 
     @Override
-    public void updateUser(User user) {
+    public void updateUser(UserEntity user) {
         em.merge(user);
     }
 
     @Override
-    public void deleteUser(User user) {
+    public void deleteUser(UserEntity user) {
         em.remove(user);
     }
 
     @Override
-    public User getUserById(Long id) {
-        return em.createQuery("SELECT u FROM User u WHERE u.id = :id", User.class)
+    public UserEntity getUserById(Long id) {
+        return em.createQuery("SELECT u FROM UserEntity u WHERE u.id = :id", UserEntity.class)
                 .setParameter("id", id).getSingleResult();    
     }
     
     @Override
-    public User getUserByName(String username) {
-        return em.createQuery("SELECT u FROM User u WHERE u.username = :username", User.class)
+    public UserEntity getUserByName(String username) {
+        return em.createQuery("SELECT u FROM UserEntity u WHERE u.username = :username", UserEntity.class)
                 .setParameter("username", username).getSingleResult();  
     }
 
     @Override
-    public List<User> getAllUsers() {
-        return em.createQuery("SELECT u FROM User u", User.class).getResultList();
+    public List<UserEntity> getAllUsers() {
+        return em.createQuery("SELECT u FROM UserEntity u", UserEntity.class).getResultList();
     }
 }

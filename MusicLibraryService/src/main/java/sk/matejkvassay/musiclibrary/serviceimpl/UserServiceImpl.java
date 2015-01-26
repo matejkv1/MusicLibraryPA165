@@ -10,7 +10,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 import sk.matejkvassay.musiclibrary.dao.UserDao;
-import sk.matejkvassay.musiclibrary.entity.User;
+import sk.matejkvassay.musiclibrary.entity.UserEntity;
 import sk.matejkvassay.musiclibrarybackendapi.dto.UserDto;
 import sk.matejkvassay.musiclibrarybackendapi.service.UserService;
 
@@ -84,7 +84,7 @@ public class UserServiceImpl implements UserService{
     @Override
     public UserDto getUserById(long id) {
         TransactionStatus status = null;
-        User user = null;
+        UserEntity user = null;
         
         try {
             DefaultTransactionDefinition def = new DefaultTransactionDefinition();
@@ -104,7 +104,7 @@ public class UserServiceImpl implements UserService{
     @Override
     public UserDto getUserByName(String name) {
         TransactionStatus status = null;
-        User user = null;
+        UserEntity user = null;
         
         try {
             DefaultTransactionDefinition def = new DefaultTransactionDefinition();
@@ -124,7 +124,7 @@ public class UserServiceImpl implements UserService{
     @Override
     public List<UserDto> getAllUsers() {
         TransactionStatus status = null;
-        List<User> users = null;
+        List<UserEntity> users = null;
         
         try {
             DefaultTransactionDefinition def = new DefaultTransactionDefinition();
@@ -140,7 +140,7 @@ public class UserServiceImpl implements UserService{
         
         List<UserDto> usersDto = new ArrayList<>();
         if (users != null) {
-            for (User user : users) {
+            for (UserEntity user : users) {
                 usersDto.add(toDto(user));
             }
         }
@@ -149,7 +149,7 @@ public class UserServiceImpl implements UserService{
     }
     
     
-    public static UserDto toDto(User userEntity){
+    public static UserDto toDto(UserEntity userEntity){
         if(userEntity==null){
             return null;
         }
@@ -162,11 +162,11 @@ public class UserServiceImpl implements UserService{
         return userDto;
     }
     
-    public static User fromDto(UserDto userDto){
+    public static UserEntity fromDto(UserDto userDto){
         if(userDto==null){
             return null;
         }
-        User userEntity=new User();
+        UserEntity userEntity=new UserEntity();
         userEntity.setId(userDto.getId());
         userEntity.setEnabled(userDto.isEnabled());
         userEntity.setPassword(userDto.getPassword());

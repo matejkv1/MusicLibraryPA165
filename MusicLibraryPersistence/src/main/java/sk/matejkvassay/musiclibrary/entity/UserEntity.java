@@ -13,7 +13,7 @@ import sk.matejkvassay.musiclibrarybackendapi.security.Role;
  * @author Matej Bordac
  */
 @Entity
-public class User {
+public class UserEntity {
     
     @Id
     @GeneratedValue
@@ -31,10 +31,10 @@ public class User {
     @Column(name = "role", nullable = false)
     private Role role;
     
-    public User(){
+    public UserEntity(){
     }
 
-    public User(Long id, String username, String password, boolean enabled, Role role) {
+    public UserEntity(Long id, String username, String password, boolean enabled, Role role) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -97,7 +97,7 @@ public class User {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final User other = (User) obj;
+        final UserEntity other = (UserEntity) obj;
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }

@@ -2,7 +2,7 @@
 package sk.matejkvassay.musiclibrary.dao;
 
 import java.util.List;
-import sk.matejkvassay.musiclibrary.entity.User;
+import sk.matejkvassay.musiclibrary.entity.UserEntity;
 
 /**
  *
@@ -10,10 +10,10 @@ import sk.matejkvassay.musiclibrary.entity.User;
  */
 
 public interface UserDao {
-    void addUser(User user);
-    void updateUser(User user);
-    void deleteUser(User user);
-    User getUserById(Long id);
-    User getUserByName(String username);
-    List<User> getAllUsers();
+    void addUser(UserEntity user);
+    void updateUser(UserEntity user);
+    void deleteUser(UserEntity user);
+    UserEntity getUserById(Long id);
+    UserEntity getUserByName(String username);
+    List<UserEntity> getAllUsers();
 }
