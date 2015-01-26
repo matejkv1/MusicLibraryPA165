@@ -38,7 +38,7 @@
                         </tr>
                         <tr>
                             <td colspan="2">
-                                <input type="checkbox" name="role" id="role"/>
+                                <input type="checkbox" name="user_role" id="role"/>
                                 <label for="role"><fmt:message key="user.isadmin"/></label>
                             </td>
                         </tr>

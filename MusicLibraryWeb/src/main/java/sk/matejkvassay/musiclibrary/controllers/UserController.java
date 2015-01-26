@@ -44,7 +44,7 @@ public class UserController {
     private UserSpringValidation validator;
     
     
-    @InitBinder()
+    @InitBinder("user")
     protected void initBinder(WebDataBinder binder) {
         binder.addValidators(validator);
     }
@@ -75,14 +75,15 @@ public class UserController {
             RedirectAttributes redirectAttributes,
             UriComponentsBuilder uriBuilder,
             Locale locale, Model model,
-            @RequestParam(value = "role", required = false) Boolean role) {
+            @RequestParam(value = "user_role", required = false) Boolean userRole) {
         
         if (bindingResult.hasErrors()) {
-            System.out.println("BINDING ERRORS: " + bindingResult.toString());
+            System.out.println(bindingResult.getAllErrors());
+            return "user_panel";
         }
         
         user.setPassword(PwEncoding.getPwHash(user.getPassword()));
-        if (role != null) {
+        if (userRole != null) {
             user.setRole(Role.ADMIN);
         } else {
             user.setRole(Role.USER);
