@@ -8,15 +8,17 @@
 <%@ taglib tagdir="/WEB-INF/tags" prefix="my" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <my:layout title="${genre.name} - details">
     <jsp:attribute name="body">
         <div id="detail">
             <h1><c:out value="${genre.name}"/></h1>
-            
-            <form method="get" action="${pageContext.request.contextPath}/genre/update/${genre.id}">
-                <input type="submit" value="<fmt:message key='genre.edit.button'/>">
-            </form>
+             <sec:authorize access="hasAnyRole('ADMIN','USER')">
+                <form method="get" action="${pageContext.request.contextPath}/genre/update/${genre.id}">
+                    <input type="submit" value="<fmt:message key='genre.edit.button'/>">
+                </form>
+             </sec:authorize>
             <br>
             
             <b><fmt:message key="genre.detail.description"/>: </b>

@@ -18,6 +18,9 @@
         <sec:authorize access="hasRole('ADMIN')">
             <p>Congratz, you are authenticated as admin!</p>
         </sec:authorize>
-        
+        <sec:authorize access="hasRole('USER')">
+            <p>Congratz, you are authenticated as user!</p>
+        </sec:authorize>
+        <a href="${pageContext.request.contextPath}/" >Homepage</a>
     </body>
 </html>
