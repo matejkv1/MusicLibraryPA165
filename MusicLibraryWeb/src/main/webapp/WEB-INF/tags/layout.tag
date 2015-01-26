@@ -5,6 +5,7 @@
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <!DOCTYPE html>
 <%@ tag pageEncoding="utf-8" dynamic-attributes="dynattrs" trimDirectiveWhitespaces="true" %>
@@ -22,8 +23,14 @@
 
     <body>
         <div id="header">
-            <div style="position: fixed; right: 15px; top: 20px" class="login">
-                <a href="${pageContext.request.contextPath}/user" >Temporary user panel</a>
+            <div style="position: fixed; right: 22px; top: 20px; text-align: right" class="login">
+                <c:if test="${pageContext.request.userPrincipal.name == null}">
+                    <a href="${pageContext.request.contextPath}/login" >Login</a>
+                </c:if>
+                <sec:authorize access="hasAnyRole('ADMIN', 'USER')">
+                    <a href="${pageContext.request.contextPath}/user" >${pageContext.request.userPrincipal.name}</a>
+                    (<a href="${pageContext.request.contextPath}/logout" >Logout</a>)
+                </sec:authorize>
             </div>
             <table class="header">
                 <tr>
