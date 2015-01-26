@@ -1,6 +1,7 @@
 package sk.matejkvassay.musiclibrarybackendapi.service;
 
 import java.util.List;
+import org.springframework.security.access.prepost.PreAuthorize;
 import sk.matejkvassay.musiclibrary.daoimpl.exception.MusicianNameNullException;
 import sk.matejkvassay.musiclibrarybackendapi.dto.AlbumDto;
 import sk.matejkvassay.musiclibrarybackendapi.dto.MusicianDto;
@@ -16,18 +17,21 @@ public interface MusicianService {
      * Stores new musician
      * @param musician - musician to add
      */
+    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     public Long addMusician(MusicianDto musician) throws MusicianNameNullException;
     
     /**
      * Removes musician
      * @param musician - musician to remove
      */
+    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     public void removeMusician(MusicianDto musician);
     
     /**
      * Updates musician
      * @param musician - musician to update
      */
+    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     public void updateMusician(MusicianDto musician) throws MusicianNameNullException;
     
     /**

@@ -2,6 +2,7 @@
 package sk.matejkvassay.musiclibrarybackendapi.service;
 
 import java.util.List;
+import org.springframework.security.access.prepost.PreAuthorize;
 import sk.matejkvassay.musiclibrarybackendapi.dto.AlbumDto;
 import sk.matejkvassay.musiclibrarybackendapi.dto.GenreDto;
 import sk.matejkvassay.musiclibrarybackendapi.dto.MusicianDto;
@@ -18,6 +19,7 @@ public interface SongService {
      *
      * @param song Song to be added.
      */
+    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     public void addSong(SongDto song);
 
     /**
@@ -25,6 +27,7 @@ public interface SongService {
      *
      * @param song Song to be removed.
      */
+    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     public void removeSong(SongDto song);
 
     /**
@@ -32,6 +35,7 @@ public interface SongService {
      *
      * @param song Song to be updated.
      */
+    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     public void updateSong(SongDto song);
 
     /**

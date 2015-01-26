@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sk.matejkvassay.musiclibrarybackendapi.dto.UserDto;
 import sk.matejkvassay.musiclibrarybackendapi.security.Role;
+import sk.matejkvassay.musiclibrarybackendapi.service.UserService;
 
 /**
  *
@@ -23,7 +24,7 @@ import sk.matejkvassay.musiclibrarybackendapi.security.Role;
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
-    private UserServiceImpl userService;
+    private UserService userService;
     
     @Transactional(readOnly = true)
     @Override

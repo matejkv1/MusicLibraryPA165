@@ -1,12 +1,20 @@
 package sk.matejkvassay.musiclibrary.validation;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 import sk.matejkvassay.musiclibrary.daoimpl.exception.MusicianNameNullException;
 import sk.matejkvassay.musiclibrarybackendapi.dto.AlbumDto;
 import sk.matejkvassay.musiclibrarybackendapi.dto.GenreDto;
@@ -45,6 +53,26 @@ public class InitializerBean {
     
     @PostConstruct
     public void init() {
+        
+        UserDto admin2 = new UserDto();
+        admin2.setEnabled(true);
+        admin2.setUsername("admin");
+        admin2.setPassword("admin");
+        admin2.setRole(Role.ADMIN);
+        
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(new SimpleGrantedAuthority(admin2.getRole().toString()));
+        
+        
+        
+        UserDetails userDetails = new User(admin2.getUsername(), admin2.getPassword(), authorities);
+
+        // Create a token and set the security context
+
+        PreAuthenticatedAuthenticationToken token = new PreAuthenticatedAuthenticationToken( userDetails, userDetails.getPassword(), userDetails.getAuthorities());
+        SecurityContextHolder.getContext().setAuthentication(token);
+        
+        
         MusicianDto musician = new MusicianDto();
         musician.setName("Bruno Mars");
         musician.setBiography("Young American singer.");
@@ -101,6 +129,15 @@ public class InitializerBean {
         user.setPassword("$2a$10$2mtCEYc9/.THqKVGtNTYf./gnuQoOFBm4UwPqGKf8Gwh5p7cK2K9q");
         user.setRole(Role.USER);
         userService.addUser(user);
+        
+        UserDto rest = new UserDto();
+        rest.setEnabled(true);
+        rest.setUsername("rest");
+        rest.setPassword("$2a$10$ptEYGJ6SFOEe7hBVC2BAneEcxXE2oyHAxFaa5VX/zDLUJki10PmK6");
+        rest.setRole(Role.USER);
+        userService.addUser(rest);
+        
+        SecurityContextHolder.getContext().setAuthentication(null);
     }
     
 }

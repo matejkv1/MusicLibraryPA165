@@ -2,6 +2,7 @@
 package sk.matejkvassay.musiclibrarybackendapi.service;
 
 import java.util.List;
+import org.springframework.security.access.prepost.PreAuthorize;
 import sk.matejkvassay.musiclibrarybackendapi.dto.UserDto;
 
 /**
@@ -14,18 +15,22 @@ public interface UserService {
      * Stores new user
      * @param user user to save
      */
+    @PreAuthorize("hasRole('ADMIN')")
     public void addUser(UserDto user);
     
     /**
      * Removes user
      * @param user user to remove
      */
+    
+    @PreAuthorize("hasRole('ADMIN')")
     public void removeUser(UserDto user);
     
     /**
      * Updates existing user
      * @param user data to update
      */
+    @PreAuthorize("hasRole('ADMIN')")
     public void updateUser(UserDto user);
     
     /**
@@ -33,6 +38,7 @@ public interface UserService {
      * @param id id to search for
      * @return found user
      */
+    @PreAuthorize("hasRole('ADMIN')")
     public UserDto getUserById(long id);
     
     /**
@@ -46,5 +52,6 @@ public interface UserService {
      * Listing of all users
      * @return list of all users
      */
+    @PreAuthorize("hasRole('ADMIN')")
     public List<UserDto> getAllUsers();
 }

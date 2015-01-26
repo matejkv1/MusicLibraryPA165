@@ -32,7 +32,7 @@ import sk.matejkvassay.musiclibrarybackendapi.service.AlbumService;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = DaoContext.class)
-@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
+//@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class AlbumServiceImplTest {
 
     @Inject

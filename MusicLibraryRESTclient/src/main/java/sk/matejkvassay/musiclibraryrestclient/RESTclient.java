@@ -9,6 +9,8 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.apache.commons.codec.binary.Base64;
+import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpDelete;
@@ -24,7 +26,10 @@ import org.apache.http.impl.client.HttpClients;
  * @author Marián Macik
  */
 public class RESTclient {
-
+    
+    public static final String USERNAME = "rest";
+    public static final String PASSWORD = "rest";
+    
     public static void main(String[] args) {
         try {
             System.out.println("\n----RestClient for MusicLibrary----\n");
@@ -84,9 +89,17 @@ public class RESTclient {
             System.out.println("Output from Server .... \n");
 
             System.out.println(response.getStatusLine());
+            
+            for (Header  h: response.getAllHeaders()) {
+                System.out.println(h);
+            }
+            System.out.println("");
+            
             while ((output = br.readLine()) != null) {
                 System.out.println(output);
             }
+            
+            System.out.println("");
 
             ((CloseableHttpResponse) response).close();
 
@@ -136,6 +149,9 @@ public class RESTclient {
                 System.exit(1);
             }
 
+            byte[] encoding = Base64.encodeBase64((USERNAME + ":" + PASSWORD).getBytes());
+            getRequest.setHeader("Authorization", "Basic " + new String(encoding));
+            
             CloseableHttpResponse response = httpClient.execute(getRequest);
 
             return response;
@@ -189,9 +205,11 @@ public class RESTclient {
             }
 
             postRequest.setEntity(input);
+            byte[] encoding = Base64.encodeBase64((USERNAME + ":" + PASSWORD).getBytes());
+            postRequest.setHeader("Authorization", "Basic " + new String(encoding));
 
             CloseableHttpResponse response = httpClient.execute(postRequest);
-
+            
             return response;
 
         } catch (URISyntaxException ex) {
@@ -246,6 +264,9 @@ public class RESTclient {
 
             putRequest.setEntity(input);
 
+            byte[] encoding = Base64.encodeBase64((USERNAME + ":" + PASSWORD).getBytes());
+            putRequest.setHeader("Authorization", "Basic " + new String(encoding));
+            
             CloseableHttpResponse response = httpClient.execute(putRequest);
 
             return response;
@@ -280,6 +301,9 @@ public class RESTclient {
             URI uri = new URI(url);
             HttpDelete deleteRequest = new HttpDelete(uri);
 
+            byte[] encoding = Base64.encodeBase64((USERNAME + ":" + PASSWORD).getBytes());
+            deleteRequest.setHeader("Authorization", "Basic " + new String(encoding));
+            
             CloseableHttpResponse response = httpClient.execute(deleteRequest);
 
             return response;

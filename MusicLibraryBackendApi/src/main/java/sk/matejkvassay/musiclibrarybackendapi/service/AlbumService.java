@@ -3,6 +3,7 @@ package sk.matejkvassay.musiclibrarybackendapi.service;
 
 import java.util.Date;
 import java.util.List;
+import org.springframework.security.access.prepost.PreAuthorize;
 import sk.matejkvassay.musiclibrarybackendapi.dto.AlbumDto;
 import sk.matejkvassay.musiclibrarybackendapi.dto.MusicianDto;
 import sk.matejkvassay.musiclibrarybackendapi.dto.SongDto;
@@ -17,18 +18,21 @@ public interface AlbumService {
      * Stores new album
      * @param album new album to add
      */
+    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     public void addAlbum(AlbumDto album);
     
     /**
      * Removes album
      * @param album album to remove
      */
+    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     public void removeAlbum(AlbumDto album);
     
     /**
      * Updates existing album
      * @param album to update
      */
+    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     public void updateAlbum(AlbumDto album);
     
     /**

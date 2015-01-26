@@ -26,7 +26,8 @@
             <div style="position: fixed; right: 22px; top: 20px; text-align: right" class="login">
                 <c:url value="/logout" var="logoutUrl" />
  
-                <form action="${logoutUrl}" method="post" id="logoutForm" />
+                <form action="${logoutUrl}" method="post" id="logoutForm" >
+                </form>
 
                 <script>
                     function formSubmit() {
@@ -70,6 +71,7 @@
                                     var query = document.getElementById('q').value;   
                                     var type = document.getElementById('search_selection').value; 
                                     document.search_form.action=contextPath+"/"+type+"/search?q="+query;
+                                    document.search_form.submit();
                                 }
                             </SCRIPT>
 

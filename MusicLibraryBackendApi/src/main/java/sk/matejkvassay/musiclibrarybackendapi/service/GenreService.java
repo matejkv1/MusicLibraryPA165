@@ -2,6 +2,7 @@
 package sk.matejkvassay.musiclibrarybackendapi.service;
 
 import java.util.List;
+import org.springframework.security.access.prepost.PreAuthorize;
 import sk.matejkvassay.musiclibrarybackendapi.dto.GenreDto;
 import sk.matejkvassay.musiclibrarybackendapi.dto.SongDto;
 
@@ -14,22 +15,28 @@ public interface GenreService {
      * Add new genre.
      * @param genre Genre to be added.
      */
+    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     public void addGenre(GenreDto genre);
+    
     /**
      * Remove genre.
      * @param genre Genre to be removed.
      */
+    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     public void removeGenre(GenreDto genre);
+    
     /**
      * Update genre.
      * @param genre Genre to be updated.
      */
+    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     public void updateGenre(GenreDto genre);
     
     /**
      * Returns list of all genres stored in database.
      * @return java.util.List of all genres. 
      */
+    
     public List<GenreDto> getAllGenres();
     /**
      * Get genre by id.
