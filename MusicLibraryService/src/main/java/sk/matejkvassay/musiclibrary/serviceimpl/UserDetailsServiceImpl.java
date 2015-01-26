@@ -14,7 +14,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import sk.matejkvassay.musiclibrary.dao.UserDao;
+import sk.matejkvassay.musiclibrarybackendapi.dto.UserDto;
 import sk.matejkvassay.musiclibrarybackendapi.security.Role;
 
 /**
@@ -25,19 +25,19 @@ import sk.matejkvassay.musiclibrarybackendapi.security.Role;
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
-    private UserDao userDao;
+    private UserServiceImpl userService;
     
     @Transactional(readOnly = true)
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        sk.matejkvassay.musiclibrary.entity.UserEntity user = userDao.getUserByName(username);
+        UserDto user = userService.getUserByName(username);
         if (user == null) throw new UsernameNotFoundException(username + " not found");
         List<GrantedAuthority> authorities = buildUserAuthority(user.getRole());
  
         return buildUserForAuthentication(user, authorities);
     }
     
-    private User buildUserForAuthentication(sk.matejkvassay.musiclibrary.entity.UserEntity user,
+    private User buildUserForAuthentication(UserDto user,
         List<GrantedAuthority> authorities) {
         return new User(user.getUsername(), user.getPassword(), 
             user.isEnabled(), true, true, true, authorities);
