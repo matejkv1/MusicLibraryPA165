@@ -24,12 +24,22 @@
     <body>
         <div id="header">
             <div style="position: fixed; right: 22px; top: 20px; text-align: right" class="login">
+                <c:url value="/logout" var="logoutUrl" />
+ 
+                <form action="${logoutUrl}" method="post" id="logoutForm" />
+
+                <script>
+                    function formSubmit() {
+                        document.getElementById("logoutForm").submit();
+                    }
+                </script>
+
                 <c:if test="${pageContext.request.userPrincipal.name == null}">
-                    <a href="${pageContext.request.contextPath}/login" >Login</a>
+                    <a href="${pageContext.request.contextPath}/login" ><fmt:message key="navigation.login"/></a>
                 </c:if>
                 <sec:authorize access="hasAnyRole('ADMIN', 'USER')">
                     <a href="${pageContext.request.contextPath}/user" >${pageContext.request.userPrincipal.name}</a>
-                    (<a href="${pageContext.request.contextPath}/logout" >Logout</a>)
+                    (<a href="javascript:formSubmit()" ><fmt:message key="navigation.logout"/></a>)
                 </sec:authorize>
             </div>
             <table class="header">

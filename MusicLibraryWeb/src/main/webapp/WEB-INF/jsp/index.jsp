@@ -8,20 +8,35 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="my" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <fmt:message var="title" key="index.title"/>
-<%--<my:layout title="${title}">--%>
-<%--<jsp:attribute name="body">--%>
+
 <html lang="${pageContext.request.locale}">
     <head>
         <title><c:out value="${title}"/></title>
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style.css"/>
-        <%--<jsp:invoke fragment="head"/>--%>
     </head>
 
     <body>
         <div style="position: fixed; right: 15px; top: 20px" class="login">
-            <a href="${pageContext.request.contextPath}/user" ><fmt:message key="navigation.login"/></a>
+            <c:url value="/logout" var="logoutUrl" />
+ 
+            <form action="${logoutUrl}" method="post" id="logoutForm" />
+                
+            <script>
+                function formSubmit() {
+                    document.getElementById("logoutForm").submit();
+                }
+            </script>
+
+            <c:if test="${pageContext.request.userPrincipal.name == null}">
+                <a href="${pageContext.request.contextPath}/login" ><fmt:message key="navigation.login"/></a>
+            </c:if>
+            <sec:authorize access="hasAnyRole('ADMIN', 'USER')">
+                <a href="${pageContext.request.contextPath}/user" >${pageContext.request.userPrincipal.name}</a>
+                (<a href="javascript:formSubmit()" ><fmt:message key="navigation.logout"/></a>)
+            </sec:authorize>
         </div>
         <div id="index">
             <img src="${pageContext.request.contextPath}/resources/images/logo.png">
@@ -57,5 +72,3 @@
         
     </body>
 </html>
-<%--</jsp:attribute>--%>
-<%--</my:layout>--%>

@@ -32,8 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()
-            .authorizeRequests()
+        http.authorizeRequests()
             .antMatchers("/user/**").access("hasRole('ADMIN') or hasRole('USER')")
             .antMatchers("/album/new/**").access("hasRole('ADMIN') or hasRole('USER')")
             .antMatchers("/album/update/**").access("hasRole('ADMIN') or hasRole('USER')")
@@ -43,7 +42,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/musician/update/**").access("hasRole('ADMIN') or hasRole('USER')")
             .antMatchers("/song/new/**").access("hasRole('ADMIN') or hasRole('USER')")
             .antMatchers("/song/update/**").access("hasRole('ADMIN') or hasRole('USER')")
-            .and().formLogin();
+            .and()
+                .formLogin().loginPage("/login").failureUrl("/login?error")
+                .usernameParameter("username").passwordParameter("password")
+            .and()
+                .logout().logoutSuccessUrl("/login?logout")
+            .and().csrf().disable();
     }
     
     @Bean
