@@ -27,6 +27,7 @@ public class UserSpringValidation implements Validator {
 
     @Override
     public void validate(Object target, Errors errors) {
+        
         UserDto user = (UserDto) target;
         String name = user.getUsername().replaceAll(" ", "");
         

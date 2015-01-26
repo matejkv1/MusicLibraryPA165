@@ -32,7 +32,7 @@ import sk.matejkvassay.musiclibrarybackendapi.service.UserService;
 @RequestMapping("/")
 public class UserController {
     
-    final static Logger LOG = LoggerFactory.getLogger(AlbumController.class);
+    final static Logger LOG = LoggerFactory.getLogger(UserController.class);
     
     @Inject
     private UserService userService;
