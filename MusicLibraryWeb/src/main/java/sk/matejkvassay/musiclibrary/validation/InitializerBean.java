@@ -1,6 +1,8 @@
 package sk.matejkvassay.musiclibrary.validation;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
@@ -12,10 +14,13 @@ import sk.matejkvassay.musiclibrarybackendapi.dto.AlbumDto;
 import sk.matejkvassay.musiclibrarybackendapi.dto.GenreDto;
 import sk.matejkvassay.musiclibrarybackendapi.dto.MusicianDto;
 import sk.matejkvassay.musiclibrarybackendapi.dto.SongDto;
+import sk.matejkvassay.musiclibrarybackendapi.dto.UserDto;
+import sk.matejkvassay.musiclibrarybackendapi.security.Role;
 import sk.matejkvassay.musiclibrarybackendapi.service.AlbumService;
 import sk.matejkvassay.musiclibrarybackendapi.service.GenreService;
 import sk.matejkvassay.musiclibrarybackendapi.service.MusicianService;
 import sk.matejkvassay.musiclibrarybackendapi.service.SongService;
+import sk.matejkvassay.musiclibrarybackendapi.service.UserService;
 
 /**
  *
@@ -37,6 +42,8 @@ public class InitializerBean {
     @Inject
     private SongService songService;
     
+    @Inject
+    private UserService userService;
     
     @PostConstruct
     public void init() {
@@ -82,6 +89,24 @@ public class InitializerBean {
         song2.setBitrate(320);
         song2.setGenre(genreService.findGenreById(1L));
         songService.addSong(song2);
+        
+        UserDto admin = new UserDto();
+        admin.setEnabled(true);
+        admin.setUsername("admin");
+        admin.setPassword("$2a$10$sNrQj4SpZXi.zDdHApG9zuFrgd6JgU2m9Yq3dpPwOVWyJpnDtXVVq");
+        Set<Role> hs = new HashSet<>();
+        hs.add(Role.ADMIN);
+        admin.setRole(hs);
+        userService.addUser(admin);
+        
+        UserDto user = new UserDto();
+        user.setEnabled(true);
+        user.setUsername("user");
+        user.setPassword("$2a$10$2mtCEYc9/.THqKVGtNTYf./gnuQoOFBm4UwPqGKf8Gwh5p7cK2K9q");
+        hs = new HashSet<>();
+        hs.add(Role.USER);
+        user.setRole(hs);
+        userService.addUser(user);
     }
     
 }

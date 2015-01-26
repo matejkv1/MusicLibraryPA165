@@ -15,7 +15,7 @@
             <p>Logged in as ${pageContext.request.userPrincipal.name}</p>
             <a href="${pageContext.request.contextPath}/logout" >Logout</a>
 	</c:if>
-        <sec:authorize access="hasRole('ROLE_ADMIN')">
+        <sec:authorize access="hasRole('ADMIN')">
             <p>Congratz, you are authenticated as admin!</p>
         </sec:authorize>
         
