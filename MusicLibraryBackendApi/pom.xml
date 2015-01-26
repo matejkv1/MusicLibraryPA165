@@ -8,4 +8,12 @@
     </parent>
     <artifactId>MusicLibraryBackendApi</artifactId>
     <packaging>jar</packaging>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+            <version>3.2.5.RELEASE</version>
+            <type>jar</type>
+        </dependency>
+    </dependencies>
 </project>

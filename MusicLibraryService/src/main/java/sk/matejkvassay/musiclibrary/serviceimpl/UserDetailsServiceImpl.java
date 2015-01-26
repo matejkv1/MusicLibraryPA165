@@ -2,9 +2,7 @@
 package sk.matejkvassay.musiclibrary.serviceimpl;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -43,15 +41,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             user.isEnabled(), true, true, true, authorities);
     }
  
-    private List<GrantedAuthority> buildUserAuthority(Set<Role> userRoles) {
-
-        Set<GrantedAuthority> setAuths = new HashSet<>();
-
-        for (Role userRole : userRoles) {
-            setAuths.add(new SimpleGrantedAuthority(userRole.toString()));
-        }
-
-        List<GrantedAuthority> result = new ArrayList<>(setAuths);
+    private List<GrantedAuthority> buildUserAuthority(Role userRole) {
+        List<GrantedAuthority> result = new ArrayList<>();
+        result.add(new SimpleGrantedAuthority(userRole.toString()));
 
         return result;
     }

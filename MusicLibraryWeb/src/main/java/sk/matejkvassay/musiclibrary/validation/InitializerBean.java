@@ -1,8 +1,6 @@
 package sk.matejkvassay.musiclibrary.validation;
 
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
@@ -94,18 +92,14 @@ public class InitializerBean {
         admin.setEnabled(true);
         admin.setUsername("admin");
         admin.setPassword("$2a$10$sNrQj4SpZXi.zDdHApG9zuFrgd6JgU2m9Yq3dpPwOVWyJpnDtXVVq");
-        Set<Role> hs = new HashSet<>();
-        hs.add(Role.ADMIN);
-        admin.setRole(hs);
+        admin.setRole(Role.ADMIN);
         userService.addUser(admin);
         
         UserDto user = new UserDto();
         user.setEnabled(true);
         user.setUsername("user");
         user.setPassword("$2a$10$2mtCEYc9/.THqKVGtNTYf./gnuQoOFBm4UwPqGKf8Gwh5p7cK2K9q");
-        hs = new HashSet<>();
-        hs.add(Role.USER);
-        user.setRole(hs);
+        user.setRole(Role.USER);
         userService.addUser(user);
     }
     

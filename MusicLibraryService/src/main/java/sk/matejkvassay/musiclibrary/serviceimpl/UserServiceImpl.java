@@ -2,9 +2,7 @@
 package sk.matejkvassay.musiclibrary.serviceimpl;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import javax.inject.Inject;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
@@ -14,7 +12,6 @@ import org.springframework.transaction.support.DefaultTransactionDefinition;
 import sk.matejkvassay.musiclibrary.dao.UserDao;
 import sk.matejkvassay.musiclibrary.entity.UserEntity;
 import sk.matejkvassay.musiclibrarybackendapi.dto.UserDto;
-import sk.matejkvassay.musiclibrarybackendapi.security.Role;
 import sk.matejkvassay.musiclibrarybackendapi.service.UserService;
 
 /**
@@ -161,10 +158,7 @@ public class UserServiceImpl implements UserService{
         userDto.setEnabled(userEntity.isEnabled());
         userDto.setPassword(userEntity.getPassword());
         userDto.setUsername(userEntity.getUsername());
-        
-        HashSet<Role> role=new HashSet<Role>();
-        role.add(userEntity.getRole());
-        userDto.setRole(role);
+        userDto.setRole(userEntity.getRole());
         
         return userDto;
     }
@@ -178,25 +172,11 @@ public class UserServiceImpl implements UserService{
         userEntity.setEnabled(userDto.isEnabled());
         userEntity.setPassword(userDto.getPassword());
         userEntity.setUsername(userDto.getUsername());
+        userEntity.setRole(userDto.getRole());
         
-        
-        
-        userEntity.setRole(getRoleFromSet(userDto.getRole()));
         return userEntity;
     }
     
-    private static Role getRoleFromSet(Set<Role> role){
-        if(role.contains(Role.ADMIN)){
-            return Role.ADMIN;
-        }
-        if(role.contains(Role.NONE)){
-            return Role.NONE;
-        }
-        if(role.contains(Role.USER)){
-            return Role.USER;
-        }
-        return null;
-    }
 
     public PlatformTransactionManager getTxManager() {
         return txManager;

@@ -2,7 +2,6 @@
 package sk.matejkvassay.musiclibrarybackendapi.dto;
 
 import java.util.Objects;
-import java.util.Set;
 import sk.matejkvassay.musiclibrarybackendapi.security.Role;
 
 
@@ -15,7 +14,7 @@ public class UserDto {
     private String username;
     private String password;
     private boolean enabled;
-    private Set<Role> role;
+    private Role role;
 
     public Long getId() {
         return id;
@@ -49,11 +48,11 @@ public class UserDto {
         this.enabled = enabled;
     }
 
-    public Set<Role> getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(Set<Role> role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 
