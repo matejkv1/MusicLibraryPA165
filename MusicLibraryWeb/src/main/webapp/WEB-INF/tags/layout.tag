@@ -21,7 +21,12 @@
         <jsp:invoke fragment="head"/>
     </head>
 
-    <body>
+    <sec:authorize access="hasRole('ADMIN')">
+        <body style="background-color: #c9ead6">
+    </sec:authorize>
+    <sec:authorize access="!hasRole('ADMIN')">
+        <body>
+    </sec:authorize>
         <div id="header">
             <div style="position: fixed; right: 22px; top: 20px; text-align: right" class="login">
                 <c:url value="/logout" var="logoutUrl" />

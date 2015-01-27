@@ -18,7 +18,12 @@
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style.css"/>
     </head>
 
-    <body>
+    <sec:authorize access="hasRole('ADMIN')">
+        <body style="background-color: #c9ead6">
+    </sec:authorize>
+    <sec:authorize access="!hasRole('ADMIN')">
+        <body>
+    </sec:authorize>
         <div style="position: fixed; right: 15px; top: 20px" class="login">
             <c:url value="/logout" var="logoutUrl" />
  
