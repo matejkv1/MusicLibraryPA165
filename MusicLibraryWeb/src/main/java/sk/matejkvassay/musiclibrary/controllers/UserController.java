@@ -83,6 +83,7 @@ public class UserController {
         }
         
         user.setPassword(PwEncoding.getPwHash(user.getPassword()));
+        user.setEnabled(true);
         if (userRole != null) {
             user.setRole(Role.ADMIN);
         } else {

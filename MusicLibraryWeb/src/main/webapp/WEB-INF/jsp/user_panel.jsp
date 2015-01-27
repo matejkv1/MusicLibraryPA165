@@ -30,12 +30,7 @@
                             <td><form:password path="password"/></td>
                             <td><form:errors path="password" cssClass="error"/></td>
                         </tr>
-                        <tr>
-                            <td colspan="2">
-                                <form:checkbox path="enabled"/>
-                                <form:label path="enabled"><fmt:message key="user.enabled"/></form:label>
-                            </td>
-                        </tr>
+                        
                         <tr>
                             <td colspan="2">
                                 <input type="checkbox" name="user_role" id="role"/>
