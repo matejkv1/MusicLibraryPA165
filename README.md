@@ -67,3 +67,8 @@ We are accepting these combinations:
 Common error responses:  
 **404**: Entity with specified ID has not been found  
 **400**: Entity with specified parameters cannot be processed (non-unique name, bad input format)
+
+
+Application comes with two preset accounts, only for testing purposes:  
+*admin:admin* - administrator account for adding new users  
+*user:user*   - user account for modifying music database
